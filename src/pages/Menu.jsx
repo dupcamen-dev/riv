@@ -170,7 +170,7 @@ export default function Menu() {
           </div>
         </div>
 
-        <div className="flex gap-2 overflow-x-auto pb-4 mb-12 scrollbar-none justify-start lg:justify-center">
+        <div className="flex gap-2 overflow-x-auto pb-4 mb-12 scrollbar-none justify-start lg:flex-wrap lg:overflow-visible lg:justify-center">
           {validSections.map((section) => {
             const Icon = sectionIcons[section.hurl]
             const isActive = currentSection?.hurl === section.hurl
