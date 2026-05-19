@@ -1,0 +1,510 @@
+import { useState, useMemo, useEffect } from 'react'
+import { useSearchParams, useLocation } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { Search, X, Soup, Wine, Coffee, GlassWater } from 'lucide-react'
+import SectionTitle from '../components/ui/SectionTitle.jsx'
+import { sections, allMenuItems } from '../data/restaurant.js'
+
+const sectionIcons = {
+  'section:kuhnya': Soup,
+  'section:vinna-karta': GlassWater,
+  'section:bar': Wine,
+  'section:bar-b-a': Coffee,
+}
+
+const itemAnim = {
+  initial: { opacity: 0, y: 16, scale: 0.98 },
+  animate: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
+  exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } },
+}
+
+const getCategoryId = (cat) => `category-${cat.hurl || cat._id}`
+
+const normalizeSearch = (value) => value.trim().toLocaleLowerCase('uk-UA')
+
+const matchesSearch = (item, query) => {
+  if (!query) return true
+
+  return [item.name, item.description, item.categoryName]
+    .filter(Boolean)
+    .some((value) => value.toLocaleLowerCase('uk-UA').includes(query))
+}
+
+const getDishImage = (media, mode = 'card') => {
+  if (!media) return ''
+
+  if (mode === 'modal') {
+    return media.webp?.big || media.big || media.webp?.medium || media.medium || media.webp?.url || media.url || media.thumbnail
+  }
+
+  return media.webp?.medium || media.medium || media.webp?.url || media.url || media.big || media.thumbnail
+}
+
+export default function Menu() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const location = useLocation()
+  const activeSection = searchParams.get('section') || ''
+  const [search, setSearch] = useState('')
+  const [imgErrors, setImgErrors] = useState({})
+  const [activeCategory, setActiveCategory] = useState('')
+  const [selectedItem, setSelectedItem] = useState(null)
+  const searchQuery = useMemo(() => normalizeSearch(search), [search])
+
+  const validSections = useMemo(() => sections.filter((s) => s.hurl), [])
+  const currentSection = useMemo(
+    () => validSections.find((s) => s.hurl === activeSection) || validSections[0],
+    [validSections, activeSection]
+  )
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '')
+      const found = validSections.find((s) => s.hurl === id)
+      if (found) {
+        setSearchParams({ section: found.hurl })
+        setTimeout(() => {
+          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+        }, 100)
+      }
+    }
+  }, [location.hash, validSections, setSearchParams])
+
+  useEffect(() => {
+    const itemHurl = searchParams.get('item')
+    if (!itemHurl || selectedItem) return
+    const found = allMenuItems.find((i) => i.hurl === itemHurl)
+    if (found) {
+      setSelectedItem(found)
+      for (const section of validSections) {
+        for (const cat of Object.values(section.categories)) {
+          if (cat.items.some((i) => i.hurl === itemHurl)) {
+            setSearchParams({ section: section.hurl, item: itemHurl })
+            return
+          }
+        }
+      }
+    }
+  }, [])
+
+  const filteredCategories = useMemo(() => {
+    if (!currentSection) return []
+    const cats = Object.values(currentSection.categories)
+    if (!searchQuery) return cats
+    return cats
+      .map((cat) => ({
+        ...cat,
+        items: cat.items.filter((item) => matchesSearch(item, searchQuery)),
+      }))
+      .filter((cat) => cat.items.length > 0)
+  }, [currentSection, searchQuery])
+
+  const categoryNavItems = useMemo(() => {
+    if (!currentSection || searchQuery) return []
+    return Object.values(currentSection.categories).filter((cat) => cat.items.length > 0)
+  }, [currentSection, searchQuery])
+
+  const categoryIds = useMemo(() => categoryNavItems.map(getCategoryId), [categoryNavItems])
+  const selectedCategoryId = categoryIds.includes(activeCategory) ? activeCategory : categoryIds[0] || ''
+
+  const allFilteredItems = useMemo(() => {
+    if (!searchQuery) return []
+    return allMenuItems.filter((item) => matchesSearch(item, searchQuery))
+  }, [searchQuery])
+
+  const handleImgError = (id) => {
+    setImgErrors((prev) => ({ ...prev, [id]: true }))
+  }
+
+  const jumpToCategory = (cat) => {
+    const id = getCategoryId(cat)
+    setActiveCategory(id)
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const selectSection = (section) => {
+    setSearch('')
+    setActiveCategory('')
+    setSearchParams({ section: section.hurl })
+  }
+
+  useEffect(() => {
+    if (categoryNavItems.length === 0) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]
+
+        if (visible?.target?.id) {
+          setActiveCategory(visible.target.id)
+        }
+      },
+      { rootMargin: '-28% 0px -55% 0px', threshold: 0.01 }
+    )
+
+    categoryNavItems.forEach((cat) => {
+      const element = document.getElementById(getCategoryId(cat))
+      if (element) observer.observe(element)
+    })
+
+    return () => observer.disconnect()
+  }, [categoryNavItems])
+
+  return (
+    <div className="page-container pb-24">
+      <div className="page-content">
+        <SectionTitle subtitle="Наше меню">Оберіть розділ</SectionTitle>
+
+        <div className="max-w-md mx-auto mb-6">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-light-400/60 pointer-events-none" size={18} />
+            <input
+              type="text"
+              placeholder="Пошук страв..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="input-base pl-12 pr-10"
+            />
+            {search && (
+              <button type="button" onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-light-400 hover:text-light-100 transition-colors">
+                <X size={16} />
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="flex gap-2 overflow-x-auto pb-4 mb-12 scrollbar-none justify-start lg:justify-center">
+          {validSections.map((section) => {
+            const Icon = sectionIcons[section.hurl]
+            const isActive = currentSection?.hurl === section.hurl
+            return (
+              <button
+                key={section.hurl}
+                type="button"
+                onClick={() => selectSection(section)}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-300 shrink-0 border ${
+                  isActive
+                    ? 'bg-gold-500 text-dark-900 border-transparent shadow-lg shadow-gold-500/15'
+                    : 'glass border-dark-600/30 text-light-400 hover:border-gold-500/30 hover:text-light-100'
+                }`}
+              >
+                {Icon && <Icon size={16} />}
+                {section.name}
+              </button>
+            )
+          })}
+        </div>
+
+        {!searchQuery && categoryNavItems.length > 1 && (
+          <div className="menu-category-nav -mx-5 mb-12 border-y border-white/10 bg-dark-900/92 px-5 py-3 backdrop-blur-xl sm:-mx-7 sm:px-7 lg:-mx-10 lg:px-10">
+            <div className="mx-auto max-w-6xl">
+              <div className="mb-3 flex items-center justify-between gap-4">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-400">Категорії</p>
+                <p className="hidden text-xs text-light-500 sm:block">{categoryNavItems.length} розділів</p>
+              </div>
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none lg:flex-wrap lg:overflow-visible lg:pb-0">
+                {categoryNavItems.map((cat) => {
+                  const id = getCategoryId(cat)
+                  const isActive = selectedCategoryId === id
+
+                  return (
+                    <button
+                      key={cat._id}
+                      type="button"
+                      onClick={() => jumpToCategory(cat)}
+                      className={`flex shrink-0 items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                        isActive
+                          ? 'border-transparent bg-gold-500 text-dark-900 shadow-lg shadow-gold-500/15'
+                          : 'border-white/10 bg-dark-800/70 text-light-300 hover:border-gold-500/40 hover:text-light-100'
+                      }`}
+                    >
+                      <span>{cat.name}</span>
+                      <span className={`text-xs ${isActive ? 'text-dark-900/70' : 'text-light-500'}`}>
+                        {cat.items.length}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {searchQuery ? (
+          <motion.div layout className="max-w-6xl mx-auto">
+            <p className="text-sm text-light-500 mb-6 text-center">
+              Знайдено: {allFilteredItems.length} шт.
+            </p>
+            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {allFilteredItems.map((item) => (
+                <MenuItemCard
+                  key={item._id}
+                  item={item}
+                  imgError={imgErrors[item._id]}
+                  onImgError={handleImgError}
+                  onOpen={() => setSelectedItem(item)}
+                />
+              ))}
+            </motion.div>
+            {allFilteredItems.length === 0 && (
+              <div className="text-center py-20">
+                <div className="w-16 h-16 bg-dark-800/60 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <Search size={24} className="text-light-500" />
+                </div>
+                <p className="text-light-400 text-lg mb-2">Нічого не знайдено</p>
+                <p className="text-light-500 text-sm mb-6">Спробуйте інший запит</p>
+                <button type="button" onClick={() => setSearch('')} className="text-sm text-gold-500 hover:text-gold-400 transition-colors font-medium">
+                  Скинути пошук
+                </button>
+              </div>
+            )}
+          </motion.div>
+        ) : (
+          <div className="max-w-6xl mx-auto space-y-14">
+            {filteredCategories.map((cat) => (
+              <section key={cat._id} id={getCategoryId(cat)} className="menu-category-section">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                >
+                  <div className="flex items-center gap-4 mb-6">
+                    <h3 className="text-xl sm:text-2xl font-serif font-bold text-light-100">{cat.name}</h3>
+                    <div className="flex-1 h-px bg-gradient-to-r from-gold-500/20 to-transparent" />
+                  </div>
+                  {cat.items.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {cat.items.map((item) => (
+                        <MenuItemCard
+                          key={item._id}
+                          item={item}
+                          imgError={imgErrors[item._id]}
+                          onImgError={handleImgError}
+                          onOpen={() => setSelectedItem(item)}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-light-500 text-sm py-8 text-center">Немає страв у цій категорії</p>
+                  )}
+                </motion.div>
+              </section>
+            ))}
+          </div>
+        )}
+      </div>
+      <DishModal
+        item={selectedItem}
+        imgError={selectedItem ? imgErrors[selectedItem._id] : false}
+        onImgError={handleImgError}
+        onClose={() => {
+          setSelectedItem(null)
+          if (searchParams.get('item')) {
+            const params = new URLSearchParams(searchParams)
+            params.delete('item')
+            setSearchParams(params, { replace: true })
+          }
+        }}
+      />
+    </div>
+  )
+}
+
+function MenuItemCard({ item, imgError, onImgError, onOpen }) {
+  return (
+    <motion.button
+      type="button"
+      variants={itemAnim}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      layout
+      whileHover={{ y: -3 }}
+      onClick={onOpen}
+      className="group glass w-full overflow-hidden rounded-lg text-left transition-all duration-300 hover:border-gold-500/25 hover:bg-dark-800/60 focus-ring-sm"
+      aria-label={`Відкрити страву ${item.name}`}
+    >
+      <div className="relative h-44 bg-dark-700/50 overflow-hidden">
+        {item.media && !imgError ? (
+          <img
+            src={getDishImage(item.media)}
+            alt={item.name}
+            loading="lazy"
+            onError={() => onImgError(item._id)}
+            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-dark-800">
+            <span className="text-5xl text-gold-500/10 font-serif">✦</span>
+          </div>
+        )}
+        {item.alcohol > 0 && (
+          <span className="absolute top-3 right-3 bg-dark-900/60 backdrop-blur-sm text-[10px] text-gold-500 px-2 py-0.5 rounded-full border border-gold-500/20 font-semibold">
+            18+
+          </span>
+        )}
+        <span className="absolute bottom-3 left-3 rounded-lg bg-dark-900/75 px-3 py-1.5 text-xs font-semibold text-light-100 opacity-0 shadow-lg shadow-black/25 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+          Детальніше
+        </span>
+      </div>
+      <div className="p-5">
+        <div className="flex items-start justify-between gap-4">
+          <h4 className="text-sm font-semibold text-light-100 group-hover:text-gold-500 transition-colors leading-snug flex-1 min-w-0">
+            {item.name}
+          </h4>
+          <span className="text-base font-bold text-gold-500 whitespace-nowrap shrink-0 tabular-nums">
+            {item.price.toLocaleString('uk-UA')} ₴
+          </span>
+        </div>
+        {item.description && (
+          <p className="text-xs text-light-400/80 mt-2 leading-relaxed line-clamp-2">{item.description}</p>
+        )}
+        {item.categoryName && (
+          <p className="text-xs text-light-500 mt-3">{item.categoryName}</p>
+        )}
+        {item.weight && (
+          <p className="text-xs text-light-500 mt-2">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</p>
+        )}
+      </div>
+    </motion.button>
+  )
+}
+
+const formatWeight = (item) => {
+  if (!item.weight) return null
+
+  return `${item.weight} ${item.weightType === 'ml' ? 'мл' : 'г'}`
+}
+
+function DishModal({ item, imgError, onImgError, onClose }) {
+  useEffect(() => {
+    if (!item) return undefined
+
+    const previousOverflow = document.body.style.overflow
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') onClose()
+    }
+
+    document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', closeOnEscape)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [item, onClose])
+
+  if (!item) return null
+
+  const weight = formatWeight(item)
+  const hasImage = item.media && !imgError
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="fixed inset-0 z-[70] flex items-end justify-center bg-black/70 px-4 pb-4 pt-20 backdrop-blur-sm sm:items-center sm:p-6"
+      onClick={onClose}
+      role="presentation"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 24, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
+        className="relative flex max-h-[88vh] w-full max-w-3xl flex-col overflow-hidden rounded-lg border border-white/10 bg-dark-900 shadow-2xl shadow-black/50"
+        onClick={(event) => event.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="dish-modal-title"
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-lg bg-dark-900/75 text-light-200 shadow-lg shadow-black/25 backdrop-blur-sm transition-colors hover:text-light-100 focus-ring-sm"
+          aria-label="Закрити"
+        >
+          <X size={20} />
+        </button>
+
+        <div className="grid min-h-0 grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+          <div className="relative h-64 bg-dark-800 md:h-full md:min-h-[28rem]">
+            {hasImage ? (
+              <img
+                src={getDishImage(item.media, 'modal')}
+                alt={item.name}
+                onError={() => onImgError(item._id)}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-dark-800">
+                <span className="font-serif text-7xl text-gold-500/10">✦</span>
+              </div>
+            )}
+            {item.alcohol > 0 && (
+              <span className="absolute left-4 top-4 rounded-lg border border-gold-500/25 bg-dark-900/70 px-3 py-1 text-xs font-bold text-gold-400 backdrop-blur-sm">
+                18+
+              </span>
+            )}
+          </div>
+
+          <div className="min-h-0 overflow-y-auto p-5 sm:p-7">
+            <div className="mb-5 pr-10">
+              {item.categoryName && (
+                <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-gold-400">{item.categoryName}</p>
+              )}
+              <h3 id="dish-modal-title" className="text-2xl font-serif font-bold text-light-100 sm:text-3xl">
+                {item.name}
+              </h3>
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <span className="rounded-lg bg-gold-500 px-3 py-1.5 text-sm font-bold text-dark-900">
+                  {item.price.toLocaleString('uk-UA')} ₴
+                </span>
+                {weight && (
+                  <span className="rounded-lg border border-white/10 bg-dark-800 px-3 py-1.5 text-sm font-semibold text-light-300">
+                    {weight}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div className="space-y-5">
+              <section>
+                <h4 className="mb-2 text-sm font-bold text-light-100">Опис і склад</h4>
+                {item.description ? (
+                  <p className="whitespace-pre-line text-sm leading-6 text-light-300">{item.description}</p>
+                ) : (
+                  <p className="text-sm leading-6 text-light-500">Опис або склад для цієї страви ще не додано.</p>
+                )}
+              </section>
+
+              {item.categoryDescription && (
+                <section className="rounded-lg border border-white/10 bg-dark-800/65 p-4">
+                  <h4 className="mb-2 text-sm font-bold text-light-100">Примітка категорії</h4>
+                  <p className="whitespace-pre-line text-sm leading-6 text-light-400">{item.categoryDescription}</p>
+                </section>
+              )}
+
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                {item.sectionName && (
+                  <div className="rounded-lg border border-white/10 bg-dark-800/55 p-3">
+                    <p className="text-xs text-light-500">Розділ</p>
+                    <p className="mt-1 font-semibold text-light-200">{item.sectionName}</p>
+                  </div>
+                )}
+                {weight && (
+                  <div className="rounded-lg border border-white/10 bg-dark-800/55 p-3">
+                    <p className="text-xs text-light-500">Вага</p>
+                    <p className="mt-1 font-semibold text-light-200">{weight}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
