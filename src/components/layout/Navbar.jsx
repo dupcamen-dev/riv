@@ -150,27 +150,10 @@ export default function Navbar({ onOpenBooking }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 top-0 z-40 lg:hidden"
+            transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-dark-950/80 backdrop-blur-2xl px-5 py-5 shadow-2xl lg:hidden"
           >
-            <div className="absolute inset-0 bg-black/65" onClick={() => setOpen(false)} />
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 26, stiffness: 210 }}
-              className="absolute bottom-0 right-0 top-0 w-80 max-w-[86vw] border-l border-white/10 bg-dark-950 px-5 py-5 shadow-2xl"
-            >
-              <div className="mb-7 flex items-center justify-between gap-4">
-                <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-3 focus-ring-sm">
-                  <span className="flex h-11 w-11 items-center justify-center overflow-hidden border border-gold-400/25 bg-black/30">
-                    <img src={`${import.meta.env.BASE_URL}img/logo.png`} alt="" className="h-14 w-14 object-contain" />
-                  </span>
-                  <span>
-                    <span className="block font-serif text-lg font-bold text-light-100">The River</span>
-                    <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-400">Premium Club</span>
-                  </span>
-                </Link>
+              <div className="absolute right-5 top-5">
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
@@ -181,12 +164,22 @@ export default function Navbar({ onOpenBooking }) {
                 </button>
               </div>
 
-              <div className="space-y-1">
+              <Link to="/" onClick={() => setOpen(false)} className="flex flex-col items-center gap-3 focus-ring-sm">
+                <span className="flex h-16 w-16 items-center justify-center overflow-hidden border border-gold-400/25 bg-black/30">
+                  <img src={`${import.meta.env.BASE_URL}img/logo.png`} alt="" className="h-20 w-20 object-contain" />
+                </span>
+                <span className="text-center leading-none">
+                  <span className="block font-serif text-xl font-bold text-light-100">The River</span>
+                  <span className="mt-1 block text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-400">Premium Club</span>
+                </span>
+              </Link>
+
+              <div className="flex flex-col items-center gap-2">
                 <Link
                   to="/"
                   onClick={() => { setOpen(false); scrollToSection('hero') }}
-                  className={`block px-4 py-3 text-base font-semibold transition-all focus-ring-sm ${
-                    currentPath === '/' ? 'bg-gold-500/10 text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
+                  className={`block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm ${
+                    currentPath === '/' ? 'text-gold-300' : 'text-light-300 hover:text-light-100'
                   }`}
                 >
                   Головна
@@ -194,8 +187,8 @@ export default function Navbar({ onOpenBooking }) {
                 <Link
                   to="/menu"
                   onClick={() => setOpen(false)}
-                  className={`block px-4 py-3 text-base font-semibold transition-all focus-ring-sm ${
-                    currentPath === '/menu' ? 'bg-gold-500/10 text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
+                  className={`block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm ${
+                    currentPath === '/menu' ? 'text-gold-300' : 'text-light-300 hover:text-light-100'
                   }`}
                 >
                   Меню
@@ -205,7 +198,7 @@ export default function Navbar({ onOpenBooking }) {
                     key={s.section}
                     type="button"
                     onClick={() => scrollToSection(s.section, true)}
-                    className="block w-full text-left px-4 py-3 text-base font-semibold text-light-300 transition-all hover:bg-white/6 hover:text-light-100 focus-ring-sm"
+                    className="block w-full text-center px-8 py-3 text-lg font-semibold text-light-300 transition-all hover:text-light-100 focus-ring-sm"
                   >
                     {s.label}
                   </button>
@@ -218,13 +211,12 @@ export default function Navbar({ onOpenBooking }) {
                   setOpen(false)
                   onOpenBooking()
                 }}
-                className="mt-7 flex min-h-12 w-full items-center justify-center gap-2 border border-gold-300/25 bg-gold-500 px-5 py-3 text-sm font-bold text-dark-950 transition-colors hover:bg-gold-400 focus-ring"
+                className="mt-4 flex min-h-12 w-64 items-center justify-center gap-2 border border-gold-300/25 bg-gold-500 px-5 py-3 text-sm font-bold text-dark-950 transition-colors hover:bg-gold-400 focus-ring"
               >
                 <CalendarCheck size={17} />
                 Забронювати столик
               </button>
             </motion.div>
-          </motion.div>
         )}
       </AnimatePresence>
     </nav>
