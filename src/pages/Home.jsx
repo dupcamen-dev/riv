@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, CalendarCheck, Clock, MapPin, Phone, Soup, Sparkles, Wine as WineIcon } from 'lucide-react'
 import Button from '../components/ui/Button.jsx'
@@ -45,8 +46,20 @@ const heroFacts = [
 ]
 
 export default function Home({ onOpenBooking }) {
+  const location = useLocation()
   const [selectedDish, setSelectedDish] = useState(null)
   const [imgErrors, setImgErrors] = useState({})
+
+  useEffect(() => {
+    const state = location.state
+    if (state?.scrollTo) {
+      const id = state.scrollTo
+      const timer = setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [location.state])
 
   const handleImgError = (id) => {
     setImgErrors((prev) => ({ ...prev, [id]: true }))

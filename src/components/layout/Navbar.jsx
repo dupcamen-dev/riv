@@ -1,23 +1,24 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CalendarCheck, Menu, X } from 'lucide-react'
 
 const links = [
-  { to: '/#hero', label: 'Головна' },
+  { to: '/', label: 'Головна', section: 'hero' },
   { to: '/menu', label: 'Меню' },
-  { to: '/#popular', label: 'Популярне' },
-  { to: '/#wine', label: 'Винна карта' },
-  { to: '/#contact', label: 'Контакти' },
-  { to: '/#feedback', label: 'Відгуки' },
+  { to: '/', label: 'Популярне', section: 'popular' },
+  { to: '/', label: 'Винна карта', section: 'wine' },
+  { to: '/', label: 'Контакти', section: 'contact' },
+  { to: '/', label: 'Відгуки', section: 'feedback' },
 ]
-
-const getHash = (to) => (to.includes('#') ? to.slice(to.indexOf('#')) : '')
 
 export default function Navbar({ onOpenBooking }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
+
+  const currentPath = location.hash.replace(/^#/, '') || '/'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -42,25 +43,20 @@ export default function Navbar({ onOpenBooking }) {
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
+    return () => { document.body.style.overflow = '' }
   }, [open])
 
-  const scrollToTop = () => {
-    const hero = document.getElementById('hero')
-    if (hero) hero.scrollIntoView({ behavior: 'smooth' })
+  const scrollToSection = (sectionId, closeMenu) => {
+    if (closeMenu) setOpen(false)
+    if (currentPath !== '/') {
+      navigate('/', { state: { scrollTo: sectionId } })
+    } else {
+      const el = document.getElementById(sectionId)
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
-  const isActiveLink = (to) => {
-    const hash = getHash(to)
-    if (hash) {
-      if (hash === '#hero') return location.pathname === '/' && (!location.hash || location.hash === '#hero')
-      return location.pathname === '/' && location.hash === hash
-    }
-    if (to === '/') return location.pathname === '/' && !location.hash
-    return location.pathname === to
-  }
+  const isActiveLink = (to) => currentPath === to
 
   return (
     <nav
@@ -87,12 +83,27 @@ export default function Navbar({ onOpenBooking }) {
           <div className="hidden min-w-0 flex-1 items-center justify-center gap-1 lg:flex">
             {links.map((link) => {
               const active = isActiveLink(link.to)
-              const isHome = link.to === '/#hero'
-              return (
+              return link.section ? (
+                <button
+                  key={link.section}
+                  type="button"
+                  onClick={() => scrollToSection(link.section)}
+                  className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold transition-colors duration-300 focus-ring-sm xl:px-4 ${
+                    active ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
+                  }`}
+                >
+                  {link.label}
+                  {active && (
+                    <motion.div
+                      layoutId="nav-underline"
+                      className="absolute -bottom-1 left-3 right-3 h-px bg-gold-400"
+                    />
+                  )}
+                </button>
+              ) : (
                 <Link
                   key={link.to}
                   to={link.to}
-                  onClick={isHome ? scrollToTop : undefined}
                   className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold transition-colors duration-300 focus-ring-sm xl:px-4 ${
                     active ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
                   }`}
@@ -148,7 +159,7 @@ export default function Navbar({ onOpenBooking }) {
               className="absolute bottom-0 right-0 top-0 w-80 max-w-[86vw] border-l border-white/10 bg-dark-950 px-5 py-5 shadow-2xl"
             >
               <div className="mb-7 flex items-center justify-between gap-4">
-                <Link to="/" className="flex items-center gap-3 focus-ring-sm">
+                <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-3 focus-ring-sm">
                   <span className="flex h-11 w-11 items-center justify-center overflow-hidden border border-gold-400/25 bg-black/30">
                     <img src={`${import.meta.env.BASE_URL}img/logo.png`} alt="" className="h-14 w-14 object-contain" />
                   </span>
@@ -170,12 +181,22 @@ export default function Navbar({ onOpenBooking }) {
               <div className="space-y-1">
                 {links.map((link) => {
                   const active = isActiveLink(link.to)
-                  const isHome = link.to === '/#hero'
-                  return (
+                  return link.section ? (
+                    <button
+                      key={link.section}
+                      type="button"
+                      onClick={() => scrollToSection(link.section, true)}
+                      className={`block w-full text-left px-4 py-3 text-base font-semibold transition-all focus-ring-sm ${
+                        active ? 'bg-gold-500/10 text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
+                      }`}
+                    >
+                      {link.label}
+                    </button>
+                  ) : (
                     <Link
                       key={link.to}
                       to={link.to}
-                      onClick={() => { setOpen(false); if (isHome) scrollToTop() }}
+                      onClick={() => setOpen(false)}
                       className={`block px-4 py-3 text-base font-semibold transition-all focus-ring-sm ${
                         active ? 'bg-gold-500/10 text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
                       }`}

@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
-import { useSearchParams, useLocation } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Search, X, Soup, Wine, Coffee, GlassWater } from 'lucide-react'
 import SectionTitle from '../components/ui/SectionTitle.jsx'
@@ -43,7 +43,6 @@ const getDishImage = (media, mode = 'card') => {
 
 export default function Menu() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const location = useLocation()
   const activeSection = searchParams.get('section') || ''
   const [search, setSearch] = useState('')
   const [imgErrors, setImgErrors] = useState({})
@@ -56,19 +55,6 @@ export default function Menu() {
     () => validSections.find((s) => s.hurl === activeSection) || validSections[0],
     [validSections, activeSection]
   )
-
-  useEffect(() => {
-    if (location.hash) {
-      const id = location.hash.replace('#', '')
-      const found = validSections.find((s) => s.hurl === id)
-      if (found) {
-        setSearchParams({ section: found.hurl })
-        setTimeout(() => {
-          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-        }, 100)
-      }
-    }
-  }, [location.hash, validSections, setSearchParams])
 
   useEffect(() => {
     const itemHurl = searchParams.get('item')

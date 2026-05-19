@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Navigate, Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/layout/Navbar.jsx'
 import Breadcrumbs from './components/layout/Breadcrumbs.jsx'
@@ -9,27 +9,23 @@ import Menu from './pages/Menu.jsx'
 import PageTransition from './components/layout/PageTransition.jsx'
 import BookingModal from './components/booking/BookingModal.jsx'
 
+function getPath(location) {
+  const hash = location.hash.replace(/^#/, '')
+  return hash || '/'
+}
+
 function App() {
   const location = useLocation()
-  const isHome = location.pathname === '/'
+  const path = getPath(location)
+  const isHome = path === '/'
   const [bookingOpen, setBookingOpen] = useState(false)
   const openBooking = () => setBookingOpen(true)
 
   useEffect(() => {
-    if (!location.hash) return
-
-    const id = location.hash.slice(1)
-    window.setTimeout(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 60)
-  }, [location.hash])
-
-  useEffect(() => {
-    if (location.pathname !== '/booking') return undefined
-
+    if (path !== '/booking') return undefined
     const timeoutId = window.setTimeout(() => setBookingOpen(true), 0)
     return () => window.clearTimeout(timeoutId)
-  }, [location.pathname])
+  }, [path])
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -41,15 +37,15 @@ function App() {
           </div>
         )}
         <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
+          <Routes location={location} key={path}>
             <Route path="/" element={<PageTransition><Home onOpenBooking={openBooking} /></PageTransition>} />
             <Route path="/menu" element={<PageTransition><Menu /></PageTransition>} />
-            <Route path="/booking" element={<Navigate to="/" replace />} />
-            <Route path="/popular" element={<Navigate to="/#popular" replace />} />
-            <Route path="/wine" element={<Navigate to="/#wine" replace />} />
-            <Route path="/contact" element={<Navigate to="/#contact" replace />} />
-            <Route path="/feedback" element={<Navigate to="/#feedback" replace />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/booking" element={<NavigateTo to="/" />} />
+            <Route path="/popular" element={<NavigateTo to="/" />} />
+            <Route path="/wine" element={<NavigateTo to="/" />} />
+            <Route path="/contact" element={<NavigateTo to="/" />} />
+            <Route path="/feedback" element={<NavigateTo to="/" />} />
+            <Route path="*" element={<NavigateTo to="/" />} />
           </Routes>
         </AnimatePresence>
       </main>
@@ -57,6 +53,15 @@ function App() {
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>
   )
+}
+
+function NavigateTo({ to }) {
+  const location = useLocation()
+  const currentPath = location.hash.replace(/^#/, '') || '/'
+  if (currentPath === to) return null
+  const hash = `#${to === '/' ? '' : to}`
+  window.location.hash = hash
+  return null
 }
 
 export default App

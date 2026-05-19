@@ -1,16 +1,29 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Camera, Globe, Mail, MapPin, Phone } from 'lucide-react'
 import { place } from '../../data/restaurant.js'
 
 const footerLinks = [
   { to: '/menu', label: 'Меню' },
-  { to: '/#popular', label: 'Популярне' },
-  { to: '/#wine', label: 'Винна карта' },
-  { to: '/#contact', label: 'Контакти' },
-  { to: '/#feedback', label: 'Відгуки' },
+  { to: '/', label: 'Популярне', section: 'popular' },
+  { to: '/', label: 'Винна карта', section: 'wine' },
+  { to: '/', label: 'Контакти', section: 'contact' },
+  { to: '/', label: 'Відгуки', section: 'feedback' },
 ]
 
 export default function Footer({ onOpenBooking }) {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const currentPath = location.hash.replace(/^#/, '') || '/'
+
+  const scrollToSection = (sectionId) => {
+    if (currentPath !== '/') {
+      navigate('/', { state: { scrollTo: sectionId } })
+    } else {
+      const el = document.getElementById(sectionId)
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <footer className="border-t border-dark-600/20 bg-dark-800">
       <div className="page-content py-12 sm:py-16">
@@ -27,15 +40,26 @@ export default function Footer({ onOpenBooking }) {
           <div className="md:col-span-3">
             <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.14em] text-light-100">Навігація</h4>
             <div className="space-y-2.5">
-              {footerLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className="block px-1 text-sm text-light-400 transition-colors hover:text-gold-300 focus-ring-sm"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {footerLinks.map((link) =>
+                link.section ? (
+                  <button
+                    key={link.section}
+                    type="button"
+                    onClick={() => scrollToSection(link.section)}
+                    className="block px-1 text-left text-sm text-light-400 transition-colors hover:text-gold-300 focus-ring-sm"
+                  >
+                    {link.label}
+                  </button>
+                ) : (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className="block px-1 text-sm text-light-400 transition-colors hover:text-gold-300 focus-ring-sm"
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
               <button
                 type="button"
                 onClick={onOpenBooking}
