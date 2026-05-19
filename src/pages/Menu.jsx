@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Search, X, Soup, Wine, Coffee, GlassWater } from 'lucide-react'
+import { Search, X, Soup, Wine, Coffee, GlassWater, BookText } from 'lucide-react'
 import SectionTitle from '../components/ui/SectionTitle.jsx'
 import DishModal from '../components/ui/MenuItemModal.jsx'
 import { sections, allMenuItems } from '../data/restaurant.js'
@@ -11,6 +11,7 @@ const sectionIcons = {
   'section:vinna-karta': GlassWater,
   'section:bar': Wine,
   'section:bar-b-a': Coffee,
+  'section:pravila': BookText,
 }
 
 const itemAnim = {
@@ -185,42 +186,64 @@ export default function Menu() {
           })}
         </div>
 
-        {!searchQuery && categoryNavItems.length > 1 && (
-          <div className="menu-category-nav -mx-5 mb-12 border-y border-white/10 bg-dark-900/92 px-5 py-3 backdrop-blur-xl sm:-mx-7 sm:px-7 lg:-mx-10 lg:px-10">
-            <div className="mx-auto max-w-6xl">
-              <div className="mb-3 flex items-center justify-between gap-4">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-400">Категорії</p>
-                <p className="hidden text-xs text-light-500 sm:block">{categoryNavItems.length} розділів</p>
+        {currentSection?.hurl === 'section:pravila' ? (
+          <div className="max-w-3xl mx-auto space-y-10">
+            <div>
+              <h3 className="text-xl sm:text-2xl font-serif font-bold text-light-100 mb-4 flex items-center gap-3">
+                <BookText size={22} className="text-gold-500" />
+                Правила закладу
+              </h3>
+              <div className="space-y-4">
+                {[
+                  { title: 'Дресс-код', text: 'Відвідувачі повинні бути одягнені у відповідному стилі. Чоловікам рекомендується діловий або smart casual одяг. Спортивний одяг та взуття не допускаються.' },
+                  { title: 'Бронювання столиків', text: 'Бронювання столиків здійснюється за телефоном або через офіційні канали зв\'язку. При запізненні понад 15 хвилин бронювання може бути скасоване.' },
+                  { title: 'Політика щодо паління', text: 'Паління дозволене лише у спеціально відведених для цього місцях на терасі. Паління кальяну та електронних сигарет дозволене лише у зонах, визначених адміністрацією.' },
+                  { title: 'Вікові обмеження', text: 'Заклад призначений для осіб, які досягли 18 років. Особи, молодші 18 років, можуть перебувати в закладі лише в супроводі батьків до 20:00.' },
+                  { title: 'Музичний формат та розваги', text: 'У закладі працює жива музика та DJ-сети. Розклад музичних виступів уточнюйте в адміністрації. Рівень шуму регулюється відповідно до формату вечора.' },
+                  { title: 'Правила поведінки', text: 'Гості зобов\'язані дотримуватися правил поведінки в закладі. Забороняється проявляти агресію, порушувати громадський порядок та створювати незручності для інших відвідувачів.' },
+                  { title: 'Фото- та відеозйомка', text: 'Фото- та відеозйомка в закладі дозволена для особистого використання. Професійна зйомка потребує попереднього узгодження з адміністрацією.' },
+                ].map((rule, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false }}
+                    className="glass rounded-lg p-5 border border-dark-600/30"
+                  >
+                    <h4 className="text-sm font-bold text-gold-400 mb-2">{rule.title}</h4>
+                    <p className="text-sm text-light-300 leading-relaxed">{rule.text}</p>
+                  </motion.div>
+                ))}
               </div>
-              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none lg:flex-wrap lg:overflow-visible lg:pb-0">
-                {categoryNavItems.map((cat) => {
-                  const id = getCategoryId(cat)
-                  const isActive = selectedCategoryId === id
-
-                  return (
-                    <button
-                      key={cat._id}
-                      type="button"
-                      onClick={() => jumpToCategory(cat)}
-                      className={`flex shrink-0 items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold transition-all duration-300 ${
-                        isActive
-                          ? 'border-transparent bg-gold-500 text-dark-900 shadow-lg shadow-gold-500/15'
-                          : 'border-white/10 bg-dark-800/70 text-light-300 hover:border-gold-500/40 hover:text-light-100'
-                      }`}
-                    >
-                      <span>{cat.name}</span>
-                      <span className={`text-xs ${isActive ? 'text-dark-900/70' : 'text-light-500'}`}>
-                        {cat.items.length}
-                      </span>
-                    </button>
-                  )
-                })}
+            </div>
+            <div>
+              <h3 className="text-xl sm:text-2xl font-serif font-bold text-light-100 mb-4 flex items-center gap-3">
+                <BookText size={22} className="text-gold-500" />
+                Інформація
+              </h3>
+              <div className="space-y-4">
+                {[
+                  { title: 'Графік роботи', text: 'Понеділок: 12:00 – 22:00\nВівторок – Неділя: 11:00 – 22:00\nСвяткові дні: графік роботи узгоджується з адміністрацією.' },
+                  { title: 'Контакти', text: 'Телефон: +380678287777\nEmail: theriverpremium@gmail.com\nFacebook: facebook.com/theriver.premium\nInstagram: @theriver_premium' },
+                  { title: 'Як дістатися', text: 'Заклад знаходиться в центрі Тернополя за адресою вул. Чумацька, 1А. Зручне розташування з доступом до головних транспортних артерій міста.' },
+                  { title: 'Паркінг', text: 'Для гостей закладу доступний безкоштовний паркінг поруч із рестораном. Кількість місць обмежена, рекомендуємо бронювати заздалегідь.' },
+                  { title: 'Оренда закладу', text: 'Ресторанний комплекс The River пропонує можливість оренди для проведення приватних заходів, банкетів, корпоративів та святкувань. Деталі уточнюйте в адміністрації.' },
+                ].map((info, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false }}
+                    className="glass rounded-lg p-5 border border-dark-600/30"
+                  >
+                    <h4 className="text-sm font-bold text-gold-400 mb-2">{info.title}</h4>
+                    <p className="text-sm text-light-300 leading-relaxed whitespace-pre-line">{info.text}</p>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
-        )}
-
-        {searchQuery ? (
+        ) : searchQuery ? (
           <motion.div layout className="max-w-6xl mx-auto">
             <p className="text-sm text-light-500 mb-6 text-center">
               Знайдено: {allFilteredItems.length} шт.

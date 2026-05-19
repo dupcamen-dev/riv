@@ -16,6 +16,14 @@ const categoriesList = (app.categories || []).map((c) => ({
 }));
 
 const sectionsFromMenu = {};
+(app.sections || []).forEach((sec) => {
+  sectionsFromMenu[sec._id] = {
+    _id: sec._id,
+    name: sectionsMap[sec._id]?.name || clean(sec.name),
+    hurl: sec.hurl || sec._id,
+    categories: {},
+  };
+});
 app.menu.forEach((item) => {
   const secId = item.section;
   if (!sectionsFromMenu[secId]) {
@@ -49,6 +57,8 @@ app.menu.forEach((item) => {
   }
 });
 
+export const sections = Object.values(sectionsFromMenu).filter(Boolean);
+
 export const place = {
   name: clean(app.place?.name) || 'The River',
   type: app.place?.type || 'restaurant',
@@ -64,8 +74,6 @@ export const place = {
   workTime: app.place?.workTime || {},
   workTimeAll: app.place?.workTimeAll || [],
 };
-
-export const sections = Object.values(sectionsFromMenu).filter(Boolean);
 
 export const allMenuItems = app.menu
   ? app.menu.map((item) => {
