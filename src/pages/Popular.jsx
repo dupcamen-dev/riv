@@ -24,13 +24,15 @@ export default function Popular({ onOpenDish }) {
   }
 
   return (
-    <div className="page-container pb-24">
+    <div className="page-container bg-cream-50 py-24">
       <div className="page-content">
-        <SectionTitle subtitle="Топ вибір">
-          <span className="flex items-center justify-center gap-3">
-            <Sparkles size={24} className="text-gold-500" /> Популярні страви
-          </span>
-        </SectionTitle>
+        <div className="[&_h2]:text-dark-900 [&_p]:text-gold-600">
+          <SectionTitle subtitle="Топ вибір">
+            <span className="flex items-center justify-center gap-3">
+              <Sparkles size={24} className="text-gold-600" /> Популярні страви
+            </span>
+          </SectionTitle>
+        </div>
 
         {popular.length === 0 ? (
           <div className="text-center py-20">
@@ -49,7 +51,7 @@ export default function Popular({ onOpenDish }) {
                 transition={{ delay: i * 0.04, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                 whileHover={{ y: -4 }}
                 onClick={() => openDish(item)}
-                className="group w-full rounded-lg border border-cream-200 bg-cream-100 p-6 text-left transition-all duration-300 hover:border-gold-500/40 hover:bg-cream-50 cursor-pointer"
+                className="group w-full rounded-lg border border-cream-200 bg-cream-100 p-6 text-left shadow-md shadow-cream-200/50 transition-all duration-300 hover:border-gold-500/40 hover:shadow-lg hover:shadow-gold-500/10 hover:bg-cream-50 cursor-pointer"
               >
                 <div className="flex items-start gap-4 mb-3">
                   <span className="text-2xl font-bold text-gold-600/30 font-serif tabular-nums">{String(i + 1).padStart(2, '0')}</span>
