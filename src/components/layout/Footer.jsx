@@ -71,17 +71,17 @@ export default function Footer({ onOpenBooking }) {
           </div>
 
           <div className="md:col-span-5">
-            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.14em] text-light-100">Контакти</h4>
+            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.14em] text-cream-100">Контакти</h4>
             <div className="space-y-3.5">
-              <a href={`tel:${place.phone}`} className="flex items-center gap-3 text-sm text-light-400 transition-colors hover:text-gold-300 focus-ring-sm">
+              <a href={`tel:${place.phone}`} className="flex items-center gap-3 text-sm text-cream-100 transition-colors hover:text-gold-300 focus-ring-sm">
                 <Phone size={14} className="shrink-0 text-gold-400" />
                 {place.phone}
               </a>
-              <a href={`mailto:${place.email}`} className="flex items-center gap-3 text-sm text-light-400 transition-colors hover:text-gold-300 focus-ring-sm">
+              <a href={`mailto:${place.email}`} className="flex items-center gap-3 text-sm text-cream-100 transition-colors hover:text-gold-300 focus-ring-sm">
                 <Mail size={14} className="shrink-0 text-gold-400" />
                 {place.email}
               </a>
-              <div className="flex items-start gap-3 text-sm text-light-400">
+              <div className="flex items-start gap-3 text-sm text-cream-100">
                 <MapPin size={14} className="mt-0.5 shrink-0 text-gold-400" />
                 <span>{place.location}</span>
               </div>
@@ -90,7 +90,7 @@ export default function Footer({ onOpenBooking }) {
                   href={place.social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center border border-dark-600/20 bg-dark-700/50 text-light-400 transition-all duration-300 hover:border-gold-400/30 hover:bg-gold-500/10 hover:text-gold-300 focus-ring"
+                  className="flex h-9 w-9 items-center justify-center border border-dark-600/20 bg-dark-700/50 text-cream-100 transition-all duration-300 hover:border-gold-400/30 hover:bg-gold-500/10 hover:text-gold-300 focus-ring"
                   title="Instagram"
                 >
                   <Camera size={16} />
@@ -99,7 +99,7 @@ export default function Footer({ onOpenBooking }) {
                   href={place.social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center border border-dark-600/20 bg-dark-700/50 text-light-400 transition-all duration-300 hover:border-gold-400/30 hover:bg-gold-500/10 hover:text-gold-300 focus-ring"
+                  className="flex h-9 w-9 items-center justify-center border border-dark-600/20 bg-dark-700/50 text-cream-100 transition-all duration-300 hover:border-gold-400/30 hover:bg-gold-500/10 hover:text-gold-300 focus-ring"
                   title="Facebook"
                 >
                   <Globe size={16} />
