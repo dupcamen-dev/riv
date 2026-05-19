@@ -142,17 +142,19 @@ export default function Navbar({ onOpenBooking }) {
           >
             <div className="relative h-5 w-5">
               <span
-                className="absolute left-0 block h-px w-full bg-current transition-all duration-300"
+                className="absolute left-0 top-1/2 block h-px w-full bg-current transition-transform duration-300"
                 style={{
-                  top: open ? '50%' : 0,
-                  transform: open ? 'translateY(-50%) rotate(45deg)' : 'none',
+                  transform: open
+                    ? 'translateY(-50%) rotate(45deg)'
+                    : 'translateY(calc(-50% - 5px))',
                 }}
               />
               <span
-                className="absolute left-0 block h-px w-full bg-current transition-all duration-300"
+                className="absolute left-0 top-1/2 block h-px w-full bg-current transition-transform duration-300"
                 style={{
-                  top: open ? '50%' : '100%',
-                  transform: open ? 'translateY(-50%) rotate(-45deg)' : 'translateY(-100%)',
+                  transform: open
+                    ? 'translateY(-50%) rotate(-45deg)'
+                    : 'translateY(calc(-50% + 5px))',
                 }}
               />
             </div>
