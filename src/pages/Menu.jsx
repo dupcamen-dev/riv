@@ -32,14 +32,20 @@ const matchesSearch = (item, query) => {
     .some((value) => value.toLocaleLowerCase('uk-UA').includes(query))
 }
 
+const resolveUrl = (url) => {
+  if (!url) return ''
+  if (url.startsWith('/img/')) return import.meta.env.BASE_URL + url.slice(1)
+  return url
+}
+
 const getDishImage = (media, mode = 'card') => {
   if (!media) return ''
 
-  if (mode === 'modal') {
-    return media.webp?.big || media.big || media.webp?.medium || media.medium || media.webp?.url || media.url || media.thumbnail
-  }
+  const url = mode === 'modal'
+    ? (media.webp?.big || media.big || media.webp?.medium || media.medium || media.webp?.url || media.url || media.thumbnail)
+    : (media.webp?.medium || media.medium || media.webp?.url || media.url || media.big || media.thumbnail)
 
-  return media.webp?.medium || media.medium || media.webp?.url || media.url || media.big || media.thumbnail
+  return resolveUrl(url)
 }
 
 export default function Menu() {
