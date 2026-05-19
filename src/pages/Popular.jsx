@@ -11,12 +11,16 @@ const fadeUp = {
   viewport: { once: true, margin: '-30px' },
 }
 
-export default function Popular() {
+export default function Popular({ onOpenDish }) {
   const navigate = useNavigate()
   const popular = [...allMenuItems].sort((a, b) => b.price - a.price).slice(0, 12)
 
   const openDish = (item) => {
-    navigate(`/menu?item=${item.hurl}`)
+    if (onOpenDish) {
+      onOpenDish(item)
+    } else {
+      navigate(`/menu?item=${item.hurl}`)
+    }
   }
 
   return (
@@ -45,24 +49,24 @@ export default function Popular() {
                 transition={{ delay: i * 0.04, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                 whileHover={{ y: -4 }}
                 onClick={() => openDish(item)}
-                className="group glass w-full rounded-lg p-6 text-left transition-all duration-300 hover:border-gold-500/20 hover:bg-dark-800/60 cursor-pointer"
+                className="group w-full rounded-lg border border-cream-200 bg-cream-100 p-6 text-left transition-all duration-300 hover:border-gold-500/40 hover:bg-cream-50 cursor-pointer"
               >
                 <div className="flex items-start gap-4 mb-3">
-                  <span className="text-2xl font-bold text-gold-500/30 font-serif tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="text-2xl font-bold text-gold-600/30 font-serif tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                   <div className="min-w-0">
-                    <h3 className="text-sm font-semibold text-light-100 group-hover:text-gold-500 transition-colors leading-snug">
+                    <h3 className="text-sm font-semibold text-dark-900 group-hover:text-gold-600 transition-colors leading-snug">
                       {item.name}
                     </h3>
                     {item.description && (
-                      <p className="text-xs text-light-500 mt-1.5 line-clamp-2 leading-relaxed">{item.description}</p>
+                      <p className="text-xs text-dark-500 mt-1.5 line-clamp-2 leading-relaxed">{item.description}</p>
                     )}
                   </div>
                 </div>
-                <div className="flex items-center justify-between ml-10 pt-2 border-t border-dark-600/20">
+                <div className="flex items-center justify-between ml-10 pt-2 border-t border-cream-200">
                   {item.weight ? (
-                    <span className="text-xs text-light-500">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</span>
+                    <span className="text-xs text-dark-500">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</span>
                   ) : <span />}
-                  <span className="text-base font-bold text-gold-500 tabular-nums">{item.price.toLocaleString('uk-UA')} ₴</span>
+                  <span className="text-base font-bold text-gold-600 tabular-nums">{item.price.toLocaleString('uk-UA')} ₴</span>
                 </div>
               </motion.button>
             ))}

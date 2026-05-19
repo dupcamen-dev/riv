@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { CalendarCheck, Menu, X } from 'lucide-react'
 
 const links = [
-  { to: '/', label: 'Головна' },
+  { to: '/#hero', label: 'Головна' },
   { to: '/menu', label: 'Меню' },
   { to: '/#popular', label: 'Популярне' },
   { to: '/#wine', label: 'Винна карта' },
@@ -47,9 +47,17 @@ export default function Navbar({ onOpenBooking }) {
     }
   }, [open])
 
+  const scrollToTop = () => {
+    const hero = document.getElementById('hero')
+    if (hero) hero.scrollIntoView({ behavior: 'smooth' })
+  }
+
   const isActiveLink = (to) => {
     const hash = getHash(to)
-    if (hash) return location.pathname === '/' && location.hash === hash
+    if (hash) {
+      if (hash === '#hero') return location.pathname === '/' && (!location.hash || location.hash === '#hero')
+      return location.pathname === '/' && location.hash === hash
+    }
     if (to === '/') return location.pathname === '/' && !location.hash
     return location.pathname === to
   }
@@ -79,10 +87,12 @@ export default function Navbar({ onOpenBooking }) {
           <div className="hidden min-w-0 flex-1 items-center justify-center gap-1 lg:flex">
             {links.map((link) => {
               const active = isActiveLink(link.to)
+              const isHome = link.to === '/#hero'
               return (
                 <Link
                   key={link.to}
                   to={link.to}
+                  onClick={isHome ? scrollToTop : undefined}
                   className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold transition-colors duration-300 focus-ring-sm xl:px-4 ${
                     active ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
                   }`}
@@ -160,11 +170,12 @@ export default function Navbar({ onOpenBooking }) {
               <div className="space-y-1">
                 {links.map((link) => {
                   const active = isActiveLink(link.to)
+                  const isHome = link.to === '/#hero'
                   return (
                     <Link
                       key={link.to}
                       to={link.to}
-                      onClick={() => setOpen(false)}
+                      onClick={() => { setOpen(false); if (isHome) scrollToTop() }}
                       className={`block px-4 py-3 text-base font-semibold transition-all focus-ring-sm ${
                         active ? 'bg-gold-500/10 text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
                       }`}

@@ -131,7 +131,7 @@ export default function BookingModal({ open, onClose }) {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
-        className="relative max-h-[88vh] w-full max-w-4xl overflow-y-auto border border-white/10 bg-dark-900 shadow-2xl shadow-black/50"
+        className="relative max-h-[88vh] w-full max-w-4xl overflow-y-auto border border-cream-200 bg-cream-50 shadow-2xl shadow-black/50"
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -140,33 +140,33 @@ export default function BookingModal({ open, onClose }) {
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center bg-dark-950/80 text-light-200 shadow-lg shadow-black/25 backdrop-blur-sm transition-colors hover:text-light-100 focus-ring-sm"
+          className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center bg-cream-100/80 text-dark-600 shadow-lg shadow-black/25 backdrop-blur-sm transition-colors hover:text-dark-900 focus-ring-sm"
           aria-label="Закрити бронювання"
         >
           <X size={20} />
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr]">
-          <aside className="border-b border-white/10 bg-dark-950/55 p-6 lg:border-b-0 lg:border-r lg:p-8">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-gold-400">Бронювання</p>
-            <h2 id="booking-modal-title" className="font-serif text-4xl font-bold leading-none text-light-100">
+          <aside className="border-b border-cream-200 bg-cream-100/55 p-6 lg:border-b-0 lg:border-r lg:p-8">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-gold-600">Бронювання</p>
+            <h2 id="booking-modal-title" className="font-serif text-4xl font-bold leading-none text-dark-900">
               Забронюйте столик
             </h2>
-            <p className="mt-4 text-sm leading-7 text-light-300">
+            <p className="mt-4 text-sm leading-7 text-dark-700">
               Залиште контакти, дату та час. Менеджер зв'яжеться з вами для підтвердження бронювання.
             </p>
 
             <div className="mt-8 space-y-4 text-sm">
-              <a href={`tel:${place.phone}`} className="flex items-center gap-3 text-light-200 transition-colors hover:text-gold-300">
-                <Phone size={16} className="text-gold-400" />
+              <a href={`tel:${place.phone}`} className="flex items-center gap-3 text-dark-700 transition-colors hover:text-gold-600">
+                <Phone size={16} className="text-gold-600" />
                 {place.phone}
               </a>
-              <a href={`mailto:${place.email}`} className="flex items-center gap-3 text-light-200 transition-colors hover:text-gold-300">
-                <Mail size={16} className="text-gold-400" />
+              <a href={`mailto:${place.email}`} className="flex items-center gap-3 text-dark-700 transition-colors hover:text-gold-600">
+                <Mail size={16} className="text-gold-600" />
                 {place.email}
               </a>
-              <div className="flex items-start gap-3 text-light-300">
-                <Clock size={16} className="mt-0.5 text-gold-400" />
+              <div className="flex items-start gap-3 text-dark-600">
+                <Clock size={16} className="mt-0.5 text-gold-600" />
                 <span>Пн-Чт: 12:00-22:00<br />Пт-Сб: 12:00-23:00<br />Нд: 11:00-22:00</span>
               </div>
             </div>
@@ -175,11 +175,11 @@ export default function BookingModal({ open, onClose }) {
           <div className="p-6 lg:p-8">
             {submitted ? (
               <div className="flex min-h-[27rem] flex-col items-center justify-center text-center">
-                <div className="mb-6 flex h-20 w-20 items-center justify-center border border-gold-400/25 bg-gold-500/10">
-                  <CheckCircle className="text-gold-400" size={40} />
+                <div className="mb-6 flex h-20 w-20 items-center justify-center border border-gold-600/25 bg-gold-500/10">
+                  <CheckCircle className="text-gold-600" size={40} />
                 </div>
-                <h3 className="font-serif text-4xl font-bold text-light-100">Запит відправлено</h3>
-                <p className="mt-4 max-w-md text-sm leading-7 text-light-300">
+                <h3 className="font-serif text-4xl font-bold text-dark-900">Запит відправлено</h3>
+                <p className="mt-4 max-w-md text-sm leading-7 text-dark-700">
                   Ми отримали ваш запит. Найближчим часом менеджер зв'яжеться з вами для підтвердження.
                 </p>
                 <Button type="button" variant="outline" size="md" className="mt-8" onClick={resetForm}>

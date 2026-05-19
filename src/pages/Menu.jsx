@@ -3,6 +3,7 @@ import { useSearchParams, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Search, X, Soup, Wine, Coffee, GlassWater } from 'lucide-react'
 import SectionTitle from '../components/ui/SectionTitle.jsx'
+import DishModal from '../components/ui/MenuItemModal.jsx'
 import { sections, allMenuItems } from '../data/restaurant.js'
 
 const sectionIcons = {
@@ -324,10 +325,10 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
       layout
       whileHover={{ y: -3 }}
       onClick={onOpen}
-      className="group glass w-full overflow-hidden rounded-lg text-left transition-all duration-300 hover:border-gold-500/25 hover:bg-dark-800/60 focus-ring-sm"
+      className="group w-full overflow-hidden rounded-lg border border-cream-200 bg-cream-100 text-left transition-all duration-300 hover:border-gold-500/40 hover:bg-cream-50 focus-ring-sm"
       aria-label={`Відкрити страву ${item.name}`}
     >
-      <div className="relative h-44 bg-dark-700/50 overflow-hidden">
+      <div className="relative h-44 bg-cream-50 overflow-hidden">
         {item.media && !imgError ? (
           <img
             src={getDishImage(item.media)}
@@ -337,174 +338,40 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
             className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-dark-800">
+          <div className="w-full h-full flex items-center justify-center bg-cream-50">
             <span className="text-5xl text-gold-500/10 font-serif">✦</span>
           </div>
         )}
         {item.alcohol > 0 && (
-          <span className="absolute top-3 right-3 bg-dark-900/60 backdrop-blur-sm text-[10px] text-gold-500 px-2 py-0.5 rounded-full border border-gold-500/20 font-semibold">
+          <span className="absolute top-3 right-3 bg-cream-50/80 backdrop-blur-sm text-[10px] text-gold-600 px-2 py-0.5 rounded-full border border-gold-500/20 font-semibold">
             18+
           </span>
         )}
-        <span className="absolute bottom-3 left-3 rounded-lg bg-dark-900/75 px-3 py-1.5 text-xs font-semibold text-light-100 opacity-0 shadow-lg shadow-black/25 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+        <span className="absolute bottom-3 left-3 rounded-lg bg-cream-100/90 px-3 py-1.5 text-xs font-semibold text-dark-900 opacity-0 shadow-lg shadow-black/25 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
           Детальніше
         </span>
       </div>
       <div className="p-5">
         <div className="flex items-start justify-between gap-4">
-          <h4 className="text-sm font-semibold text-light-100 group-hover:text-gold-500 transition-colors leading-snug flex-1 min-w-0">
+          <h4 className="text-sm font-semibold text-dark-900 group-hover:text-gold-600 transition-colors leading-snug flex-1 min-w-0">
             {item.name}
           </h4>
-          <span className="text-base font-bold text-gold-500 whitespace-nowrap shrink-0 tabular-nums">
+          <span className="text-base font-bold text-gold-600 whitespace-nowrap shrink-0 tabular-nums">
             {item.price.toLocaleString('uk-UA')} ₴
           </span>
         </div>
         {item.description && (
-          <p className="text-xs text-light-400/80 mt-2 leading-relaxed line-clamp-2">{item.description}</p>
+          <p className="text-xs text-dark-600 mt-2 leading-relaxed line-clamp-2">{item.description}</p>
         )}
         {item.categoryName && (
-          <p className="text-xs text-light-500 mt-3">{item.categoryName}</p>
+          <p className="text-xs text-dark-400 mt-3">{item.categoryName}</p>
         )}
         {item.weight && (
-          <p className="text-xs text-light-500 mt-2">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</p>
+          <p className="text-xs text-dark-400 mt-2">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</p>
         )}
       </div>
     </motion.button>
   )
 }
 
-const formatWeight = (item) => {
-  if (!item.weight) return null
 
-  return `${item.weight} ${item.weightType === 'ml' ? 'мл' : 'г'}`
-}
-
-function DishModal({ item, imgError, onImgError, onClose }) {
-  useEffect(() => {
-    if (!item) return undefined
-
-    const previousOverflow = document.body.style.overflow
-    const closeOnEscape = (event) => {
-      if (event.key === 'Escape') onClose()
-    }
-
-    document.body.style.overflow = 'hidden'
-    document.addEventListener('keydown', closeOnEscape)
-
-    return () => {
-      document.body.style.overflow = previousOverflow
-      document.removeEventListener('keydown', closeOnEscape)
-    }
-  }, [item, onClose])
-
-  if (!item) return null
-
-  const weight = formatWeight(item)
-  const hasImage = item.media && !imgError
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="fixed inset-0 z-[70] flex items-end justify-center bg-black/70 px-4 pb-4 pt-20 backdrop-blur-sm sm:items-center sm:p-6"
-      onClick={onClose}
-      role="presentation"
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 24, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
-        className="relative flex max-h-[88vh] w-full max-w-3xl flex-col overflow-hidden rounded-lg border border-white/10 bg-dark-900 shadow-2xl shadow-black/50"
-        onClick={(event) => event.stopPropagation()}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="dish-modal-title"
-      >
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-lg bg-dark-900/75 text-light-200 shadow-lg shadow-black/25 backdrop-blur-sm transition-colors hover:text-light-100 focus-ring-sm"
-          aria-label="Закрити"
-        >
-          <X size={20} />
-        </button>
-
-        <div className="grid min-h-0 grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-          <div className="relative h-64 bg-dark-800 md:h-full md:min-h-[28rem]">
-            {hasImage ? (
-              <img
-                src={getDishImage(item.media, 'modal')}
-                alt={item.name}
-                onError={() => onImgError(item._id)}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center bg-dark-800">
-                <span className="font-serif text-7xl text-gold-500/10">✦</span>
-              </div>
-            )}
-            {item.alcohol > 0 && (
-              <span className="absolute left-4 top-4 rounded-lg border border-gold-500/25 bg-dark-900/70 px-3 py-1 text-xs font-bold text-gold-400 backdrop-blur-sm">
-                18+
-              </span>
-            )}
-          </div>
-
-          <div className="min-h-0 overflow-y-auto p-5 sm:p-7">
-            <div className="mb-5 pr-10">
-              {item.categoryName && (
-                <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-gold-400">{item.categoryName}</p>
-              )}
-              <h3 id="dish-modal-title" className="text-2xl font-serif font-bold text-light-100 sm:text-3xl">
-                {item.name}
-              </h3>
-              <div className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="rounded-lg bg-gold-500 px-3 py-1.5 text-sm font-bold text-dark-900">
-                  {item.price.toLocaleString('uk-UA')} ₴
-                </span>
-                {weight && (
-                  <span className="rounded-lg border border-white/10 bg-dark-800 px-3 py-1.5 text-sm font-semibold text-light-300">
-                    {weight}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            <div className="space-y-5">
-              <section>
-                <h4 className="mb-2 text-sm font-bold text-light-100">Опис і склад</h4>
-                {item.description ? (
-                  <p className="whitespace-pre-line text-sm leading-6 text-light-300">{item.description}</p>
-                ) : (
-                  <p className="text-sm leading-6 text-light-500">Опис або склад для цієї страви ще не додано.</p>
-                )}
-              </section>
-
-              {item.categoryDescription && (
-                <section className="rounded-lg border border-white/10 bg-dark-800/65 p-4">
-                  <h4 className="mb-2 text-sm font-bold text-light-100">Примітка категорії</h4>
-                  <p className="whitespace-pre-line text-sm leading-6 text-light-400">{item.categoryDescription}</p>
-                </section>
-              )}
-
-              <div className="grid grid-cols-2 gap-3 text-sm">
-                {item.sectionName && (
-                  <div className="rounded-lg border border-white/10 bg-dark-800/55 p-3">
-                    <p className="text-xs text-light-500">Розділ</p>
-                    <p className="mt-1 font-semibold text-light-200">{item.sectionName}</p>
-                  </div>
-                )}
-                {weight && (
-                  <div className="rounded-lg border border-white/10 bg-dark-800/55 p-3">
-                    <p className="text-xs text-light-500">Вага</p>
-                    <p className="mt-1 font-semibold text-light-200">{weight}</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  )
-}

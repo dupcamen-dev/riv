@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, CalendarCheck, Clock, MapPin, Phone, Soup, Sparkles, Wine as WineIcon } from 'lucide-react'
 import Button from '../components/ui/Button.jsx'
 import SectionTitle from '../components/ui/SectionTitle.jsx'
+import DishModal from '../components/ui/MenuItemModal.jsx'
 import { place } from '../data/restaurant.js'
 import Popular from './Popular.jsx'
 import Wine from './Wine.jsx'
@@ -43,9 +45,17 @@ const heroFacts = [
 ]
 
 export default function Home({ onOpenBooking }) {
+  const [selectedDish, setSelectedDish] = useState(null)
+  const [imgErrors, setImgErrors] = useState({})
+
+  const handleImgError = (id) => {
+    setImgErrors((prev) => ({ ...prev, [id]: true }))
+  }
+
   return (
     <div>
       <section
+        id="hero"
         className="relative overflow-hidden bg-dark-950"
         style={{ minHeight: 'clamp(580px, calc(100svh - 96px), 820px)' }}
       >
@@ -150,7 +160,7 @@ export default function Home({ onOpenBooking }) {
       </section>
 
       <section id="popular" className="scroll-mt-24 border-t border-white/6 bg-dark-800/32 pt-16 sm:pt-20">
-        <Popular />
+        <Popular onOpenDish={(item) => setSelectedDish(item)} />
       </section>
 
       <section id="wine" className="scroll-mt-24 border-t border-white/6 pt-16 sm:pt-20">
@@ -164,6 +174,12 @@ export default function Home({ onOpenBooking }) {
       <section id="feedback" className="scroll-mt-24 border-t border-white/6 pt-16 sm:pt-20">
         <Feedback />
       </section>
+      <DishModal
+        item={selectedDish}
+        imgError={selectedDish ? imgErrors[selectedDish._id] : false}
+        onImgError={handleImgError}
+        onClose={() => setSelectedDish(null)}
+      />
     </div>
   )
 }
