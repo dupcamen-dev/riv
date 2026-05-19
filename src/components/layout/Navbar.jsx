@@ -6,10 +6,13 @@ import { CalendarCheck, Menu, X } from 'lucide-react'
 const links = [
   { to: '/', label: 'Головна', section: 'hero' },
   { to: '/menu', label: 'Меню' },
-  { to: '/', label: 'Популярне', section: 'popular' },
-  { to: '/', label: 'Винна карта', section: 'wine' },
-  { to: '/', label: 'Контакти', section: 'contact' },
-  { to: '/', label: 'Відгуки', section: 'feedback' },
+]
+
+const sectionLinks = [
+  { section: 'popular', label: 'Популярне' },
+  { section: 'wine', label: 'Винна карта' },
+  { section: 'contact', label: 'Контакти' },
+  { section: 'feedback', label: 'Відгуки' },
 ]
 
 export default function Navbar({ onOpenBooking }) {
@@ -56,7 +59,17 @@ export default function Navbar({ onOpenBooking }) {
     }
   }
 
-  const isActiveLink = (to) => currentPath === to
+  const renderNavItem = (label, section, isActive) => (
+    <>
+      {label}
+      {isActive && (
+        <motion.div
+          layoutId="nav-underline"
+          className="absolute -bottom-1 left-3 right-3 h-px bg-gold-400"
+        />
+      )}
+    </>
+  )
 
   return (
     <nav
@@ -81,43 +94,33 @@ export default function Navbar({ onOpenBooking }) {
           </Link>
 
           <div className="hidden min-w-0 flex-1 items-center justify-center gap-1 lg:flex">
-            {links.map((link) => {
-              const active = isActiveLink(link.to)
-              return link.section ? (
-                <button
-                  key={link.section}
-                  type="button"
-                  onClick={() => scrollToSection(link.section)}
-                  className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold transition-colors duration-300 focus-ring-sm xl:px-4 ${
-                    active ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
-                  }`}
-                >
-                  {link.label}
-                  {active && (
-                    <motion.div
-                      layoutId="nav-underline"
-                      className="absolute -bottom-1 left-3 right-3 h-px bg-gold-400"
-                    />
-                  )}
-                </button>
-              ) : (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold transition-colors duration-300 focus-ring-sm xl:px-4 ${
-                    active ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
-                  }`}
-                >
-                  {link.label}
-                  {active && (
-                    <motion.div
-                      layoutId="nav-underline"
-                      className="absolute -bottom-1 left-3 right-3 h-px bg-gold-400"
-                    />
-                  )}
-                </Link>
-              )
-            })}
+            <Link
+              to="/"
+              onClick={() => scrollToSection('hero')}
+              className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold transition-colors duration-300 focus-ring-sm xl:px-4 ${
+                currentPath === '/' ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
+              }`}
+            >
+              {renderNavItem('Головна', 'hero', currentPath === '/')}
+            </Link>
+            <Link
+              to="/menu"
+              className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold transition-colors duration-300 focus-ring-sm xl:px-4 ${
+                currentPath === '/menu' ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
+              }`}
+            >
+              {renderNavItem('Меню', 'menu', currentPath === '/menu')}
+            </Link>
+            {sectionLinks.map((s) => (
+              <button
+                key={s.section}
+                type="button"
+                onClick={() => scrollToSection(s.section)}
+                className="relative whitespace-nowrap px-3 py-2 text-sm font-semibold text-light-300 transition-colors duration-300 hover:bg-white/6 hover:text-light-100 focus-ring-sm xl:px-4"
+              >
+                {s.label}
+              </button>
+            ))}
           </div>
 
           <button
@@ -179,32 +182,34 @@ export default function Navbar({ onOpenBooking }) {
               </div>
 
               <div className="space-y-1">
-                {links.map((link) => {
-                  const active = isActiveLink(link.to)
-                  return link.section ? (
-                    <button
-                      key={link.section}
-                      type="button"
-                      onClick={() => scrollToSection(link.section, true)}
-                      className={`block w-full text-left px-4 py-3 text-base font-semibold transition-all focus-ring-sm ${
-                        active ? 'bg-gold-500/10 text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
-                      }`}
-                    >
-                      {link.label}
-                    </button>
-                  ) : (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      onClick={() => setOpen(false)}
-                      className={`block px-4 py-3 text-base font-semibold transition-all focus-ring-sm ${
-                        active ? 'bg-gold-500/10 text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  )
-                })}
+                <Link
+                  to="/"
+                  onClick={() => { setOpen(false); scrollToSection('hero') }}
+                  className={`block px-4 py-3 text-base font-semibold transition-all focus-ring-sm ${
+                    currentPath === '/' ? 'bg-gold-500/10 text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
+                  }`}
+                >
+                  Головна
+                </Link>
+                <Link
+                  to="/menu"
+                  onClick={() => setOpen(false)}
+                  className={`block px-4 py-3 text-base font-semibold transition-all focus-ring-sm ${
+                    currentPath === '/menu' ? 'bg-gold-500/10 text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
+                  }`}
+                >
+                  Меню
+                </Link>
+                {sectionLinks.map((s) => (
+                  <button
+                    key={s.section}
+                    type="button"
+                    onClick={() => scrollToSection(s.section, true)}
+                    className="block w-full text-left px-4 py-3 text-base font-semibold text-light-300 transition-all hover:bg-white/6 hover:text-light-100 focus-ring-sm"
+                  >
+                    {s.label}
+                  </button>
+                ))}
               </div>
 
               <button

@@ -172,7 +172,7 @@ export default function BookingModal({ open, onClose }) {
             </div>
           </aside>
 
-          <div className="p-6 lg:p-8">
+          <div className="p-6 lg:p-8 [&_.label-base]:text-dark-900">
             {submitted ? (
               <div className="flex min-h-[27rem] flex-col items-center justify-center text-center">
                 <div className="mb-6 flex h-20 w-20 items-center justify-center border border-gold-600/25 bg-gold-500/10">
