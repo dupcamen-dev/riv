@@ -170,29 +170,8 @@ export default function Navbar({ onOpenBooking }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 bg-dark-950 px-5 py-5 shadow-2xl overflow-y-auto lg:hidden"
+          className="fixed inset-x-0 top-[72px] bottom-0 z-40 flex flex-col items-center justify-center gap-6 bg-dark-950 px-5 pb-10 shadow-2xl overflow-y-auto lg:hidden"
         >
-            <div className="absolute right-5 top-5">
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="inline-flex h-10 w-10 items-center justify-center border border-white/10 text-light-300 transition-colors hover:text-light-100 focus-ring-sm"
-                aria-label="Закрити меню"
-              >
-                <X size={20} />
-              </button>
-            </div>
-
-            <Link to="/" onClick={() => setOpen(false)} className="flex flex-col items-center gap-3 focus-ring-sm">
-              <span className="flex h-20 w-20 items-center justify-center overflow-hidden bg-black/30">
-                <img src={`${import.meta.env.BASE_URL}img/logo.png`} alt="" className="h-24 w-24 object-contain" />
-              </span>
-              <span className="text-center leading-none">
-                <span className="block font-serif text-xl font-bold text-light-100">The River</span>
-                <span className="mt-1 block text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-400">Premium Club</span>
-              </span>
-            </Link>
-
             <div className="flex flex-col items-center gap-2">
               <Link
                 to="/"
