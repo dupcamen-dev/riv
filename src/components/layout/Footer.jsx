@@ -9,6 +9,7 @@ const footerLinks = [
   { to: '/', label: 'Контакти', section: 'contact' },
   { to: '/', label: 'Відгуки', section: 'feedback' },
   { to: '/info', label: 'Інформація про компанію' },
+  { to: '/terms', label: 'Умови користування' },
 ]
 
 export default function Footer({ onOpenBooking }) {
