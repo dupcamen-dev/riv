@@ -8,6 +8,7 @@ import Home from './pages/Home.jsx'
 import Menu from './pages/Menu.jsx'
 import Info from './pages/Info.jsx'
 import Terms from './pages/Terms.jsx'
+import Privacy from './pages/Privacy.jsx'
 import PageTransition from './components/layout/PageTransition.jsx'
 import BookingModal from './components/booking/BookingModal.jsx'
 import CookieConsent from './components/ui/CookieConsent.jsx'
@@ -26,6 +27,10 @@ function App() {
     return () => window.clearTimeout(timeoutId)
   }, [path])
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [path])
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar onOpenBooking={openBooking} />
@@ -41,6 +46,7 @@ function App() {
             <Route path="/menu" element={<PageTransition><Menu /></PageTransition>} />
             <Route path="/info" element={<PageTransition><Info /></PageTransition>} />
             <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
+            <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
             <Route path="/booking" element={<Navigate to="/" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
