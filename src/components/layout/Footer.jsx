@@ -25,7 +25,7 @@ export default function Footer({ onOpenBooking }) {
   }
 
   return (
-    <footer className="border-t border-dark-600/20 bg-dark-800">
+    <footer className="border-t border-white/6 bg-dark-950">
       <div className="page-content py-12 sm:py-16">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
           <div className="md:col-span-4">

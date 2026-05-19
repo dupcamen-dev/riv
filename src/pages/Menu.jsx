@@ -153,7 +153,7 @@ export default function Menu() {
               placeholder="Пошук страв..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="input-base pl-12 pr-10"
+              className="w-full border border-white/10 bg-dark-800/80 py-3.5 pl-12 pr-10 text-sm text-light-100 placeholder:text-light-400/60 transition-all duration-300 focus:border-gold-400/60 focus:bg-dark-800 focus:outline-none focus:ring-2 focus:ring-gold-500/35"
             />
             {search && (
               <button type="button" onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-light-400 hover:text-light-100 transition-colors">
