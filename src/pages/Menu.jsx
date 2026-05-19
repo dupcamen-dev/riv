@@ -343,6 +343,24 @@ export default function Menu() {
                 </motion.div>
               </section>
             ))}
+            {currentSection?.hurl === 'section:vinna-karta' && (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                className="text-center pt-6 border-t border-white/10"
+              >
+                <p className="text-sm text-light-400 mb-3">Шукаєте інший алкоголь?</p>
+                <button
+                  type="button"
+                  onClick={() => selectSection(validSections.find((s) => s.hurl === 'section:bar'))}
+                  className="inline-flex items-center gap-2 rounded-lg border border-gold-500/30 bg-dark-800/50 px-6 py-3 text-sm font-semibold text-gold-400 transition-all duration-300 hover:bg-gold-500 hover:text-dark-900 hover:shadow-lg hover:shadow-gold-500/15"
+                >
+                  <Wine size={16} />
+                  Перейти до бару
+                </button>
+              </motion.div>
+            )}
           </div>
         ))}
       </div>
