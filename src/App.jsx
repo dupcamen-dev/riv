@@ -6,6 +6,7 @@ import Breadcrumbs from './components/layout/Breadcrumbs.jsx'
 import Footer from './components/layout/Footer.jsx'
 import Home from './pages/Home.jsx'
 import Menu from './pages/Menu.jsx'
+import Info from './pages/Info.jsx'
 import PageTransition from './components/layout/PageTransition.jsx'
 import BookingModal from './components/booking/BookingModal.jsx'
 import CookieConsent from './components/ui/CookieConsent.jsx'
@@ -37,6 +38,7 @@ function App() {
           <Routes location={location} key={path}>
             <Route path="/" element={<PageTransition><Home onOpenBooking={openBooking} /></PageTransition>} />
             <Route path="/menu" element={<PageTransition><Menu /></PageTransition>} />
+            <Route path="/info" element={<PageTransition><Info /></PageTransition>} />
             <Route path="/booking" element={<Navigate to="/" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
