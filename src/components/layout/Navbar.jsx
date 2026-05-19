@@ -170,7 +170,7 @@ export default function Navbar({ onOpenBooking }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-          className="fixed inset-x-0 top-[72px] bottom-0 z-40 flex flex-col items-center justify-center gap-6 bg-dark-950 px-5 pb-10 shadow-2xl overflow-y-auto lg:hidden"
+          className="fixed inset-x-0 top-[72px] bottom-0 z-40 flex flex-col items-center justify-center gap-6 bg-dark-950/70 backdrop-blur-xl px-5 pb-10 shadow-2xl overflow-y-auto lg:hidden"
         >
             <div className="flex flex-col items-center gap-2">
               <Link
