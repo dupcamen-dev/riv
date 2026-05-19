@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Cookie, X } from 'lucide-react'
 
 const COOKIE_CONSENT_KEY = 'riv-cookie-consent'
@@ -27,7 +28,7 @@ export default function CookieConsent() {
           <p className="text-sm text-light-300">
             Ми використовуємо файли cookie для покращення роботи сайту.
             Продовжуючи використання сайту, ви погоджуєтесь з нашою
-            {' '}<a href="#" className="text-gold-400 underline underline-offset-2 hover:text-gold-300">Політикою конфіденційності</a>.
+            {' '}<Link to="/privacy" className="text-gold-400 underline underline-offset-2 hover:text-gold-300">Політикою конфіденційності</Link>.
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
