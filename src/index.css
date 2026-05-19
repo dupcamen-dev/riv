@@ -239,9 +239,10 @@
 }
 
 button,
-[role="button"],
-.glass,
-.input-base,
-[class*="rounded"] {
-  border-radius: 0 !important;
+[role="button"] {
+  border-radius: 2px;
+}
+
+.input-base {
+  border-radius: 4px;
 }

@@ -85,8 +85,8 @@ export default function Navbar({ onOpenBooking }) {
       <div className="page-content">
         <div className="relative flex h-[72px] items-center justify-between gap-4 pr-14 lg:h-[84px] lg:pr-0">
           <Link to="/" className="flex min-w-0 items-center gap-3 focus-ring-sm" aria-label="На головну">
-            <span className="flex h-11 w-11 items-center justify-center overflow-hidden border border-gold-400/25 bg-black/30 shadow-lg shadow-black/15">
-              <img src={`${import.meta.env.BASE_URL}img/logo.png`} alt="" className="h-14 w-14 object-contain" />
+            <span className="flex h-14 w-14 items-center justify-center overflow-hidden bg-black/30 shadow-lg shadow-black/15">
+              <img src={`${import.meta.env.BASE_URL}img/logo.png`} alt="" className="h-16 w-16 object-contain" />
             </span>
             <span className="hidden sm:block leading-none">
               <span className="block font-serif text-lg font-bold text-light-100">The River</span>
@@ -184,8 +184,8 @@ export default function Navbar({ onOpenBooking }) {
             </div>
 
             <Link to="/" onClick={() => setOpen(false)} className="flex flex-col items-center gap-3 focus-ring-sm">
-              <span className="flex h-16 w-16 items-center justify-center overflow-hidden border border-gold-400/25 bg-black/30">
-                <img src={`${import.meta.env.BASE_URL}img/logo.png`} alt="" className="h-20 w-20 object-contain" />
+              <span className="flex h-20 w-20 items-center justify-center overflow-hidden bg-black/30">
+                <img src={`${import.meta.env.BASE_URL}img/logo.png`} alt="" className="h-24 w-24 object-contain" />
               </span>
               <span className="text-center leading-none">
                 <span className="block font-serif text-xl font-bold text-light-100">The River</span>

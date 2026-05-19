@@ -156,7 +156,7 @@ export default function Home({ onOpenBooking }) {
                 <motion.div
                   key={item.title}
                   whileHover={{ y: -5 }}
-                  className="group glass glass-hover border border-white/10 p-6 text-left sm:p-7"
+                  className="group glass glass-hover rounded-lg border border-white/10 p-6 text-left sm:p-7"
                 >
                   <div className="mb-5 flex h-11 w-11 items-center justify-center border border-gold-400/15 bg-gold-500/12 text-gold-300">
                     <Icon size={22} />
