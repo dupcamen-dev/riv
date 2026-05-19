@@ -109,7 +109,7 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
                 {item.description ? (
                   <p className="whitespace-pre-line text-sm leading-6 text-dark-700">{item.description}</p>
                 ) : (
-                  <p className="text-sm leading-6 text-dark-500">Опис або склад для цієї страви ще не додано.</p>
+                  <p className="text-sm leading-6 text-dark-600">Опис або склад для цієї страви ще не додано.</p>
                 )}
               </section>
 
@@ -123,13 +123,13 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
               <div className="grid grid-cols-2 gap-3 text-sm">
                 {item.sectionName && (
                   <div className="rounded-lg border border-cream-200 bg-cream-100 p-3">
-                    <p className="text-xs text-dark-500">Розділ</p>
+                    <p className="text-xs text-dark-600">Розділ</p>
                     <p className="mt-1 font-semibold text-dark-900">{item.sectionName}</p>
                   </div>
                 )}
                 {weight && (
                   <div className="rounded-lg border border-cream-200 bg-cream-100 p-3">
-                    <p className="text-xs text-dark-500">Вага</p>
+                    <p className="text-xs text-dark-600">Вага</p>
                     <p className="mt-1 font-semibold text-dark-900">{weight}</p>
                   </div>
                 )}

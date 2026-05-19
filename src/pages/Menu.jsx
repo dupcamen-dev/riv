@@ -350,10 +350,10 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
           <p className="text-xs text-dark-600 mt-2 leading-relaxed line-clamp-2">{item.description}</p>
         )}
         {item.categoryName && (
-          <p className="text-xs text-dark-400 mt-3">{item.categoryName}</p>
+          <p className="text-xs text-dark-600 mt-3">{item.categoryName}</p>
         )}
         {item.weight && (
-          <p className="text-xs text-dark-400 mt-2">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</p>
+          <p className="text-xs text-dark-600 mt-2">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</p>
         )}
       </div>
     </motion.button>

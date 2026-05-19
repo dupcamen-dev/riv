@@ -58,13 +58,13 @@ export default function Popular({ onOpenDish }) {
                       {item.name}
                     </h3>
                     {item.description && (
-                      <p className="text-xs text-dark-500 mt-1.5 line-clamp-2 leading-relaxed">{item.description}</p>
+                      <p className="text-xs text-dark-600 mt-1.5 line-clamp-2 leading-relaxed">{item.description}</p>
                     )}
                   </div>
                 </div>
                 <div className="flex items-center justify-between ml-10 pt-2 border-t border-cream-200">
                   {item.weight ? (
-                    <span className="text-xs text-dark-500">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</span>
+                    <span className="text-xs text-dark-600">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</span>
                   ) : <span />}
                   <span className="text-base font-bold text-gold-600 tabular-nums">{item.price.toLocaleString('uk-UA')} ₴</span>
                 </div>

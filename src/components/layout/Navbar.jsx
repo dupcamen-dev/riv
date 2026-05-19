@@ -21,7 +21,7 @@ export default function Navbar({ onOpenBooking }) {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const currentPath = location.hash.replace(/^#/, '') || '/'
+  const currentPath = location.pathname
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)

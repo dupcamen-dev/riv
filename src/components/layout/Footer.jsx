@@ -13,7 +13,7 @@ const footerLinks = [
 export default function Footer({ onOpenBooking }) {
   const navigate = useNavigate()
   const location = useLocation()
-  const currentPath = location.hash.replace(/^#/, '') || '/'
+  const currentPath = location.pathname
 
   const scrollToSection = (sectionId) => {
     if (currentPath !== '/') {

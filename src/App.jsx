@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/layout/Navbar.jsx'
 import Breadcrumbs from './components/layout/Breadcrumbs.jsx'
@@ -9,14 +9,9 @@ import Menu from './pages/Menu.jsx'
 import PageTransition from './components/layout/PageTransition.jsx'
 import BookingModal from './components/booking/BookingModal.jsx'
 
-function getPath(location) {
-  const hash = location.hash.replace(/^#/, '')
-  return hash || '/'
-}
-
 function App() {
   const location = useLocation()
-  const path = getPath(location)
+  const path = location.pathname
   const isHome = path === '/'
   const [bookingOpen, setBookingOpen] = useState(false)
   const openBooking = () => setBookingOpen(true)
@@ -40,12 +35,8 @@ function App() {
           <Routes location={location} key={path}>
             <Route path="/" element={<PageTransition><Home onOpenBooking={openBooking} /></PageTransition>} />
             <Route path="/menu" element={<PageTransition><Menu /></PageTransition>} />
-            <Route path="/booking" element={<NavigateTo to="/" />} />
-            <Route path="/popular" element={<NavigateTo to="/" />} />
-            <Route path="/wine" element={<NavigateTo to="/" />} />
-            <Route path="/contact" element={<NavigateTo to="/" />} />
-            <Route path="/feedback" element={<NavigateTo to="/" />} />
-            <Route path="*" element={<NavigateTo to="/" />} />
+            <Route path="/booking" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AnimatePresence>
       </main>
@@ -53,15 +44,6 @@ function App() {
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>
   )
-}
-
-function NavigateTo({ to }) {
-  const location = useLocation()
-  const currentPath = location.hash.replace(/^#/, '') || '/'
-  if (currentPath === to) return null
-  const hash = `#${to === '/' ? '' : to}`
-  window.location.hash = hash
-  return null
 }
 
 export default App
