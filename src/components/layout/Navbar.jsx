@@ -151,7 +151,7 @@ export default function Navbar({ onOpenBooking }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-dark-950/80 backdrop-blur-2xl px-5 py-5 shadow-2xl lg:hidden"
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 bg-dark-950 px-5 py-5 shadow-2xl overflow-y-auto lg:hidden"
           >
               <div className="absolute right-5 top-5">
                 <button
