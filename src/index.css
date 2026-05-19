@@ -29,6 +29,7 @@
   --color-green-400: #6EE7B7;
   --font-sans: 'Manrope', system-ui, -apple-system, sans-serif;
   --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --radius-lg: 0.75rem;
 }
 
 @layer base {
@@ -236,11 +237,6 @@
 
 .scrollbar-none::-webkit-scrollbar {
   display: none;
-}
-
-button,
-[role="button"] {
-  border-radius: 2px;
 }
 
 .input-base {
