@@ -9,6 +9,7 @@ import Menu from './pages/Menu.jsx'
 import PageTransition from './components/layout/PageTransition.jsx'
 import BookingModal from './components/booking/BookingModal.jsx'
 import CookieConsent from './components/ui/CookieConsent.jsx'
+import ScrollToTop from './components/ui/ScrollToTop.jsx'
 
 function App() {
   const location = useLocation()
@@ -44,6 +45,7 @@ function App() {
       <Footer onOpenBooking={openBooking} />
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
       <CookieConsent />
+      <ScrollToTop />
     </div>
   )
 }
