@@ -7,7 +7,7 @@ import { useState } from 'react'
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
   whileInView: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } },
-  viewport: { once: true },
+  viewport: { once: false },
 }
 
 export default function Contact() {
@@ -91,7 +91,7 @@ export default function Contact() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             className="glass rounded-lg border border-cream-200 bg-cream-100 overflow-hidden h-[400px] lg:h-full min-h-[400px]"
           >
             {mapError ? (

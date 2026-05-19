@@ -30,7 +30,7 @@ export default function Footer({ onOpenBooking }) {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
             <Link to="/" className="inline-block mb-4 focus-ring-sm">
-              <img src={`${import.meta.env.BASE_URL}img/logo.png`} alt="The River" className="h-10 w-auto" />
+              <img src={`${import.meta.env.BASE_URL}img/logo.webp`} alt="The River" className="h-10 w-auto" />
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-light-400">
               Преміальний клуб у Тернополі із заміською атмосферою, авторською кухнею і баром.

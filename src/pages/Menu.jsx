@@ -256,7 +256,7 @@ export default function Menu() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-30px' }}
+                  viewport={{ once: false, margin: '-30px' }}
                 >
                   <div className="flex items-center gap-4 mb-6">
                     <h3 className="text-xl sm:text-2xl font-serif font-bold text-light-100">{cat.name}</h3>

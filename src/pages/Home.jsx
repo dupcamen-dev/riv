@@ -73,7 +73,7 @@ export default function Home({ onOpenBooking }) {
         style={{ minHeight: 'clamp(580px, calc(100svh - 96px), 820px)' }}
       >
         <img
-          src={`${import.meta.env.BASE_URL}img/hero-gemini.png`}
+          src={`${import.meta.env.BASE_URL}img/hero-gemini.webp`}
           alt="The River Premium Club"
           className="absolute inset-0 h-full w-full object-cover object-[58%_50%]"
           fetchPriority="high"

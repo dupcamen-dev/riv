@@ -5,7 +5,7 @@ export default function SectionTitle({ children, subtitle, className = '' }) {
     <motion.div
       initial={false}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
+      viewport={{ once: false, margin: '-40px' }}
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       className={`text-center max-w-3xl mx-auto mb-12 sm:mb-16 ${className}`}
     >
