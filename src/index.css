@@ -242,3 +242,8 @@
 .input-base {
   border-radius: 4px;
 }
+
+/* Override label colors inside cream-background modals */
+.booking-modal-form .label-base {
+  color: var(--color-dark-900);
+}
