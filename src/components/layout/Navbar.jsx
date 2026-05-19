@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { CalendarCheck, Menu, X } from 'lucide-react'
+import { CalendarCheck, X } from 'lucide-react'
 
 const links = [
   { to: '/', label: 'Головна', section: 'hero' },
@@ -140,7 +140,22 @@ export default function Navbar({ onOpenBooking }) {
             aria-label={open ? 'Закрити меню' : 'Відкрити меню'}
             aria-expanded={open}
           >
-            {open ? <X size={22} /> : <Menu size={22} />}
+            <div className="relative h-5 w-5">
+              <span
+                className="absolute left-0 block h-px w-full bg-current transition-all duration-300"
+                style={{
+                  top: open ? '50%' : 0,
+                  transform: open ? 'translateY(-50%) rotate(45deg)' : 'none',
+                }}
+              />
+              <span
+                className="absolute left-0 block h-px w-full bg-current transition-all duration-300"
+                style={{
+                  top: open ? '50%' : '100%',
+                  transform: open ? 'translateY(-50%) rotate(-45deg)' : 'translateY(-100%)',
+                }}
+              />
+            </div>
           </button>
         </div>
       </div>
