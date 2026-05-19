@@ -72,6 +72,7 @@ export default function Navbar({ onOpenBooking }) {
   )
 
   return (
+    <>
     <nav
       className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
         scrolled
@@ -143,82 +144,83 @@ export default function Navbar({ onOpenBooking }) {
           </button>
         </div>
       </div>
+    </nav>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 bg-dark-950 px-5 py-5 shadow-2xl overflow-y-auto lg:hidden"
-          >
-              <div className="absolute right-5 top-5">
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  className="inline-flex h-10 w-10 items-center justify-center border border-white/10 text-light-300 transition-colors hover:text-light-100 focus-ring-sm"
-                  aria-label="Закрити меню"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-
-              <Link to="/" onClick={() => setOpen(false)} className="flex flex-col items-center gap-3 focus-ring-sm">
-                <span className="flex h-16 w-16 items-center justify-center overflow-hidden border border-gold-400/25 bg-black/30">
-                  <img src={`${import.meta.env.BASE_URL}img/logo.png`} alt="" className="h-20 w-20 object-contain" />
-                </span>
-                <span className="text-center leading-none">
-                  <span className="block font-serif text-xl font-bold text-light-100">The River</span>
-                  <span className="mt-1 block text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-400">Premium Club</span>
-                </span>
-              </Link>
-
-              <div className="flex flex-col items-center gap-2">
-                <Link
-                  to="/"
-                  onClick={() => { setOpen(false); scrollToSection('hero') }}
-                  className={`block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm ${
-                    currentPath === '/' ? 'text-gold-300' : 'text-light-300 hover:text-light-100'
-                  }`}
-                >
-                  Головна
-                </Link>
-                <Link
-                  to="/menu"
-                  onClick={() => setOpen(false)}
-                  className={`block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm ${
-                    currentPath === '/menu' ? 'text-gold-300' : 'text-light-300 hover:text-light-100'
-                  }`}
-                >
-                  Меню
-                </Link>
-                {sectionLinks.map((s) => (
-                  <button
-                    key={s.section}
-                    type="button"
-                    onClick={() => scrollToSection(s.section, true)}
-                    className="block w-full text-center px-8 py-3 text-lg font-semibold text-light-300 transition-all hover:text-light-100 focus-ring-sm"
-                  >
-                    {s.label}
-                  </button>
-                ))}
-              </div>
-
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 bg-dark-950 px-5 py-5 shadow-2xl overflow-y-auto lg:hidden"
+        >
+            <div className="absolute right-5 top-5">
               <button
                 type="button"
-                onClick={() => {
-                  setOpen(false)
-                  onOpenBooking()
-                }}
-                className="mt-4 flex min-h-12 w-64 items-center justify-center gap-2 border border-gold-300/25 bg-gold-500 px-5 py-3 text-sm font-bold text-dark-950 transition-colors hover:bg-gold-400 focus-ring"
+                onClick={() => setOpen(false)}
+                className="inline-flex h-10 w-10 items-center justify-center border border-white/10 text-light-300 transition-colors hover:text-light-100 focus-ring-sm"
+                aria-label="Закрити меню"
               >
-                <CalendarCheck size={17} />
-                Забронювати столик
+                <X size={20} />
               </button>
-            </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+            </div>
+
+            <Link to="/" onClick={() => setOpen(false)} className="flex flex-col items-center gap-3 focus-ring-sm">
+              <span className="flex h-16 w-16 items-center justify-center overflow-hidden border border-gold-400/25 bg-black/30">
+                <img src={`${import.meta.env.BASE_URL}img/logo.png`} alt="" className="h-20 w-20 object-contain" />
+              </span>
+              <span className="text-center leading-none">
+                <span className="block font-serif text-xl font-bold text-light-100">The River</span>
+                <span className="mt-1 block text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-400">Premium Club</span>
+              </span>
+            </Link>
+
+            <div className="flex flex-col items-center gap-2">
+              <Link
+                to="/"
+                onClick={() => { setOpen(false); scrollToSection('hero') }}
+                className={`block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm ${
+                  currentPath === '/' ? 'text-gold-300' : 'text-light-300 hover:text-light-100'
+                }`}
+              >
+                Головна
+              </Link>
+              <Link
+                to="/menu"
+                onClick={() => setOpen(false)}
+                className={`block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm ${
+                  currentPath === '/menu' ? 'text-gold-300' : 'text-light-300 hover:text-light-100'
+                }`}
+              >
+                Меню
+              </Link>
+              {sectionLinks.map((s) => (
+                <button
+                  key={s.section}
+                  type="button"
+                  onClick={() => scrollToSection(s.section, true)}
+                  className="block w-full text-center px-8 py-3 text-lg font-semibold text-light-300 transition-all hover:text-light-100 focus-ring-sm"
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false)
+                onOpenBooking()
+              }}
+              className="mt-4 flex min-h-12 w-64 items-center justify-center gap-2 border border-gold-300/25 bg-gold-500 px-5 py-3 text-sm font-bold text-dark-950 transition-colors hover:bg-gold-400 focus-ring"
+            >
+              <CalendarCheck size={17} />
+              Забронювати столик
+            </button>
+          </motion.div>
+      )}
+    </AnimatePresence>
+    </>
   )
 }
