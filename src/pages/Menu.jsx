@@ -243,7 +243,41 @@ export default function Menu() {
               </div>
             </div>
           </div>
-        ) : searchQuery ? (
+        ) : !searchQuery && categoryNavItems.length > 1 && (
+          <div className="menu-category-nav -mx-5 mb-12 border-y border-white/10 bg-dark-900/92 px-5 py-3 backdrop-blur-xl sm:-mx-7 sm:px-7 lg:-mx-10 lg:px-10">
+            <div className="mx-auto max-w-6xl">
+              <div className="mb-3 flex items-center justify-between gap-4">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-400">Категорії</p>
+                <p className="hidden text-xs text-light-500 sm:block">{categoryNavItems.length} розділів</p>
+              </div>
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none lg:flex-wrap lg:overflow-visible lg:pb-0">
+                {categoryNavItems.map((cat) => {
+                  const id = getCategoryId(cat)
+                  const isActive = selectedCategoryId === id
+
+                  return (
+                    <button
+                      key={cat._id}
+                      type="button"
+                      onClick={() => jumpToCategory(cat)}
+                      className={`flex shrink-0 items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                        isActive
+                          ? 'border-transparent bg-gold-500 text-dark-900 shadow-lg shadow-gold-500/15'
+                          : 'border-white/10 bg-dark-800/70 text-light-300 hover:border-gold-500/40 hover:text-light-100'
+                      }`}
+                    >
+                      <span>{cat.name}</span>
+                      <span className={`text-xs ${isActive ? 'text-dark-900/70' : 'text-light-500'}`}>
+                        {cat.items.length}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+        {currentSection?.hurl !== 'section:pravila' && (searchQuery ? (
           <motion.div layout className="max-w-6xl mx-auto">
             <p className="text-sm text-light-500 mb-6 text-center">
               Знайдено: {allFilteredItems.length} шт.
@@ -304,7 +338,7 @@ export default function Menu() {
               </section>
             ))}
           </div>
-        )}
+        ))}
       </div>
       <DishModal
         item={selectedItem}
