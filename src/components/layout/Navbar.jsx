@@ -85,8 +85,8 @@ export default function Navbar({ onOpenBooking }) {
       <div className="page-content">
         <div className="relative flex h-[72px] items-center justify-between gap-4 pr-14 lg:h-[84px] lg:pr-0">
           <Link to="/" className="flex-1 lg:flex-none flex items-center focus-ring-sm" aria-label="На головну">
-            <span className="flex h-14 w-full items-center justify-start overflow-hidden bg-black/30 shadow-lg shadow-black/15 lg:h-16">
-              <img src={`${import.meta.env.BASE_URL}img/logo.webp`} alt="" className="h-14 w-auto max-w-full object-contain lg:h-16" />
+            <span className="flex h-16 w-full items-center justify-start overflow-hidden bg-black/30 shadow-lg shadow-black/15 lg:h-[72px]">
+              <img src={`${import.meta.env.BASE_URL}img/logo.webp`} alt="" className="h-16 w-auto max-w-full object-contain lg:h-[72px]" />
             </span>
           </Link>
 
