@@ -131,7 +131,7 @@ export default function BookingModal({ open, onClose }) {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
-        className="relative max-h-[88vh] w-full max-w-4xl overflow-y-auto border border-cream-200 bg-cream-50 shadow-2xl shadow-black/50"
+        className="relative max-h-[88vh] w-full max-w-4xl overflow-y-auto rounded-lg border border-cream-200 bg-cream-50 shadow-2xl shadow-black/50"
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -140,7 +140,7 @@ export default function BookingModal({ open, onClose }) {
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center bg-cream-100/80 text-dark-600 shadow-lg shadow-black/25 backdrop-blur-sm transition-colors hover:text-dark-900 focus-ring-sm"
+          className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-lg bg-cream-100/80 text-dark-600 shadow-lg shadow-black/25 backdrop-blur-sm transition-colors hover:text-dark-900 focus-ring-sm"
           aria-label="Закрити бронювання"
         >
           <X size={20} />
@@ -175,7 +175,7 @@ export default function BookingModal({ open, onClose }) {
           <div className="p-6 lg:p-8 [&_.label-base]:text-dark-900">
             {submitted ? (
               <div className="flex min-h-[27rem] flex-col items-center justify-center text-center">
-                <div className="mb-6 flex h-20 w-20 items-center justify-center border border-gold-600/25 bg-gold-500/10">
+                <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-lg border border-gold-600/25 bg-gold-500/10">
                   <CheckCircle className="text-gold-600" size={40} />
                 </div>
                 <h3 className="font-serif text-4xl font-bold text-dark-900">Запит відправлено</h3>

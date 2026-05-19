@@ -94,17 +94,17 @@ export default function Navbar({ onOpenBooking }) {
             <Link
               to="/"
               onClick={() => scrollToSection('hero')}
-              className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold transition-colors duration-300 focus-ring-sm xl:px-4 ${
-                currentPath === '/' ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
-              }`}
+              className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg transition-colors duration-300 focus-ring-sm xl:px-4 ${
+                 currentPath === '/' ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
+               }`}
             >
               {renderNavItem('Головна', 'hero', currentPath === '/')}
             </Link>
             <Link
               to="/menu"
-              className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold transition-colors duration-300 focus-ring-sm xl:px-4 ${
-                currentPath === '/menu' ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
-              }`}
+              className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg transition-colors duration-300 focus-ring-sm xl:px-4 ${
+                 currentPath === '/menu' ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
+               }`}
             >
               {renderNavItem('Меню', 'menu', currentPath === '/menu')}
             </Link>
@@ -113,7 +113,7 @@ export default function Navbar({ onOpenBooking }) {
                 key={s.section}
                 type="button"
                 onClick={() => scrollToSection(s.section)}
-                className="relative whitespace-nowrap px-3 py-2 text-sm font-semibold text-light-300 transition-colors duration-300 hover:bg-white/6 hover:text-light-100 focus-ring-sm xl:px-4"
+                className="relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg text-light-300 transition-colors duration-300 hover:bg-white/6 hover:text-light-100 focus-ring-sm xl:px-4"
               >
                 {s.label}
               </button>
@@ -123,7 +123,7 @@ export default function Navbar({ onOpenBooking }) {
           <button
             type="button"
             onClick={onOpenBooking}
-            className="hidden shrink-0 items-center justify-center gap-2 border border-gold-300/25 bg-gold-500 px-4 py-2.5 text-sm font-bold text-dark-950 shadow-lg shadow-gold-500/15 transition-colors duration-300 hover:bg-gold-400 focus-ring-sm lg:inline-flex xl:px-5"
+            className="hidden shrink-0 items-center justify-center gap-2 rounded-lg border border-gold-300/25 bg-gold-500 px-4 py-2.5 text-sm font-bold text-dark-950 shadow-lg shadow-gold-500/15 transition-colors duration-300 hover:bg-gold-400 focus-ring-sm lg:inline-flex xl:px-5"
           >
             <CalendarCheck size={16} />
             Бронювання
@@ -132,7 +132,7 @@ export default function Navbar({ onOpenBooking }) {
           <button
             type="button"
             onClick={() => setOpen(!open)}
-            className="absolute right-0 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-gold-300/25 bg-gold-500 text-dark-950 shadow-lg shadow-gold-500/15 transition-colors hover:bg-gold-400 focus-ring-sm lg:hidden"
+            className="absolute right-0 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg border border-gold-300/25 bg-gold-500 text-dark-950 shadow-lg shadow-gold-500/15 transition-colors hover:bg-gold-400 focus-ring-sm lg:hidden"
             aria-label={open ? 'Закрити меню' : 'Відкрити меню'}
             aria-expanded={open}
           >
@@ -192,7 +192,7 @@ export default function Navbar({ onOpenBooking }) {
                   key={s.section}
                   type="button"
                   onClick={() => scrollToSection(s.section, true)}
-                  className="block w-full text-center px-8 py-3 text-lg font-semibold text-light-300 transition-all hover:text-light-100 focus-ring-sm"
+                  className="block w-full text-center px-8 py-3 text-lg font-semibold text-light-300 transition-all rounded-lg hover:bg-white/6 hover:text-light-100 focus-ring-sm"
                 >
                   {s.label}
                 </button>
@@ -205,7 +205,7 @@ export default function Navbar({ onOpenBooking }) {
                 setOpen(false)
                 onOpenBooking()
               }}
-              className="mt-4 flex min-h-12 w-64 items-center justify-center gap-2 border border-gold-300/25 bg-gold-500 px-5 py-3 text-sm font-bold text-dark-950 transition-colors hover:bg-gold-400 focus-ring"
+              className="mt-4 flex min-h-12 w-64 items-center justify-center gap-2 rounded-lg border border-gold-300/25 bg-gold-500 px-5 py-3 text-sm font-bold text-dark-950 transition-colors hover:bg-gold-400 focus-ring"
             >
               <CalendarCheck size={17} />
               Забронювати столик

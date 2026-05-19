@@ -35,14 +35,14 @@ export default function CookieConsent() {
           <button
             type="button"
             onClick={accept}
-            className="border border-gold-300/25 bg-gold-500 px-5 py-2 text-sm font-bold text-dark-950 transition-colors hover:bg-gold-400 focus-ring whitespace-nowrap"
+            className="rounded-lg border border-gold-300/25 bg-gold-500 px-5 py-2 text-sm font-bold text-dark-950 transition-colors hover:bg-gold-400 focus-ring whitespace-nowrap"
           >
             Прийняти
           </button>
           <button
             type="button"
             onClick={accept}
-            className="inline-flex h-10 w-10 items-center justify-center border border-gold-300/25 bg-gold-500 text-dark-950 shadow-lg shadow-gold-500/15 transition-colors hover:bg-gold-400 focus-ring-sm"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gold-300/25 bg-gold-500 text-dark-950 shadow-lg shadow-gold-500/15 transition-colors hover:bg-gold-400 focus-ring-sm"
             aria-label="Закрити"
           >
             <X size={18} />
