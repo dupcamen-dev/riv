@@ -34,21 +34,11 @@ export function I18nProvider({ children }) {
   )
 }
 
-const resolve = (obj, path) => {
-  const keys = path.split('.')
-  let val = obj
-  for (const k of keys) {
-    if (val == null || typeof val !== 'object') return
-    val = val[k]
-  }
-  return val
-}
-
 export function useT() {
   const { lang } = useContext(I18nContext)
   return (key, vars) => {
     const dict = lang === 'en' ? en : uk
-    let val = resolve(dict, key)
+    let val = dict[key]
     if (val == null) return key
     if (vars && typeof val === 'string') {
       return val.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? `{${k}}`)
