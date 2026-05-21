@@ -141,12 +141,12 @@
 
 .menu-category-nav {
   position: sticky;
-  top: 72px;
+  top: 132px;
   z-index: 35;
 }
 
 .menu-category-section {
-  scroll-margin-top: 156px;
+  scroll-margin-top: 200px;
 }
 
 @media (min-width: 1024px) {
@@ -155,11 +155,11 @@
   }
 
   .menu-category-nav {
-    top: 84px;
+    top: 148px;
   }
 
   .menu-category-section {
-    scroll-margin-top: 172px;
+    scroll-margin-top: 220px;
   }
 }
 

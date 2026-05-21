@@ -157,26 +157,28 @@ export default function Menu() {
           </div>
         </div>
 
-        <div className="flex gap-2 overflow-x-auto pb-4 mb-12 scrollbar-none justify-start lg:flex-wrap lg:overflow-visible lg:justify-center">
-          {validSections.map((section) => {
-            const Icon = sectionIcons[section.hurl]
-            const isActive = currentSection?.hurl === section.hurl
-            return (
-              <button
-                key={section.hurl}
-                type="button"
-                onClick={() => selectSection(section)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-300 shrink-0 border ${
-                  isActive
-                    ? 'bg-red-500 text-cream-50 border-transparent shadow-lg shadow-red-500/15'
-                    : 'glass border-dark-600/30 text-gray-400 hover:border-red-500/30 hover:text-cream-50'
-                }`}
-              >
-                {Icon && <Icon size={16} />}
-                <span>{section.name}</span>
-              </button>
-            )
-          })}
+        <div className="menu-section-tabs sticky top-[72px] z-30 bg-dark-900 pb-4 mb-12 lg:top-[84px]">
+          <div className="flex gap-2 overflow-x-auto scrollbar-none justify-start lg:flex-wrap lg:overflow-visible lg:justify-center">
+            {validSections.map((section) => {
+              const Icon = sectionIcons[section.hurl]
+              const isActive = currentSection?.hurl === section.hurl
+              return (
+                <button
+                  key={section.hurl}
+                  type="button"
+                  onClick={() => selectSection(section)}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-300 shrink-0 border ${
+                    isActive
+                      ? 'bg-red-500 text-cream-50 border-transparent shadow-lg shadow-red-500/15'
+                      : 'glass border-dark-600/30 text-gray-400 hover:border-red-500/30 hover:text-cream-50'
+                  }`}
+                >
+                  {Icon && <Icon size={16} />}
+                  <span>{section.name}</span>
+                </button>
+              )
+            })}
+          </div>
         </div>
 
         {currentSection?.hurl === 'section:pravila' ? (
