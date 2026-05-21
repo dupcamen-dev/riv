@@ -96,7 +96,7 @@ export default function Home({ onOpenBooking }) {
           {/* Title — red */}
           <motion.h1
             variants={fadeUp}
-            className="text-7xl font-black text-gold-500 sm:text-8xl lg:text-9xl tracking-tight"
+            className="text-7xl font-black text-dark-950 sm:text-8xl lg:text-9xl tracking-tight"
           >
             THE RIVER
           </motion.h1>
