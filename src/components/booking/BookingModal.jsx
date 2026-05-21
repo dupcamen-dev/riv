@@ -6,6 +6,7 @@ import FormInput from '../ui/FormInput.jsx'
 import FormSelect from '../ui/FormSelect.jsx'
 import FormTextarea from '../ui/FormTextarea.jsx'
 import { place } from '../../data/restaurant.js'
+import { useT } from '../../i18n/context.jsx'
 
 const initialForm = { name: '', phone: '', email: '', date: '', time: '', guests: '2', comment: '' }
 
@@ -16,38 +17,39 @@ const todayISO = () => {
   return `${now.getFullYear()}-${month}-${day}`
 }
 
-const validationRules = {
-  name: (value) => {
-    if (!value.trim()) return "Введіть ім'я"
-    if (value.trim().length < 2) return "Ім'я має містити щонайменше 2 символи"
-    return null
-  },
-  phone: (value) => {
-    if (!value.trim()) return 'Введіть номер телефону'
-    if (!/^[\d\s+\-()]+$/.test(value)) return 'Невірний формат номера'
-    return null
-  },
-  email: (value) => {
-    if (!value) return null
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Невірна email адреса'
-    return null
-  },
-  date: (value) => {
-    if (!value) return 'Оберіть дату'
-    if (value < todayISO()) return 'Оберіть сьогоднішню або майбутню дату'
-    return null
-  },
-  time: (value) => {
-    if (!value) return 'Оберіть час'
-    return null
-  },
-}
-
 export default function BookingModal({ open, onClose }) {
+  const t = useT()
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const validationRules = {
+    name: (value) => {
+      if (!value.trim()) return t('booking.err_name')
+      if (value.trim().length < 2) return t('booking.err_name_min')
+      return null
+    },
+    phone: (value) => {
+      if (!value.trim()) return t('booking.err_phone_empty')
+      if (!/^[\d\s+\-()]+$/.test(value)) return t('booking.err_phone')
+      return null
+    },
+    email: (value) => {
+      if (!value) return null
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return t('booking.err_email')
+      return null
+    },
+    date: (value) => {
+      if (!value) return t('booking.err_date')
+      if (value < todayISO()) return t('booking.err_date_future')
+      return null
+    },
+    time: (value) => {
+      if (!value) return t('booking.err_time')
+      return null
+    },
+  }
 
   useEffect(() => {
     if (!open) return undefined
@@ -76,6 +78,12 @@ export default function BookingModal({ open, onClose }) {
   }, [open])
 
   if (!open) return null
+
+  const guestLabel = (n) => {
+    if (n === 1) return t('booking.guest_1')
+    if (n >= 2 && n <= 4) return t('booking.guest_2_4')
+    return t('booking.guest_5')
+  }
 
   const setFieldValue = (field, value) => {
     setForm((current) => ({ ...current, [field]: value }))
@@ -141,19 +149,19 @@ export default function BookingModal({ open, onClose }) {
           type="button"
           onClick={onClose}
           className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-lg bg-dark-800/80 text-gray-400 shadow-lg shadow-black/25 backdrop-blur-sm transition-colors hover:text-cream-50 focus-ring-sm"
-          aria-label="Закрити бронювання"
+          aria-label={t('booking.close')}
         >
           <X size={20} />
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr]">
           <aside className="border-b border-white/10 bg-dark-800/55 p-6 lg:border-b-0 lg:border-r lg:p-8">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-red-500">Бронювання</p>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-red-500">{t('booking.aside')}</p>
             <h2 id="booking-modal-title" className="font-display text-4xl font-bold leading-none text-cream-50">
-              Забронюйте столик
+              {t('booking.title')}
             </h2>
             <p className="mt-4 text-sm leading-7 text-gray-400">
-              Залиште контакти, дату та час. Менеджер зв'яжеться з вами для підтвердження бронювання.
+              {t('booking.desc')}
             </p>
 
             <div className="mt-8 space-y-4 text-sm">
@@ -167,7 +175,7 @@ export default function BookingModal({ open, onClose }) {
               </a>
               <div className="flex items-start gap-3 text-gray-500">
                 <Clock size={16} className="mt-0.5 text-red-500" />
-                <span>Пн-Чт: 12:00-22:00<br />Пт-Сб: 12:00-23:00<br />Нд: 11:00-22:00</span>
+                <span>{t('booking.hours')}</span>
               </div>
             </div>
           </aside>
@@ -178,29 +186,29 @@ export default function BookingModal({ open, onClose }) {
                 <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-lg border border-red-500/25 bg-red-500/10">
                   <CheckCircle className="text-red-500" size={40} />
                 </div>
-                <h3 className="font-display text-4xl font-bold text-cream-50">Запит відправлено</h3>
+                <h3 className="font-display text-4xl font-bold text-cream-50">{t('booking.success_title')}</h3>
                 <p className="mt-4 max-w-md text-sm leading-7 text-gray-400">
-                  Ми отримали ваш запит. Найближчим часом менеджер зв'яжеться з вами для підтвердження.
+                  {t('booking.success_text')}
                 </p>
                 <Button type="button" variant="outline" size="md" className="mt-8" onClick={resetForm}>
-                  Надіслати ще один
+                  {t('booking.send_another')}
                 </Button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormInput
-                    label="Ім'я"
+                    label={t('booking.name')}
                     required
                     type="text"
                     value={form.name}
                     onChange={update('name')}
-                    placeholder="Ваше ім'я"
+                    placeholder={t('booking.name_placeholder')}
                     error={errors.name}
                     disabled={isSubmitting}
                   />
                   <FormInput
-                    label="Телефон"
+                    label={t('booking.phone')}
                     required
                     type="tel"
                     value={form.phone}
@@ -213,7 +221,7 @@ export default function BookingModal({ open, onClose }) {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <FormInput
-                    label="Дата"
+                    label={t('booking.date')}
                     required
                     type="date"
                     value={form.date}
@@ -223,7 +231,7 @@ export default function BookingModal({ open, onClose }) {
                     disabled={isSubmitting}
                   />
                   <FormInput
-                    label="Час"
+                    label={t('booking.time')}
                     required
                     type="time"
                     value={form.time}
@@ -233,14 +241,14 @@ export default function BookingModal({ open, onClose }) {
                     disabled={isSubmitting}
                   />
                   <FormSelect
-                    label="Гості"
+                    label={t('booking.guests')}
                     value={form.guests}
                     onChange={update('guests')}
                     icon={Users}
                     disabled={isSubmitting}
                     options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => ({
                       value: n,
-                      label: `${n} ${n === 1 ? 'гість' : n < 5 ? 'гості' : 'гостей'}`,
+                      label: `${n} ${guestLabel(n)}`,
                     }))}
                   />
                 </div>
@@ -257,17 +265,17 @@ export default function BookingModal({ open, onClose }) {
                 />
 
                 <FormTextarea
-                  label="Коментар"
+                  label={t('booking.comment')}
                   rows={3}
                   value={form.comment}
                   onChange={update('comment')}
-                  placeholder="Особливі побажання..."
+                  placeholder={t('booking.comment_placeholder')}
                   disabled={isSubmitting}
                   showValidation={false}
                 />
 
                 <Button type="submit" size="lg" loading={isSubmitting} disabled={isSubmitting} className="w-full">
-                  Відправити
+                  {t('booking.submit')}
                 </Button>
               </form>
             )}

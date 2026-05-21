@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import SectionTitle from '../components/ui/SectionTitle.jsx'
 import Button from '../components/ui/Button.jsx'
 import { allMenuItems } from '../data/restaurant.js'
+import { useT } from '../i18n/context.jsx'
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
@@ -12,6 +13,7 @@ const fadeUp = {
 }
 
 export default function Popular({ onOpenDish, light }) {
+  const t = useT()
   const navigate = useNavigate()
   const popular = [...allMenuItems].sort((a, b) => b.price - a.price).slice(0, 12)
 
@@ -26,17 +28,17 @@ export default function Popular({ onOpenDish, light }) {
   return (
     <div className="page-container py-24">
       <div className="page-content">
-        <SectionTitle subtitle="Топ вибір" dark={light}>
+        <SectionTitle subtitle={t('popular.subtitle')} dark={light}>
           <span className="flex items-center justify-center gap-3">
-            <Sparkles size={24} className="text-red-400" /> Популярні страви
+            <Sparkles size={24} className="text-red-400" /> {t('popular.title')}
           </span>
         </SectionTitle>
 
         {popular.length === 0 ? (
           <div className="text-center py-20">
-            <p className={`${light ? 'text-gray-600' : 'text-gray-400'}`}>Немає популярних страв</p>
+            <p className={`${light ? 'text-gray-600' : 'text-gray-400'}`}>{t('popular.empty')}</p>
             <Button to="/menu" variant="outline" size="sm" className="mt-6">
-              <ArrowLeft size={14} /> До меню
+              <ArrowLeft size={14} /> {t('popular.to_menu')}
             </Button>
           </div>
         ) : (
@@ -68,7 +70,7 @@ export default function Popular({ onOpenDish, light }) {
                 </div>
                 <div className={`flex items-center justify-between ml-10 pt-2 border-t ${light ? 'border-cream-200' : 'border-white/6'}`}>
                   {item.weight ? (
-                    <span className={`text-xs ${light ? 'text-gray-500' : 'text-gray-500'}`}>{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</span>
+                    <span className={`text-xs ${light ? 'text-gray-500' : 'text-gray-500'}`}>{item.weight} {item.weightType === 'ml' ? t('menu.weight_ml') : t('menu.weight_g')}</span>
                   ) : <span />}
                   <span className="text-base font-bold text-red-400 tabular-nums">{item.price.toLocaleString('uk-UA')} ₴</span>
                 </div>

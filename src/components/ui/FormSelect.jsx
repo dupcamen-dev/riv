@@ -1,4 +1,5 @@
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
+import { useT } from '../../i18n/context.jsx'
 
 export default function FormSelect({
   label,
@@ -12,6 +13,8 @@ export default function FormSelect({
   showValidation = true,
   ...props
 }) {
+  const t = useT()
+
   return (
     <div className={`w-full ${containerClassName}`}>
       {label && (
@@ -44,7 +47,7 @@ export default function FormSelect({
         )}
       </div>
       {error && <span className="error-text">{error}</span>}
-      {success && showValidation && <span className="success-text">Виглядає добре</span>}
+      {success && showValidation && <span className="success-text">{t('form.looks_good')}</span>}
     </div>
   )
 }

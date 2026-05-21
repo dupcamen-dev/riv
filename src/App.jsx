@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+import { I18nProvider } from './i18n/context.jsx'
 import Navbar from './components/layout/Navbar.jsx'
 import Breadcrumbs from './components/layout/Breadcrumbs.jsx'
 import Footer from './components/layout/Footer.jsx'
@@ -33,6 +34,7 @@ function App() {
   }, [path])
 
   return (
+    <I18nProvider>
     <div className="min-h-screen flex flex-col">
       <Navbar onOpenBooking={openBooking} />
       <main className="site-main flex-1 relative">
@@ -59,6 +61,7 @@ function App() {
       <CookieConsent />
       <ScrollToTop />
     </div>
+    </I18nProvider>
   )
 }
 

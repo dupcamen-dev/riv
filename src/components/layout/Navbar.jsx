@@ -2,12 +2,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CalendarCheck } from 'lucide-react'
+import { useT, useLang } from '../../i18n/context.jsx'
 
-const sectionLinks = [
-  { section: 'popular', label: 'Популярне' },
-  { section: 'contact', label: 'Контакти' },
-  { section: 'feedback', label: 'Відгуки' },
-]
+const sectionLinks = ['popular', 'contact', 'feedback']
 
 export default function Navbar({ onOpenBooking }) {
   const [scrolled, setScrolled] = useState(false)
@@ -15,6 +12,9 @@ export default function Navbar({ onOpenBooking }) {
   const [open, setOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
+
+  const t = useT()
+  const { lang, switchLang } = useLang()
 
   const currentPath = location.pathname
 
@@ -92,11 +92,11 @@ export default function Navbar({ onOpenBooking }) {
           : 'border-white/4 bg-dark-950/80 backdrop-blur-lg'
       }`}
       role="navigation"
-      aria-label="Головна навігація"
+      aria-label={t('nav.main_nav')}
     >
       <div className="page-content">
         <div className="relative flex h-[72px] items-center justify-between gap-4 pr-14 lg:h-[84px] lg:pr-0">
-          <Link to="/" className="flex-1 lg:flex-none flex items-center focus-ring-sm" aria-label="На головну">
+          <Link to="/" className="flex-1 lg:flex-none flex items-center focus-ring-sm" aria-label={t('nav.to_home')}>
             <span className="font-display text-2xl font-black text-cream-50 tracking-tight">
               THE<span className="text-red-500">.</span>RIVER
             </span>
@@ -110,7 +110,7 @@ export default function Navbar({ onOpenBooking }) {
                  currentPath === '/' ? 'text-red-400' : 'text-gray-300 hover:bg-white/4 hover:text-cream-50'
                }`}
             >
-              {renderNavItem('Головна', currentPath === '/')}
+              {renderNavItem(t('nav.home'), currentPath === '/')}
             </Link>
             <Link
               to="/menu"
@@ -118,7 +118,7 @@ export default function Navbar({ onOpenBooking }) {
                  currentPath === '/menu' ? 'text-red-400' : 'text-gray-300 hover:bg-white/4 hover:text-cream-50'
                }`}
             >
-              {renderNavItem('Меню', currentPath === '/menu')}
+              {renderNavItem(t('nav.menu'), currentPath === '/menu')}
             </Link>
             <Link
               to="/pravila"
@@ -126,18 +126,25 @@ export default function Navbar({ onOpenBooking }) {
                  currentPath === '/pravila' ? 'text-red-400' : 'text-gray-300 hover:bg-white/4 hover:text-cream-50'
                }`}
             >
-              {renderNavItem('Правила', currentPath === '/pravila')}
+              {renderNavItem(t('nav.pravila'), currentPath === '/pravila')}
             </Link>
             {sectionLinks.map((s) => (
               <button
-                key={s.section}
+                key={s}
                 type="button"
-                onClick={() => scrollToSection(s.section)}
+                onClick={() => scrollToSection(s)}
                 className="relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg text-gray-300 transition-colors duration-300 hover:bg-white/4 hover:text-cream-50 focus-ring-sm xl:px-4"
               >
-                {s.label}
+                {t(`nav.${s}`)}
               </button>
             ))}
+            <button
+              type="button"
+              onClick={() => switchLang(lang === 'uk' ? 'en' : 'uk')}
+              className="relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg transition-colors duration-300 focus-ring-sm xl:px-4 text-red-400"
+            >
+              {lang === 'uk' ? 'EN' : 'UA'}
+            </button>
           </div>
 
           <button
@@ -146,14 +153,14 @@ export default function Navbar({ onOpenBooking }) {
             className="hidden shrink-0 items-center justify-center gap-2 rounded-lg bg-red-500 px-4 py-2.5 text-sm font-bold text-cream-50 shadow-lg shadow-red-500/20 transition-colors duration-300 hover:bg-red-600 focus-ring-sm lg:inline-flex xl:px-5"
           >
             <CalendarCheck size={16} />
-            Бронювання
+            {t('nav.booking')}
           </button>
 
           <button
             type="button"
             onClick={() => setOpen(!open)}
             className="absolute right-0 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg bg-red-500 text-cream-50 shadow-lg shadow-red-500/20 transition-colors hover:bg-red-600 focus-ring-sm lg:hidden"
-            aria-label={open ? 'Закрити меню' : 'Відкрити меню'}
+            aria-label={open ? t('nav.close_menu') : t('nav.open_menu')}
             aria-expanded={open}
           >
             <div className="relative h-5 w-5">
@@ -196,7 +203,7 @@ export default function Navbar({ onOpenBooking }) {
                   currentPath === '/' ? 'text-red-400' : 'text-gray-300 hover:text-cream-50'
                 }`}
               >
-                Головна
+                {t('nav.home')}
               </Link>
               <Link
                 to="/menu"
@@ -205,7 +212,7 @@ export default function Navbar({ onOpenBooking }) {
                   currentPath === '/menu' ? 'text-red-400' : 'text-gray-300 hover:text-cream-50'
                 }`}
               >
-                Меню
+                {t('nav.menu')}
               </Link>
               <Link
                 to="/pravila"
@@ -214,18 +221,25 @@ export default function Navbar({ onOpenBooking }) {
                   currentPath === '/pravila' ? 'text-red-400' : 'text-gray-300 hover:text-cream-50'
                 }`}
               >
-                Правила
+                {t('nav.pravila')}
               </Link>
               {sectionLinks.map((s) => (
                 <button
-                  key={s.section}
+                  key={s}
                   type="button"
-                  onClick={() => scrollToSection(s.section, true)}
+                  onClick={() => scrollToSection(s, true)}
                   className="block w-full text-center px-8 py-3 text-lg font-semibold text-gray-300 transition-all rounded-lg hover:bg-white/4 hover:text-cream-50 focus-ring-sm"
                 >
-                  {s.label}
+                  {t(`nav.${s}`)}
                 </button>
               ))}
+              <button
+                type="button"
+                onClick={() => switchLang(lang === 'uk' ? 'en' : 'uk')}
+                className="block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm text-red-400"
+              >
+                {lang === 'uk' ? 'EN' : 'UA'}
+              </button>
             </div>
 
             <button
@@ -237,7 +251,7 @@ export default function Navbar({ onOpenBooking }) {
               className="mt-4 flex min-h-12 w-64 items-center justify-center gap-2 rounded-lg bg-red-500 px-5 py-3 text-sm font-bold text-cream-50 transition-colors hover:bg-red-600 focus-ring"
             >
               <CalendarCheck size={17} />
-              Забронювати столик
+              {t('nav.booking_mobile')}
             </button>
           </motion.div>
       )}

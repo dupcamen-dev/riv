@@ -9,6 +9,7 @@ import { place } from '../data/restaurant.js'
 import Popular from './Popular.jsx'
 import Contact from './Contact.jsx'
 import Feedback from './Feedback.jsx'
+import { useT } from '../i18n/context.jsx'
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -20,34 +21,38 @@ const stagger = {
   animate: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 }
 
-const features = [
+const fadeUpWithT = (t) => [
   {
     icon: UtensilsCrossed,
-    title: 'Авторська кухня',
-    desc: 'Продумані поєднання, сезонні продукти і подача, яка не заважає смаку бути головним.',
+    title: t('home.feature_1_title'),
+    desc: t('home.feature_1_desc'),
   },
   {
     icon: Flame,
-    title: 'Бар і коктейлі',
-    desc: 'Коктейлі та міцні напої для вечері, зустрічі або повільного вечора біля води.',
+    title: t('home.feature_2_title'),
+    desc: t('home.feature_2_desc'),
   },
   {
     icon: Music,
-    title: 'Атмосфера',
-    desc: 'Спокійний клубний настрій у Тернополі для особливої події, побачення чи зустрічі.',
+    title: t('home.feature_3_title'),
+    desc: t('home.feature_3_desc'),
   },
 ]
 
-const heroFacts = [
+const heroFactsWithT = (t, place) => [
   { icon: MapPin, label: place.location },
-  { icon: Clock, label: 'Щодня з 12:00' },
+  { icon: Clock, label: t('home.daily') },
   { icon: Phone, label: place.phone, href: `tel:${place.phone}` },
 ]
 
 export default function Home({ onOpenBooking }) {
+  const t = useT()
   const location = useLocation()
   const [selectedDish, setSelectedDish] = useState(null)
   const [imgErrors, setImgErrors] = useState({})
+
+  const features = fadeUpWithT(t)
+  const heroFacts = heroFactsWithT(t, place)
 
   useEffect(() => {
     const state = location.state
@@ -84,7 +89,7 @@ export default function Home({ onOpenBooking }) {
           {/* Badge */}
           <motion.div variants={fadeUp} className="mb-6">
             <span className="inline-block text-red-500 text-xs sm:text-sm font-bold uppercase tracking-[0.35em]">
-              Premium Club — Тернопіль
+              {t('home.badge')}
             </span>
           </motion.div>
 
@@ -104,16 +109,16 @@ export default function Home({ onOpenBooking }) {
             variants={fadeUp}
             className="max-w-xl text-base sm:text-lg text-gray-700 leading-relaxed"
           >
-            Преміальний клуб із авторською кухнею, баром та спокійною атмосферою для вечері, зустрічі або особливої події.
+            {t('home.hero_desc')}
           </motion.p>
 
           {/* Buttons */}
           <motion.div variants={fadeUp} className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Button to="/menu" size="lg" className="w-full sm:w-auto">
-              Переглянути меню <ArrowRight size={18} />
+              {t('home.view_menu')} <ArrowRight size={18} />
             </Button>
             <Button type="button" onClick={onOpenBooking} variant="outline" size="lg" className="w-full sm:w-auto">
-              Забронювати столик <CalendarCheck size={18} />
+              {t('home.book_table')} <CalendarCheck size={18} />
             </Button>
           </motion.div>
 
@@ -148,7 +153,7 @@ export default function Home({ onOpenBooking }) {
       {/* Features section — gray */}
       <section className="bg-dark-700 page-container py-16 sm:py-22 lg:py-24">
         <div className="page-content">
-          <SectionTitle subtitle="Про нас">Атмосфера преміального відпочинку</SectionTitle>
+          <SectionTitle subtitle={t('home.features_subtitle')}>{t('home.features_title')}</SectionTitle>
           <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 md:grid-cols-3">
             {features.map((item) => {
               const Icon = item.icon

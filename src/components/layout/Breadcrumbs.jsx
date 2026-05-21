@@ -1,25 +1,28 @@
 import { Link, useLocation } from 'react-router-dom'
 import { ChevronRight, Home } from 'lucide-react'
+import { useT } from '../../i18n/context.jsx'
 
-const pathLabels = {
-  '/': 'Головна',
-  '/menu': 'Меню',
-  '/info': 'Інформація',
-  '/terms': 'Умови',
-  '/privacy': 'Конфіденційність',
+const pathKeys = {
+  '/': 'breadcrumb.home',
+  '/menu': 'breadcrumb.menu',
+  '/info': 'breadcrumb.info',
+  '/terms': 'breadcrumb.terms',
+  '/privacy': 'breadcrumb.privacy',
+  '/pravila': 'breadcrumb.pravila',
 }
 
 export default function Breadcrumbs() {
   const location = useLocation()
+  const t = useT()
 
   if (location.pathname === '/') return null
 
   const parts = location.pathname.split('/').filter(Boolean)
   const breadcrumbs = [
-    { label: 'Головна', to: '/' },
+    { label: t('breadcrumb.home'), to: '/' },
     ...parts.map((part, index) => {
       const path = '/' + parts.slice(0, index + 1).join('/')
-      return { label: pathLabels[path] || part, to: path }
+      return { label: pathKeys[path] ? t(pathKeys[path]) : part, to: path }
     }),
   ]
 

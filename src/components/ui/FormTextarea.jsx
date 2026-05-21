@@ -1,4 +1,5 @@
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
+import { useT } from '../../i18n/context.jsx'
 
 export default function FormTextarea({
   label,
@@ -11,6 +12,8 @@ export default function FormTextarea({
   showValidation = true,
   ...props
 }) {
+  const t = useT()
+
   return (
     <div className={`w-full ${containerClassName}`}>
       {label && (
@@ -33,7 +36,7 @@ export default function FormTextarea({
         )}
       </div>
       {error && <span className="error-text">{error}</span>}
-      {success && showValidation && <span className="success-text">Виглядає добре</span>}
+      {success && showValidation && <span className="success-text">{t('form.looks_good')}</span>}
     </div>
   )
 }

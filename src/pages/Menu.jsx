@@ -5,6 +5,7 @@ import { Search, X, Soup, Wine, Coffee, GlassWater } from 'lucide-react'
 import SectionTitle from '../components/ui/SectionTitle.jsx'
 import DishModal from '../components/ui/MenuItemModal.jsx'
 import { sections, allMenuItems } from '../data/restaurant.js'
+import { useT } from '../i18n/context.jsx'
 
 const sectionIcons = {
   'section:kuhnya': Soup,
@@ -48,6 +49,7 @@ const getDishImage = (media, mode = 'card') => {
 }
 
 export default function Menu() {
+  const t = useT()
   const [searchParams, setSearchParams] = useSearchParams()
   const activeSection = searchParams.get('section') || ''
   const [search, setSearch] = useState('')
@@ -140,14 +142,14 @@ export default function Menu() {
   return (
     <div className="page-container pb-24 bg-dark-700">
       <div className="page-content">
-        <SectionTitle subtitle="Наше меню">Оберіть розділ</SectionTitle>
+        <SectionTitle subtitle={t('menu.subtitle')}>{t('menu.title')}</SectionTitle>
 
         <div className="max-w-md mx-auto mb-6">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={18} />
             <input
               type="text"
-              placeholder="Пошук страв..."
+              placeholder={t('menu.search_placeholder')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full border border-white/10 bg-dark-800/80 py-3.5 pl-12 pr-10 text-sm text-cream-100 placeholder:text-gray-500 transition-all duration-300 focus:border-red-400/60 focus:bg-dark-800 focus:outline-none focus:ring-2 focus:ring-red-500/35"
@@ -213,7 +215,7 @@ export default function Menu() {
         {searchQuery ? (
           <motion.div layout className="max-w-6xl mx-auto">
             <p className="text-sm text-gray-500 mb-6 text-center">
-              Знайдено: {allFilteredItems.length} шт.
+              {t('menu.found_count', { count: allFilteredItems.length })}
             </p>
             <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {allFilteredItems.map((item) => (
@@ -231,10 +233,10 @@ export default function Menu() {
                 <div className="w-16 h-16 bg-dark-800/60 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <Search size={24} className="text-gray-500" />
                 </div>
-                <p className="text-gray-400 text-lg mb-2">Нічого не знайдено</p>
-                <p className="text-gray-500 text-sm mb-6">Спробуйте інший запит</p>
+                <p className="text-gray-400 text-lg mb-2">{t('menu.not_found')}</p>
+                <p className="text-gray-500 text-sm mb-6">{t('menu.try_another')}</p>
                 <button type="button" onClick={() => setSearch('')} className="text-sm text-red-500 hover:text-red-400 transition-colors font-medium">
-                  Скинути пошук
+                  {t('menu.reset_search')}
                 </button>
               </div>
             )}
@@ -265,7 +267,7 @@ export default function Menu() {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-gray-500 text-sm py-8 text-center">Немає страв у цій категорії</p>
+                    <p className="text-gray-500 text-sm py-8 text-center">{t('menu.no_items')}</p>
                   )}
                 </motion.div>
               </section>
@@ -277,14 +279,14 @@ export default function Menu() {
                 viewport={{ once: false }}
                 className="text-center pt-6 border-t border-white/10"
               >
-                <p className="text-sm text-gray-400 mb-3">Шукаєте інший алкоголь?</p>
+                <p className="text-sm text-gray-400 mb-3">{t('menu.looking_for_more')}</p>
                 <button
                   type="button"
                   onClick={() => selectSection(validSections.find((s) => s.hurl === 'section:bar'))}
                   className="inline-flex items-center gap-2 rounded-lg border border-red-500/30 bg-dark-800/50 px-6 py-3 text-sm font-semibold text-red-400 transition-all duration-300 hover:bg-red-500 hover:text-cream-50 hover:shadow-lg hover:shadow-red-500/15"
                 >
                   <Wine size={16} />
-                  Перейти до бару
+                  {t('menu.go_to_bar')}
                 </button>
               </motion.div>
             )}
@@ -309,6 +311,7 @@ export default function Menu() {
 }
 
 function MenuItemCard({ item, imgError, onImgError, onOpen }) {
+  const t = useT()
   return (
     <motion.button
       type="button"
@@ -320,7 +323,7 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
       whileHover={{ y: -3 }}
       onClick={onOpen}
       className="group w-full overflow-hidden rounded-lg border border-cream-200 bg-cream-50 text-left transition-all duration-300 hover:border-red-500/30 hover:bg-cream-100 focus-ring-sm shadow-lg shadow-black/10"
-      aria-label={`Відкрити страву ${item.name}`}
+      aria-label={t('menu.open_dish', { name: item.name })}
     >
       <div className="relative h-44 bg-cream-100 overflow-hidden">
         {item.media && !imgError ? (
@@ -342,7 +345,7 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
           </span>
         )}
         <span className="absolute bottom-3 left-3 rounded-lg bg-dark-900/90 px-3 py-1.5 text-xs font-semibold text-cream-50 opacity-0 shadow-lg shadow-black/25 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-          Детальніше
+          {t('menu.details')}
         </span>
       </div>
       <div className="p-5">
@@ -361,7 +364,7 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
           <p className="text-xs text-gray-500 mt-3">{item.categoryName}</p>
         )}
         {item.weight && (
-          <p className="text-xs text-gray-500 mt-2">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</p>
+          <p className="text-xs text-gray-500 mt-2">{item.weight} {item.weightType === 'ml' ? t('menu.weight_ml') : t('menu.weight_g')}</p>
         )}
       </div>
     </motion.button>

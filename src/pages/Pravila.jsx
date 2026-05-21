@@ -1,29 +1,44 @@
 import { motion } from 'framer-motion'
 import { BookText } from 'lucide-react'
 import SectionTitle from '../components/ui/SectionTitle.jsx'
+import { useT } from '../i18n/context.jsx'
+
+const rulesWithT = (t) => [
+  { title: t('pravila.dress_code'), text: t('pravila.dress_code_text') },
+  { title: t('pravila.booking'), text: t('pravila.booking_text') },
+  { title: t('pravila.smoking'), text: t('pravila.smoking_text') },
+  { title: t('pravila.age'), text: t('pravila.age_text') },
+  { title: t('pravila.music'), text: t('pravila.music_text') },
+  { title: t('pravila.behavior'), text: t('pravila.behavior_text') },
+  { title: t('pravila.photo'), text: t('pravila.photo_text') },
+]
+
+const infoWithT = (t) => [
+  { title: t('pravila.schedule'), text: t('pravila.schedule_text') },
+  { title: t('pravila.contacts'), text: t('pravila.contacts_text') },
+  { title: t('pravila.directions'), text: t('pravila.directions_text') },
+  { title: t('pravila.parking'), text: t('pravila.parking_text') },
+  { title: t('pravila.rental'), text: t('pravila.rental_text') },
+]
 
 export default function Pravila() {
+  const t = useT()
+  const rules = rulesWithT(t)
+  const info = infoWithT(t)
+
   return (
     <div className="page-container pb-24">
       <div className="page-content">
-        <SectionTitle subtitle="Правила та інформація">Про заклад</SectionTitle>
+        <SectionTitle subtitle={t('pravila.subtitle')}>{t('pravila.title')}</SectionTitle>
 
         <div className="max-w-3xl mx-auto space-y-10">
           <div>
             <h3 className="text-xl sm:text-2xl font-display font-bold text-cream-50 mb-4 flex items-center gap-3">
               <BookText size={22} className="text-red-500" />
-              Правила закладу
+              {t('pravila.rules_title')}
             </h3>
             <div className="space-y-4">
-              {[
-                { title: 'Дресс-код', text: 'Відвідувачі повинні бути одягнені у відповідному стилі. Чоловікам рекомендується діловий або smart casual одяг. Спортивний одяг та взуття не допускаються.' },
-                { title: 'Бронювання столиків', text: 'Бронювання столиків здійснюється за телефоном або через офіційні канали зв\'язку. При запізненні понад 15 хвилин бронювання може бути скасоване.' },
-                { title: 'Політика щодо паління', text: 'Паління дозволене лише у спеціально відведених для цього місцях на терасі. Паління кальяну та електронних сигарет дозволене лише у зонах, визначених адміністрацією.' },
-                { title: 'Вікові обмеження', text: 'Заклад призначений для осіб, які досягли 18 років. Особи, молодші 18 років, можуть перебувати в закладі лише в супроводі батьків до 20:00.' },
-                { title: 'Музичний формат та розваги', text: 'У закладі працює жива музика та DJ-сети. Розклад музичних виступів уточнюйте в адміністрації. Рівень шуму регулюється відповідно до формату вечора.' },
-                { title: 'Правила поведінки', text: 'Гості зобов\'язані дотримуватися правил поведінки в закладі. Забороняється проявляти агресію, порушувати громадський порядок та створювати незручності для інших відвідувачів.' },
-                { title: 'Фото- та відеозйомка', text: 'Фото- та відеозйомка в закладі дозволена для особистого використання. Професійна зйомка потребує попереднього узгодження з адміністрацією.' },
-              ].map((rule, i) => (
+              {rules.map((rule, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 12 }}
@@ -40,16 +55,10 @@ export default function Pravila() {
           <div>
             <h3 className="text-xl sm:text-2xl font-display font-bold text-cream-50 mb-4 flex items-center gap-3">
               <BookText size={22} className="text-red-500" />
-              Інформація
+              {t('pravila.info_title')}
             </h3>
             <div className="space-y-4">
-              {[
-                { title: 'Графік роботи', text: 'Понеділок: 12:00 – 22:00\nВівторок – Неділя: 11:00 – 22:00\nСвяткові дні: графік роботи узгоджується з адміністрацією.' },
-                { title: 'Контакти', text: 'Телефон: +380678287777\nEmail: theriverpremium@gmail.com\nFacebook: facebook.com/theriver.premium\nInstagram: @theriver_premium' },
-                { title: 'Як дістатися', text: 'Заклад знаходиться в центрі Тернополя за адресою вул. Чумацька, 1А. Зручне розташування з доступом до головних транспортних артерій міста.' },
-                { title: 'Паркінг', text: 'Для гостей закладу доступний безкоштовний паркінг поруч із рестораном. Кількість місць обмежена, рекомендуємо бронювати заздалегідь.' },
-                { title: 'Оренда закладу', text: 'Ресторанний комплекс The River пропонує можливість оренди для проведення приватних заходів, банкетів, корпоративів та святкувань. Деталі уточнюйте в адміністрації.' },
-              ].map((info, i) => (
+              {info.map((infoItem, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 12 }}
@@ -57,8 +66,8 @@ export default function Pravila() {
                   viewport={{ once: false }}
                   className="glass rounded-lg p-5 border border-dark-600/30"
                 >
-                  <h4 className="text-sm font-bold text-red-400 mb-2">{info.title}</h4>
-                  <p className="text-sm text-gray-400 leading-relaxed whitespace-pre-line">{info.text}</p>
+                  <h4 className="text-sm font-bold text-red-400 mb-2">{infoItem.title}</h4>
+                  <p className="text-sm text-gray-400 leading-relaxed whitespace-pre-line">{infoItem.text}</p>
                 </motion.div>
               ))}
             </div>

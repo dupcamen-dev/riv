@@ -3,6 +3,7 @@ import { Phone, Mail, MapPin, Clock, Camera, Globe } from 'lucide-react'
 import SectionTitle from '../components/ui/SectionTitle.jsx'
 import { place } from '../data/restaurant.js'
 import { useState } from 'react'
+import { useT } from '../i18n/context.jsx'
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
@@ -11,21 +12,22 @@ const fadeUp = {
 }
 
 export default function Contact({ dark }) {
+  const t = useT()
   const coords = place.coordinates || { lat: 49.5533903, lng: 25.5718593 }
   const [mapError, setMapError] = useState(false)
 
   return (
     <div className="page-container py-24">
       <div className="page-content">
-        <SectionTitle subtitle="Контакти" dark={dark}>Як нас знайти</SectionTitle>
+        <SectionTitle subtitle={t('contact.subtitle')} dark={dark}>{t('contact.title')}</SectionTitle>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
           <div className="space-y-4">
             {[
-              { icon: MapPin, title: 'Адреса', value: place.location },
-              { icon: Phone, title: 'Телефон', value: place.phone, href: `tel:${place.phone}` },
-              { icon: Mail, title: 'Email', value: place.email, href: `mailto:${place.email}` },
-              { icon: Clock, title: 'Години роботи', value: 'Пн–Чт: 12:00–22:00\nПт–Сб: 12:00–23:00\nНд: 11:00–22:00' },
+              { icon: MapPin, title: t('contact.address'), value: place.location },
+              { icon: Phone, title: t('contact.phone'), value: place.phone, href: `tel:${place.phone}` },
+              { icon: Mail, title: t('contact.email'), value: place.email, href: `mailto:${place.email}` },
+              { icon: Clock, title: t('contact.hours'), value: t('contact.hours_value') },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -94,7 +96,7 @@ export default function Contact({ dark }) {
           >
             {mapError ? (
               <div className="w-full h-full flex items-center justify-center bg-dark-800/80">
-                <p className="text-gray-500 text-sm">Карта недоступна</p>
+                <p className="text-gray-500 text-sm">{t('contact.map_unavailable')}</p>
               </div>
             ) : (
               <iframe

@@ -1,5 +1,6 @@
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
 import UkrainianDatePicker from './UkrainianDatePicker.jsx'
+import { useT } from '../../i18n/context.jsx'
 
 export default function FormInput({
   label,
@@ -14,6 +15,8 @@ export default function FormInput({
   showValidation = true,
   ...props
 }) {
+  const t = useT()
+
   if (type === 'date') {
     return (
       <div className={`w-full ${containerClassName}`}>
@@ -53,7 +56,7 @@ export default function FormInput({
         )}
       </div>
       {error && <span className="error-text">{error}</span>}
-      {success && showValidation && <span className="success-text">Виглядає добре</span>}
+      {success && showValidation && <span className="success-text">{t('form.looks_good')}</span>}
     </div>
   )
 }

@@ -1,21 +1,23 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Camera, Globe, Mail, MapPin, Phone } from 'lucide-react'
 import { place } from '../../data/restaurant.js'
+import { useT } from '../../i18n/context.jsx'
 
 const footerLinks = [
-  { to: '/menu', label: 'Меню' },
-  { to: '/', label: 'Популярне', section: 'popular' },
-  { to: '/', label: 'Контакти', section: 'contact' },
-  { to: '/', label: 'Відгуки', section: 'feedback' },
-  { to: '/info', label: 'Інформація' },
-  { to: '/terms', label: 'Умови' },
-  { to: '/privacy', label: 'Конфіденційність' },
+  { to: '/menu', key: 'footer.menu' },
+  { to: '/', key: 'footer.popular', section: 'popular' },
+  { to: '/', key: 'footer.contacts', section: 'contact' },
+  { to: '/', key: 'footer.feedback', section: 'feedback' },
+  { to: '/info', key: 'footer.info' },
+  { to: '/terms', key: 'footer.terms' },
+  { to: '/privacy', key: 'footer.privacy' },
 ]
 
 export default function Footer({ onOpenBooking }) {
   const navigate = useNavigate()
   const location = useLocation()
   const currentPath = location.pathname
+  const t = useT()
 
   const scrollToSection = (sectionId) => {
     if (currentPath !== '/') {
@@ -37,12 +39,12 @@ export default function Footer({ onOpenBooking }) {
               </span>
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-gray-400">
-              Преміальний клуб у Тернополі із заміською атмосферою, авторською кухнею і баром.
+              {t('footer.desc')}
             </p>
           </div>
 
           <div className="md:col-span-3">
-            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.14em] text-cream-100">Навігація</h4>
+            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.14em] text-cream-100">{t('footer.nav')}</h4>
             <div className="space-y-2.5">
               {footerLinks.map((link) =>
                 link.section ? (
@@ -52,15 +54,15 @@ export default function Footer({ onOpenBooking }) {
                     onClick={() => scrollToSection(link.section)}
                     className="block px-1 text-left text-sm text-gray-400 transition-colors hover:text-red-400 focus-ring-sm"
                   >
-                    {link.label}
+                    {t(link.key)}
                   </button>
                 ) : (
-                  <Link
+                    <Link
                     key={link.to}
                     to={link.to}
                     className="block px-1 text-sm text-gray-400 transition-colors hover:text-red-400 focus-ring-sm"
                   >
-                    {link.label}
+                    {t(link.key)}
                   </Link>
                 )
               )}
@@ -69,13 +71,13 @@ export default function Footer({ onOpenBooking }) {
                 onClick={onOpenBooking}
                 className="block px-1 text-left text-sm text-gray-400 transition-colors hover:text-red-400 focus-ring-sm"
               >
-                Бронювання
+                {t('footer.booking')}
               </button>
             </div>
           </div>
 
           <div className="md:col-span-5">
-            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.14em] text-cream-100">Контакти</h4>
+            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.14em] text-cream-100">{t('footer.contact_title')}</h4>
             <div className="space-y-3.5">
               <a href={`tel:${place.phone}`} className="flex items-center gap-3 text-sm text-cream-100 transition-colors hover:text-red-400 focus-ring-sm">
                 <Phone size={14} className="shrink-0 text-red-400" />

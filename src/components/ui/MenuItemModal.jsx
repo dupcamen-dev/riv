@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { X } from 'lucide-react'
+import { useT } from '../../i18n/context.jsx'
 
 const resolveUrl = (url) => {
   if (!url) return ''
@@ -16,12 +17,14 @@ const getDishImage = (media, mode = 'card') => {
   return resolveUrl(url)
 }
 
-const formatWeight = (item) => {
-  if (!item.weight) return null
-  return `${item.weight} ${item.weightType === 'ml' ? 'мл' : 'г'}`
-}
-
 export default function DishModal({ item, imgError, onImgError, onClose }) {
+  const t = useT()
+
+  const formatWeight = (item) => {
+    if (!item.weight) return null
+    return `${item.weight} ${item.weightType === 'ml' ? t('menu.weight_ml') : t('menu.weight_g')}`
+  }
+
   useEffect(() => {
     if (!item) return undefined
     const previousOverflow = document.body.style.overflow
@@ -63,7 +66,7 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
           type="button"
           onClick={onClose}
           className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-lg bg-dark-800/90 text-gray-400 shadow-lg shadow-black/25 backdrop-blur-sm transition-colors hover:text-cream-50 focus-ring-sm"
-          aria-label="Закрити"
+          aria-label={t('dish.close')}
         >
           <X size={20} />
         </button>
@@ -111,17 +114,17 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
 
             <div className="space-y-5">
               <section>
-                <h4 className="mb-2 text-sm font-bold text-cream-50">Опис і склад</h4>
+                <h4 className="mb-2 text-sm font-bold text-cream-50">{t('dish.description')}</h4>
                 {item.description ? (
                   <p className="whitespace-pre-line text-sm leading-6 text-gray-400">{item.description}</p>
                 ) : (
-                  <p className="text-sm leading-6 text-gray-500">Опис або склад для цієї страви ще не додано.</p>
+                  <p className="text-sm leading-6 text-gray-500">{t('dish.no_description')}</p>
                 )}
               </section>
 
               {item.categoryDescription && (
                 <section className="rounded-lg border border-white/10 bg-dark-800/70 p-4">
-                  <h4 className="mb-2 text-sm font-bold text-cream-50">Примітка категорії</h4>
+                  <h4 className="mb-2 text-sm font-bold text-cream-50">{t('dish.category_note')}</h4>
                   <p className="whitespace-pre-line text-sm leading-6 text-gray-400">{item.categoryDescription}</p>
                 </section>
               )}
@@ -129,13 +132,13 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
               <div className="grid grid-cols-2 gap-3 text-sm">
                 {item.sectionName && (
                   <div className="rounded-lg border border-white/10 bg-dark-800/70 p-3">
-                    <p className="text-xs text-gray-500">Розділ</p>
+                    <p className="text-xs text-gray-500">{t('dish.section')}</p>
                     <p className="mt-1 font-semibold text-cream-50">{item.sectionName}</p>
                   </div>
                 )}
                 {weight && (
                   <div className="rounded-lg border border-white/10 bg-dark-800/70 p-3">
-                    <p className="text-xs text-gray-500">Вага</p>
+                    <p className="text-xs text-gray-500">{t('dish.weight')}</p>
                     <p className="mt-1 font-semibold text-cream-50">{weight}</p>
                   </div>
                 )}
