@@ -66,15 +66,14 @@ export default function Home({ onOpenBooking }) {
 
   return (
     <div>
-      {/* Hero — no photo, centered, modern */}
+      {/* Hero — cream background, red title, black text */}
       <section
         id="hero"
-        className="hero-grain relative overflow-hidden bg-dark-950 flex items-center justify-center"
+        className="relative overflow-hidden bg-cream-50 flex items-center justify-center"
         style={{ minHeight: 'clamp(600px, 100svh, 900px)' }}
       >
-        {/* Subtle gradient background instead of photo */}
-        <div className="absolute inset-0 bg-gradient-to-b from-dark-950 via-dark-900 to-dark-950" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(220,38,38,0.06)_0%,transparent_70%)]" />
+        {/* Subtle gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-cream-50 via-cream-50 to-cream-100" />
 
         <motion.div
           variants={stagger}
@@ -82,16 +81,17 @@ export default function Home({ onOpenBooking }) {
           animate="animate"
           className="page-content relative z-10 flex flex-col items-center text-center py-20 sm:py-24 lg:py-28"
         >
-          {/* Logo as text — centered, bold */}
+          {/* Badge */}
           <motion.div variants={fadeUp} className="mb-6">
             <span className="inline-block text-red-500 text-xs sm:text-sm font-bold uppercase tracking-[0.35em]">
               Premium Club — Тернопіль
             </span>
           </motion.div>
 
+          {/* Title — red */}
           <motion.h1
             variants={fadeUp}
-            className="text-7xl font-black text-cream-50 sm:text-8xl lg:text-9xl tracking-tight"
+            className="text-7xl font-black text-red-500 sm:text-8xl lg:text-9xl tracking-tight"
           >
             THE RIVER
           </motion.h1>
@@ -99,13 +99,15 @@ export default function Home({ onOpenBooking }) {
           {/* Red accent line */}
           <motion.div variants={fadeUp} className="w-24 h-1 bg-red-500 my-6 sm:my-8" />
 
+          {/* Description — black text */}
           <motion.p
             variants={fadeUp}
-            className="max-w-xl text-base sm:text-lg text-gray-300 leading-relaxed"
+            className="max-w-xl text-base sm:text-lg text-gray-700 leading-relaxed"
           >
             Преміальний клуб із авторською кухнею, баром та спокійною атмосферою для вечері, зустрічі або особливої події.
           </motion.p>
 
+          {/* Buttons */}
           <motion.div variants={fadeUp} className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Button to="/menu" size="lg" className="w-full sm:w-auto">
               Переглянути меню <ArrowRight size={18} />
@@ -115,9 +117,10 @@ export default function Home({ onOpenBooking }) {
             </Button>
           </motion.div>
 
+          {/* Facts — dark text on cream */}
           <motion.div
             variants={fadeUp}
-            className="mt-12 flex flex-col gap-3 border-t border-white/8 pt-6 text-sm font-medium text-gray-400 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-8 sm:gap-y-3"
+            className="mt-12 flex flex-col gap-3 border-t border-gray-200 pt-6 text-sm font-medium text-gray-600 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-8 sm:gap-y-3"
           >
             {heroFacts.map((item) => {
               const Icon = item.icon
@@ -129,7 +132,7 @@ export default function Home({ onOpenBooking }) {
               )
 
               return item.href ? (
-                <a key={item.label} href={item.href} className="flex items-center gap-2.5 hover:text-red-300 transition-colors">
+                <a key={item.label} href={item.href} className="flex items-center gap-2.5 hover:text-red-600 transition-colors">
                   {content}
                 </a>
               ) : (
@@ -142,8 +145,8 @@ export default function Home({ onOpenBooking }) {
         </motion.div>
       </section>
 
-      {/* Features section */}
-      <section className="page-container py-16 sm:py-22 lg:py-24">
+      {/* Features section — gray */}
+      <section className="bg-dark-900 page-container py-16 sm:py-22 lg:py-24">
         <div className="page-content">
           <SectionTitle subtitle="Про нас">Атмосфера преміального відпочинку</SectionTitle>
           <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 md:grid-cols-3">
@@ -169,19 +172,19 @@ export default function Home({ onOpenBooking }) {
         </div>
       </section>
 
-      {/* Popular section */}
-      <section id="popular" className="scroll-mt-24 border-t border-white/6 bg-dark-800/32 pt-16 sm:pt-20">
-        <Popular onOpenDish={(item) => setSelectedDish(item)} />
+      {/* Popular section — cream */}
+      <section id="popular" className="scroll-mt-24 bg-cream-50 border-t border-cream-200 pt-16 sm:pt-20">
+        <Popular onOpenDish={(item) => setSelectedDish(item)} light />
       </section>
 
-      {/* Contact section */}
-      <section id="contact" className="scroll-mt-24 border-t border-white/6 bg-dark-800/32 pt-16 sm:pt-20">
+      {/* Contact section — gray */}
+      <section id="contact" className="scroll-mt-24 border-t border-white/6 bg-dark-900 pt-16 sm:pt-20">
         <Contact />
       </section>
 
-      {/* Feedback section */}
-      <section id="feedback" className="scroll-mt-24 border-t border-white/6 pt-16 sm:pt-20">
-        <Feedback />
+      {/* Feedback section — cream */}
+      <section id="feedback" className="scroll-mt-24 bg-cream-50 border-t border-cream-200 pt-16 sm:pt-20">
+        <Feedback light />
       </section>
 
       <DishModal

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-export default function SectionTitle({ children, subtitle, className = '' }) {
+export default function SectionTitle({ children, subtitle, dark, className = '' }) {
   return (
     <motion.div
       initial={false}
@@ -14,7 +14,7 @@ export default function SectionTitle({ children, subtitle, className = '' }) {
           {subtitle}
         </p>
       )}
-      <h2 className="text-4xl sm:text-[2.75rem] lg:text-5xl font-display font-bold text-cream-50 leading-[1.02]">
+      <h2 className={`text-4xl sm:text-[2.75rem] lg:text-5xl font-display font-bold leading-[1.02] ${dark ? 'text-dark-900' : 'text-cream-50'}`}>
         {children}
       </h2>
       <div className="w-20 h-0.5 bg-red-500 mx-auto mt-5" />

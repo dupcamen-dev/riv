@@ -11,7 +11,7 @@ const fadeUp = {
   viewport: { once: false, margin: '-30px' },
 }
 
-export default function Popular({ onOpenDish }) {
+export default function Popular({ onOpenDish, light }) {
   const navigate = useNavigate()
   const popular = [...allMenuItems].sort((a, b) => b.price - a.price).slice(0, 12)
 
@@ -26,7 +26,7 @@ export default function Popular({ onOpenDish }) {
   return (
     <div className="page-container py-24">
       <div className="page-content">
-        <SectionTitle subtitle="Топ вибір">
+        <SectionTitle subtitle="Топ вибір" dark={light}>
           <span className="flex items-center justify-center gap-3">
             <Sparkles size={24} className="text-red-400" /> Популярні страви
           </span>
@@ -34,7 +34,7 @@ export default function Popular({ onOpenDish }) {
 
         {popular.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-gray-400">Немає популярних страв</p>
+            <p className={`${light ? 'text-gray-600' : 'text-gray-400'}`}>Немає популярних страв</p>
             <Button to="/menu" variant="outline" size="sm" className="mt-6">
               <ArrowLeft size={14} /> До меню
             </Button>
@@ -49,22 +49,26 @@ export default function Popular({ onOpenDish }) {
                 transition={{ delay: i * 0.04, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                 whileHover={{ y: -4 }}
                 onClick={() => openDish(item)}
-                className="group w-full rounded-lg border border-white/6 bg-dark-800/50 p-6 text-left shadow-lg shadow-black/15 transition-all duration-300 hover:border-red-500/30 hover:shadow-xl hover:shadow-black/20 hover:bg-dark-800/80 cursor-pointer"
+                className={`group w-full rounded-lg border p-6 text-left shadow-lg transition-all duration-300 hover:shadow-xl cursor-pointer ${
+                  light
+                    ? 'border-cream-200 bg-cream-50 text-dark-900 shadow-cream-200/50 hover:border-red-500/30 hover:shadow-red-500/10 hover:bg-cream-100'
+                    : 'border-white/6 bg-dark-800/50 text-cream-50 shadow-black/15 hover:border-red-500/30 hover:shadow-black/20 hover:bg-dark-800/80'
+                }`}
               >
-                <div className="flex items-start gap-4 mb-3">
-                  <span className="text-2xl font-bold text-red-500/20 font-display tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                  <div className="flex items-start gap-4 mb-3">
+                  <span className="text-2xl font-bold font-display tabular-nums ${light ? 'text-red-500/30' : 'text-red-500/20'}">{String(i + 1).padStart(2, '0')}</span>
                   <div className="min-w-0">
-                    <h3 className="text-sm font-semibold text-cream-50 group-hover:text-red-400 transition-colors leading-snug">
+                    <h3 className={`text-sm font-semibold leading-snug transition-colors group-hover:text-red-400 ${light ? 'text-dark-900' : 'text-cream-50'}`}>
                       {item.name}
                     </h3>
                     {item.description && (
-                      <p className="text-xs text-gray-400 mt-1.5 line-clamp-2 leading-relaxed">{item.description}</p>
+                      <p className={`text-xs mt-1.5 line-clamp-2 leading-relaxed ${light ? 'text-gray-600' : 'text-gray-400'}`}>{item.description}</p>
                     )}
                   </div>
                 </div>
-                <div className="flex items-center justify-between ml-10 pt-2 border-t border-white/6">
+                <div className={`flex items-center justify-between ml-10 pt-2 border-t ${light ? 'border-cream-200' : 'border-white/6'}`}>
                   {item.weight ? (
-                    <span className="text-xs text-gray-500">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</span>
+                    <span className={`text-xs ${light ? 'text-gray-500' : 'text-gray-500'}`}>{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</span>
                   ) : <span />}
                   <span className="text-base font-bold text-red-400 tabular-nums">{item.price.toLocaleString('uk-UA')} ₴</span>
                 </div>

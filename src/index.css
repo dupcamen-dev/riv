@@ -263,6 +263,12 @@
   border-radius: 4px;
 }
 
+/* Override label colors inside cream-background modals/forms */
+.booking-modal-form .label-base,
+.feedback-form-light .label-base {
+  color: var(--color-dark-900);
+}
+
 /* Hero grain texture overlay */
 .hero-grain::after {
   content: '';

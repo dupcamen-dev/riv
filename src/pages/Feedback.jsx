@@ -28,7 +28,7 @@ const validationRules = {
   },
 }
 
-export default function Feedback() {
+export default function Feedback({ light }) {
   const [rating, setRating] = useState(0)
   const [hover, setHover] = useState(0)
   const [form, setForm] = useState(initialForm)
@@ -85,8 +85,8 @@ export default function Feedback() {
             <div className="w-20 h-20 bg-red-500/10 rounded-lg flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="text-red-400" size={40} />
             </div>
-            <h2 className="text-3xl font-display font-bold text-cream-50 mb-4">Дякуємо!</h2>
-            <p className="text-gray-400 leading-relaxed">Ваш відгук допомагає нам ставати кращими.</p>
+            <h2 className={`text-3xl font-display font-bold mb-4 ${light ? 'text-dark-900' : 'text-cream-50'}`}>Дякуємо!</h2>
+            <p className={`leading-relaxed ${light ? 'text-gray-600' : 'text-gray-400'}`}>Ваш відгук допомагає нам ставати кращими.</p>
             <Button
               onClick={() => {
                 setSubmitted(false)
@@ -109,13 +109,13 @@ export default function Feedback() {
   return (
     <div className="page-container pb-20">
       <div className="page-content">
-        <SectionTitle subtitle="Відгуки">Ваша думка важлива</SectionTitle>
+        <SectionTitle subtitle="Відгуки" dark={light}>Ваша думка важлива</SectionTitle>
 
         <motion.form
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           onSubmit={handleSubmit}
-          className="max-w-lg mx-auto space-y-6"
+          className={`max-w-lg mx-auto space-y-6 ${light ? 'feedback-form-light' : ''}`}
         >
           <div className="text-center">
             <label className="label-base text-center block">
