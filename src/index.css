@@ -144,7 +144,7 @@
 }
 
 body.nav-hidden .menu-section-tabs {
-  top: 0;
+  top: 12px;
 }
 
 .menu-category-nav {
@@ -154,7 +154,7 @@ body.nav-hidden .menu-section-tabs {
 }
 
 body.nav-hidden .menu-category-nav {
-  top: 56px;
+  top: 68px;
 }
 
 .menu-category-section {
@@ -171,7 +171,7 @@ body.nav-hidden .menu-category-nav {
   }
 
   body.nav-hidden .menu-section-tabs {
-    top: 0;
+    top: 16px;
   }
 
   .menu-category-nav {
@@ -179,7 +179,7 @@ body.nav-hidden .menu-category-nav {
   }
 
   body.nav-hidden .menu-category-nav {
-    top: 60px;
+    top: 76px;
   }
 
   .menu-category-section {
