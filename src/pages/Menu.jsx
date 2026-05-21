@@ -138,7 +138,7 @@ export default function Menu() {
   }, [categoryNavItems])
 
   return (
-    <div className="page-container pb-24">
+    <div className="page-container pb-24 bg-dark-700">
       <div className="page-content">
         <SectionTitle subtitle="Наше меню">Оберіть розділ</SectionTitle>
 
@@ -319,10 +319,10 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
       layout
       whileHover={{ y: -3 }}
       onClick={onOpen}
-      className="group w-full overflow-hidden rounded-lg border border-white/6 bg-dark-800/50 text-left transition-all duration-300 hover:border-red-500/30 hover:bg-dark-800/80 focus-ring-sm shadow-lg shadow-black/15"
+      className="group w-full overflow-hidden rounded-lg border border-cream-200 bg-cream-50 text-left transition-all duration-300 hover:border-red-500/30 hover:bg-cream-100 focus-ring-sm shadow-lg shadow-black/10"
       aria-label={`Відкрити страву ${item.name}`}
     >
-      <div className="relative h-44 bg-dark-800 overflow-hidden">
+      <div className="relative h-44 bg-cream-100 overflow-hidden">
         {item.media && !imgError ? (
           <img
             src={getDishImage(item.media)}
@@ -332,12 +332,12 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
             className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-dark-800">
+          <div className="w-full h-full flex items-center justify-center bg-cream-100">
             <span className="text-5xl text-red-500/20 font-display">✦</span>
           </div>
         )}
         {item.alcohol > 0 && (
-          <span className="absolute top-3 right-3 bg-dark-900/80 backdrop-blur-sm text-[10px] text-red-400 px-2 py-0.5 rounded-full border border-red-500/30 font-semibold">
+          <span className="absolute top-3 right-3 bg-cream-50/80 backdrop-blur-sm text-[10px] text-red-500 px-2 py-0.5 rounded-full border border-red-500/30 font-semibold">
             18+
           </span>
         )}
@@ -347,15 +347,15 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
       </div>
       <div className="p-5">
         <div className="flex items-start justify-between gap-4">
-          <h4 className="text-sm font-semibold text-cream-50 group-hover:text-red-400 transition-colors leading-snug flex-1 min-w-0">
+          <h4 className="text-sm font-semibold text-dark-900 group-hover:text-red-500 transition-colors leading-snug flex-1 min-w-0">
             {item.name}
           </h4>
-          <span className="text-base font-bold text-red-400 whitespace-nowrap shrink-0 tabular-nums">
+          <span className="text-base font-bold text-red-500 whitespace-nowrap shrink-0 tabular-nums">
             {item.price.toLocaleString('uk-UA')} ₴
           </span>
         </div>
         {item.description && (
-          <p className="text-xs text-gray-400 mt-2 leading-relaxed line-clamp-2">{item.description}</p>
+          <p className="text-xs text-gray-600 mt-2 leading-relaxed line-clamp-2">{item.description}</p>
         )}
         {item.categoryName && (
           <p className="text-xs text-gray-500 mt-3">{item.categoryName}</p>
