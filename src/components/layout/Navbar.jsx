@@ -11,6 +11,7 @@ const sectionLinks = [
 
 export default function Navbar({ onOpenBooking }) {
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [open, setOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
@@ -18,11 +19,26 @@ export default function Navbar({ onOpenBooking }) {
   const currentPath = location.pathname
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    let lastScroll = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 24)
+      if (y > 80 && y > lastScroll) {
+        setHidden(true)
+      } else {
+        setHidden(false)
+      }
+      lastScroll = y
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    document.body.classList.toggle('nav-hidden', hidden)
+    return () => document.body.classList.remove('nav-hidden')
+  }, [hidden])
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => setOpen(false), 0)
@@ -69,6 +85,8 @@ export default function Navbar({ onOpenBooking }) {
     <>
     <nav
       className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
+        hidden ? '-translate-y-full' : 'translate-y-0'
+      } ${
         scrolled
           ? 'border-white/8 bg-dark-950/95 backdrop-blur-xl shadow-lg shadow-black/30'
           : 'border-white/4 bg-dark-950/80 backdrop-blur-lg'

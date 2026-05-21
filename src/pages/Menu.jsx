@@ -157,7 +157,7 @@ export default function Menu() {
           </div>
         </div>
 
-        <div className="menu-section-tabs sticky top-[72px] z-30 bg-dark-900 pb-3 mb-8 lg:top-[84px]">
+        <div className="menu-section-tabs sticky z-30 bg-dark-900 pb-3 mb-8">
           <div className="flex gap-1 overflow-x-auto scrollbar-none justify-start lg:flex-wrap lg:overflow-visible lg:justify-center">
             {validSections.map((section) => {
               const Icon = sectionIcons[section.hurl]

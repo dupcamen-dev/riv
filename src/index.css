@@ -139,10 +139,22 @@
   padding-top: 72px;
 }
 
+.menu-section-tabs {
+  top: 72px;
+}
+
+body.nav-hidden .menu-section-tabs {
+  top: 0;
+}
+
 .menu-category-nav {
   position: sticky;
   top: 132px;
   z-index: 35;
+}
+
+body.nav-hidden .menu-category-nav {
+  top: 56px;
 }
 
 .menu-category-section {
@@ -154,8 +166,20 @@
     padding-top: 84px;
   }
 
+  .menu-section-tabs {
+    top: 84px;
+  }
+
+  body.nav-hidden .menu-section-tabs {
+    top: 0;
+  }
+
   .menu-category-nav {
     top: 148px;
+  }
+
+  body.nav-hidden .menu-category-nav {
+    top: 60px;
   }
 
   .menu-category-section {
