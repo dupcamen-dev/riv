@@ -42,7 +42,7 @@ export default function Contact({ dark }) {
                   <item.icon size={18} className="text-red-400" />
                 </motion.div>
                 <div className="min-w-0">
-                  <h3 className="text-[10px] font-semibold tracking-normal uppercase text-gray-500 mb-1">{item.title}</h3>
+                  <h3 className="text-[10px] font-display font-semibold tracking-normal uppercase text-cream-50 mb-1">{item.title}</h3>
                   {item.href ? (
                     <motion.a
                       href={item.href}
@@ -52,7 +52,7 @@ export default function Contact({ dark }) {
                       {item.value}
                     </motion.a>
                   ) : (
-                    <p className="text-sm text-gray-400 whitespace-pre-line leading-relaxed">{item.value}</p>
+                    <p className="text-sm text-cream-100 whitespace-pre-line leading-relaxed">{item.value}</p>
                   )}
                 </div>
               </motion.div>
