@@ -1,16 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { CalendarCheck, X } from 'lucide-react'
-
-const links = [
-  { to: '/', label: 'Головна', section: 'hero' },
-  { to: '/menu', label: 'Меню' },
-]
+import { CalendarCheck } from 'lucide-react'
 
 const sectionLinks = [
   { section: 'popular', label: 'Популярне' },
-  { section: 'wine', label: 'Винна карта' },
   { section: 'contact', label: 'Контакти' },
   { section: 'feedback', label: 'Відгуки' },
 ]
@@ -59,13 +53,13 @@ export default function Navbar({ onOpenBooking }) {
     }
   }
 
-  const renderNavItem = (label, section, isActive) => (
+  const renderNavItem = (label, isActive) => (
     <>
       {label}
       {isActive && (
         <motion.div
           layoutId="nav-underline"
-          className="absolute -bottom-1 left-3 right-3 h-px bg-gold-400"
+          className="absolute -bottom-1 left-3 right-3 h-0.5 bg-red-500"
         />
       )}
     </>
@@ -76,8 +70,8 @@ export default function Navbar({ onOpenBooking }) {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
         scrolled
-          ? 'border-white/10 bg-dark-950/92 backdrop-blur-xl shadow-lg shadow-black/25'
-          : 'border-white/6 bg-dark-950/74 backdrop-blur-lg'
+          ? 'border-white/8 bg-dark-950/95 backdrop-blur-xl shadow-lg shadow-black/30'
+          : 'border-white/4 bg-dark-950/80 backdrop-blur-lg'
       }`}
       role="navigation"
       aria-label="Головна навігація"
@@ -85,8 +79,8 @@ export default function Navbar({ onOpenBooking }) {
       <div className="page-content">
         <div className="relative flex h-[72px] items-center justify-between gap-4 pr-14 lg:h-[84px] lg:pr-0">
           <Link to="/" className="flex-1 lg:flex-none flex items-center focus-ring-sm" aria-label="На головну">
-            <span className="flex h-16 w-full items-center justify-start overflow-hidden lg:h-[72px]">
-              <img src={`${import.meta.env.BASE_URL}img/logo.webp`} alt="" className="h-16 w-auto max-w-full object-contain lg:h-[72px]" />
+            <span className="font-display text-2xl font-black text-cream-50 tracking-tight">
+              THE<span className="text-red-500">.</span>RIVER
             </span>
           </Link>
 
@@ -95,25 +89,25 @@ export default function Navbar({ onOpenBooking }) {
               to="/"
               onClick={() => scrollToSection('hero')}
               className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg transition-colors duration-300 focus-ring-sm xl:px-4 ${
-                 currentPath === '/' ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
+                 currentPath === '/' ? 'text-red-400' : 'text-gray-300 hover:bg-white/4 hover:text-cream-50'
                }`}
             >
-              {renderNavItem('Головна', 'hero', currentPath === '/')}
+              {renderNavItem('Головна', currentPath === '/')}
             </Link>
             <Link
               to="/menu"
               className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg transition-colors duration-300 focus-ring-sm xl:px-4 ${
-                 currentPath === '/menu' ? 'text-gold-300' : 'text-light-300 hover:bg-white/6 hover:text-light-100'
+                 currentPath === '/menu' ? 'text-red-400' : 'text-gray-300 hover:bg-white/4 hover:text-cream-50'
                }`}
             >
-              {renderNavItem('Меню', 'menu', currentPath === '/menu')}
+              {renderNavItem('Меню', currentPath === '/menu')}
             </Link>
             {sectionLinks.map((s) => (
               <button
                 key={s.section}
                 type="button"
                 onClick={() => scrollToSection(s.section)}
-                className="relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg text-light-300 transition-colors duration-300 hover:bg-white/6 hover:text-light-100 focus-ring-sm xl:px-4"
+                className="relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg text-gray-300 transition-colors duration-300 hover:bg-white/4 hover:text-cream-50 focus-ring-sm xl:px-4"
               >
                 {s.label}
               </button>
@@ -123,7 +117,7 @@ export default function Navbar({ onOpenBooking }) {
           <button
             type="button"
             onClick={onOpenBooking}
-            className="hidden shrink-0 items-center justify-center gap-2 rounded-lg border border-gold-300/25 bg-gold-500 px-4 py-2.5 text-sm font-bold text-dark-950 shadow-lg shadow-gold-500/15 transition-colors duration-300 hover:bg-gold-400 focus-ring-sm lg:inline-flex xl:px-5"
+            className="hidden shrink-0 items-center justify-center gap-2 rounded-lg bg-red-500 px-4 py-2.5 text-sm font-bold text-cream-50 shadow-lg shadow-red-500/20 transition-colors duration-300 hover:bg-red-600 focus-ring-sm lg:inline-flex xl:px-5"
           >
             <CalendarCheck size={16} />
             Бронювання
@@ -132,7 +126,7 @@ export default function Navbar({ onOpenBooking }) {
           <button
             type="button"
             onClick={() => setOpen(!open)}
-            className="absolute right-0 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg border border-gold-300/25 bg-gold-500 text-dark-950 shadow-lg shadow-gold-500/15 transition-colors hover:bg-gold-400 focus-ring-sm lg:hidden"
+            className="absolute right-0 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg bg-red-500 text-cream-50 shadow-lg shadow-red-500/20 transition-colors hover:bg-red-600 focus-ring-sm lg:hidden"
             aria-label={open ? 'Закрити меню' : 'Відкрити меню'}
             aria-expanded={open}
           >
@@ -166,14 +160,14 @@ export default function Navbar({ onOpenBooking }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-          className="fixed inset-x-0 top-[72px] bottom-0 z-40 flex flex-col items-center justify-center gap-6 bg-dark-950/70 backdrop-blur-xl px-5 pb-10 shadow-2xl overflow-y-auto lg:hidden"
+          className="fixed inset-x-0 top-[72px] bottom-0 z-40 flex flex-col items-center justify-center gap-6 bg-dark-950/80 backdrop-blur-xl px-5 pb-10 shadow-2xl overflow-y-auto lg:hidden"
         >
             <div className="flex flex-col items-center gap-2">
               <Link
                 to="/"
                 onClick={() => { setOpen(false); scrollToSection('hero') }}
                 className={`block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm ${
-                  currentPath === '/' ? 'text-gold-300' : 'text-light-300 hover:text-light-100'
+                  currentPath === '/' ? 'text-red-400' : 'text-gray-300 hover:text-cream-50'
                 }`}
               >
                 Головна
@@ -182,7 +176,7 @@ export default function Navbar({ onOpenBooking }) {
                 to="/menu"
                 onClick={() => setOpen(false)}
                 className={`block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm ${
-                  currentPath === '/menu' ? 'text-gold-300' : 'text-light-300 hover:text-light-100'
+                  currentPath === '/menu' ? 'text-red-400' : 'text-gray-300 hover:text-cream-50'
                 }`}
               >
                 Меню
@@ -192,7 +186,7 @@ export default function Navbar({ onOpenBooking }) {
                   key={s.section}
                   type="button"
                   onClick={() => scrollToSection(s.section, true)}
-                  className="block w-full text-center px-8 py-3 text-lg font-semibold text-light-300 transition-all rounded-lg hover:bg-white/6 hover:text-light-100 focus-ring-sm"
+                  className="block w-full text-center px-8 py-3 text-lg font-semibold text-gray-300 transition-all rounded-lg hover:bg-white/4 hover:text-cream-50 focus-ring-sm"
                 >
                   {s.label}
                 </button>
@@ -205,7 +199,7 @@ export default function Navbar({ onOpenBooking }) {
                 setOpen(false)
                 onOpenBooking()
               }}
-              className="mt-4 flex min-h-12 w-64 items-center justify-center gap-2 rounded-lg border border-gold-300/25 bg-gold-500 px-5 py-3 text-sm font-bold text-dark-950 transition-colors hover:bg-gold-400 focus-ring"
+              className="mt-4 flex min-h-12 w-64 items-center justify-center gap-2 rounded-lg bg-red-500 px-5 py-3 text-sm font-bold text-cream-50 transition-colors hover:bg-red-600 focus-ring"
             >
               <CalendarCheck size={17} />
               Забронювати столик

@@ -54,31 +54,18 @@ export default function Menu() {
   const [search, setSearch] = useState('')
   const [imgErrors, setImgErrors] = useState({})
   const [activeCategory, setActiveCategory] = useState('')
-  const [selectedItem, setSelectedItem] = useState(null)
   const searchQuery = useMemo(() => normalizeSearch(search), [search])
 
   const validSections = useMemo(() => sections.filter((s) => s.hurl), [])
+  const initialItemHurl = searchParams.get('item')
+  const [selectedItem, setSelectedItem] = useState(
+    () => initialItemHurl ? allMenuItems.find((i) => i.hurl === initialItemHurl) || null : null
+  )
+
   const currentSection = useMemo(
     () => validSections.find((s) => s.hurl === activeSection) || validSections[0],
     [validSections, activeSection]
   )
-
-  useEffect(() => {
-    const itemHurl = searchParams.get('item')
-    if (!itemHurl || selectedItem) return
-    const found = allMenuItems.find((i) => i.hurl === itemHurl)
-    if (found) {
-      setSelectedItem(found)
-      for (const section of validSections) {
-        for (const cat of Object.values(section.categories)) {
-          if (cat.items.some((i) => i.hurl === itemHurl)) {
-            setSearchParams({ section: section.hurl, item: itemHurl })
-            return
-          }
-        }
-      }
-    }
-  }, [])
 
   const filteredCategories = useMemo(() => {
     if (!currentSection) return []
@@ -154,16 +141,16 @@ export default function Menu() {
 
         <div className="max-w-md mx-auto mb-6">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-light-400/60 pointer-events-none" size={18} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={18} />
             <input
               type="text"
               placeholder="Пошук страв..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full border border-white/10 bg-dark-800/80 py-3.5 pl-12 pr-10 text-sm text-light-100 placeholder:text-light-400/60 transition-all duration-300 focus:border-gold-400/60 focus:bg-dark-800 focus:outline-none focus:ring-2 focus:ring-gold-500/35"
+              className="w-full border border-white/10 bg-dark-800/80 py-3.5 pl-12 pr-10 text-sm text-cream-100 placeholder:text-gray-500 transition-all duration-300 focus:border-red-400/60 focus:bg-dark-800 focus:outline-none focus:ring-2 focus:ring-red-500/35"
             />
             {search && (
-              <button type="button" onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-light-400 hover:text-light-100 transition-colors">
+              <button type="button" onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-cream-50 transition-colors">
                 <X size={16} />
               </button>
             )}
@@ -181,12 +168,12 @@ export default function Menu() {
                 onClick={() => selectSection(section)}
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-300 shrink-0 border ${
                   isActive
-                    ? 'bg-gold-500 text-dark-900 border-transparent shadow-lg shadow-gold-500/15'
-                    : 'glass border-dark-600/30 text-light-400 hover:border-gold-500/30 hover:text-light-100'
+                    ? 'bg-red-500 text-cream-50 border-transparent shadow-lg shadow-red-500/15'
+                    : 'glass border-dark-600/30 text-gray-400 hover:border-red-500/30 hover:text-cream-50'
                 }`}
               >
                 {Icon && <Icon size={16} />}
-                {section.name}
+                <span>{section.name}</span>
               </button>
             )
           })}
@@ -195,8 +182,8 @@ export default function Menu() {
         {currentSection?.hurl === 'section:pravila' ? (
           <div className="max-w-3xl mx-auto space-y-10">
             <div>
-              <h3 className="text-xl sm:text-2xl font-serif font-bold text-light-100 mb-4 flex items-center gap-3">
-                <BookText size={22} className="text-gold-500" />
+              <h3 className="text-xl sm:text-2xl font-display font-bold text-cream-50 mb-4 flex items-center gap-3">
+                <BookText size={22} className="text-red-500" />
                 Правила закладу
               </h3>
               <div className="space-y-4">
@@ -216,15 +203,15 @@ export default function Menu() {
                     viewport={{ once: false }}
                     className="glass rounded-lg p-5 border border-dark-600/30"
                   >
-                    <h4 className="text-sm font-bold text-gold-400 mb-2">{rule.title}</h4>
-                    <p className="text-sm text-light-300 leading-relaxed">{rule.text}</p>
+                    <h4 className="text-sm font-bold text-red-400 mb-2">{rule.title}</h4>
+                    <p className="text-sm text-gray-400 leading-relaxed">{rule.text}</p>
                   </motion.div>
                 ))}
               </div>
             </div>
             <div>
-              <h3 className="text-xl sm:text-2xl font-serif font-bold text-light-100 mb-4 flex items-center gap-3">
-                <BookText size={22} className="text-gold-500" />
+              <h3 className="text-xl sm:text-2xl font-display font-bold text-cream-50 mb-4 flex items-center gap-3">
+                <BookText size={22} className="text-red-500" />
                 Інформація
               </h3>
               <div className="space-y-4">
@@ -242,8 +229,8 @@ export default function Menu() {
                     viewport={{ once: false }}
                     className="glass rounded-lg p-5 border border-dark-600/30"
                   >
-                    <h4 className="text-sm font-bold text-gold-400 mb-2">{info.title}</h4>
-                    <p className="text-sm text-light-300 leading-relaxed whitespace-pre-line">{info.text}</p>
+                    <h4 className="text-sm font-bold text-red-400 mb-2">{info.title}</h4>
+                    <p className="text-sm text-gray-400 leading-relaxed whitespace-pre-line">{info.text}</p>
                   </motion.div>
                 ))}
               </div>
@@ -253,8 +240,8 @@ export default function Menu() {
           <div className="menu-category-nav -mx-5 mb-12 border-y border-white/10 bg-dark-900/92 px-5 py-3 backdrop-blur-xl sm:-mx-7 sm:px-7 lg:-mx-10 lg:px-10">
             <div className="mx-auto max-w-6xl">
               <div className="mb-3 flex items-center justify-between gap-4">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-400">Категорії</p>
-                <p className="hidden text-xs text-light-500 sm:block">{categoryNavItems.length} розділів</p>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-red-400">Категорії</p>
+                <p className="hidden text-xs text-gray-500 sm:block">{categoryNavItems.length} розділів</p>
               </div>
               <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none lg:flex-wrap lg:overflow-visible lg:pb-0">
                 {categoryNavItems.map((cat) => {
@@ -268,12 +255,12 @@ export default function Menu() {
                       onClick={() => jumpToCategory(cat)}
                       className={`flex shrink-0 items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold transition-all duration-300 ${
                         isActive
-                          ? 'border-transparent bg-gold-500 text-dark-900 shadow-lg shadow-gold-500/15'
-                          : 'border-white/10 bg-dark-800/70 text-light-300 hover:border-gold-500/40 hover:text-light-100'
+                          ? 'border-transparent bg-red-500 text-cream-50 shadow-lg shadow-red-500/15'
+                          : 'border-white/10 bg-dark-800/70 text-gray-300 hover:border-red-500/40 hover:text-cream-50'
                       }`}
                     >
                       <span>{cat.name}</span>
-                      <span className={`text-xs ${isActive ? 'text-dark-900/70' : 'text-light-500'}`}>
+                      <span className={`text-xs ${isActive ? 'text-cream-50/70' : 'text-gray-500'}`}>
                         {cat.items.length}
                       </span>
                     </button>
@@ -285,7 +272,7 @@ export default function Menu() {
         )}
         {currentSection?.hurl !== 'section:pravila' && (searchQuery ? (
           <motion.div layout className="max-w-6xl mx-auto">
-            <p className="text-sm text-light-500 mb-6 text-center">
+            <p className="text-sm text-gray-500 mb-6 text-center">
               Знайдено: {allFilteredItems.length} шт.
             </p>
             <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -302,11 +289,11 @@ export default function Menu() {
             {allFilteredItems.length === 0 && (
               <div className="text-center py-20">
                 <div className="w-16 h-16 bg-dark-800/60 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Search size={24} className="text-light-500" />
+                  <Search size={24} className="text-gray-500" />
                 </div>
-                <p className="text-light-400 text-lg mb-2">Нічого не знайдено</p>
-                <p className="text-light-500 text-sm mb-6">Спробуйте інший запит</p>
-                <button type="button" onClick={() => setSearch('')} className="text-sm text-gold-500 hover:text-gold-400 transition-colors font-medium">
+                <p className="text-gray-400 text-lg mb-2">Нічого не знайдено</p>
+                <p className="text-gray-500 text-sm mb-6">Спробуйте інший запит</p>
+                <button type="button" onClick={() => setSearch('')} className="text-sm text-red-500 hover:text-red-400 transition-colors font-medium">
                   Скинути пошук
                 </button>
               </div>
@@ -322,8 +309,8 @@ export default function Menu() {
                   viewport={{ once: false, margin: '-30px' }}
                 >
                   <div className="flex items-center gap-4 mb-6">
-                    <h3 className="text-xl sm:text-2xl font-serif font-bold text-light-100">{cat.name}</h3>
-                    <div className="flex-1 h-px bg-gradient-to-r from-gold-500/20 to-transparent" />
+                    <h3 className="text-xl sm:text-2xl font-display font-bold text-cream-50">{cat.name}</h3>
+                    <div className="flex-1 h-px bg-gradient-to-r from-red-500/20 to-transparent" />
                   </div>
                   {cat.items.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -338,7 +325,7 @@ export default function Menu() {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-light-500 text-sm py-8 text-center">Немає страв у цій категорії</p>
+                    <p className="text-gray-500 text-sm py-8 text-center">Немає страв у цій категорії</p>
                   )}
                 </motion.div>
               </section>
@@ -350,11 +337,11 @@ export default function Menu() {
                 viewport={{ once: false }}
                 className="text-center pt-6 border-t border-white/10"
               >
-                <p className="text-sm text-light-400 mb-3">Шукаєте інший алкоголь?</p>
+                <p className="text-sm text-gray-400 mb-3">Шукаєте інший алкоголь?</p>
                 <button
                   type="button"
                   onClick={() => selectSection(validSections.find((s) => s.hurl === 'section:bar'))}
-                  className="inline-flex items-center gap-2 rounded-lg border border-gold-500/30 bg-dark-800/50 px-6 py-3 text-sm font-semibold text-gold-400 transition-all duration-300 hover:bg-gold-500 hover:text-dark-900 hover:shadow-lg hover:shadow-gold-500/15"
+                  className="inline-flex items-center gap-2 rounded-lg border border-red-500/30 bg-dark-800/50 px-6 py-3 text-sm font-semibold text-red-400 transition-all duration-300 hover:bg-red-500 hover:text-cream-50 hover:shadow-lg hover:shadow-red-500/15"
                 >
                   <Wine size={16} />
                   Перейти до бару
@@ -392,10 +379,10 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
       layout
       whileHover={{ y: -3 }}
       onClick={onOpen}
-      className="group w-full overflow-hidden rounded-lg border border-cream-200 bg-cream-100 text-left transition-all duration-300 hover:border-gold-500/40 hover:bg-cream-50 focus-ring-sm"
+      className="group w-full overflow-hidden rounded-lg border border-white/6 bg-dark-800/50 text-left transition-all duration-300 hover:border-red-500/30 hover:bg-dark-800/80 focus-ring-sm shadow-lg shadow-black/15"
       aria-label={`Відкрити страву ${item.name}`}
     >
-      <div className="relative h-44 bg-cream-50 overflow-hidden">
+      <div className="relative h-44 bg-dark-800 overflow-hidden">
         {item.media && !imgError ? (
           <img
             src={getDishImage(item.media)}
@@ -405,40 +392,38 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
             className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-cream-50">
-            <span className="text-5xl text-gold-500/10 font-serif">✦</span>
+          <div className="w-full h-full flex items-center justify-center bg-dark-800">
+            <span className="text-5xl text-red-500/20 font-display">✦</span>
           </div>
         )}
         {item.alcohol > 0 && (
-          <span className="absolute top-3 right-3 bg-cream-50/80 backdrop-blur-sm text-[10px] text-gold-600 px-2 py-0.5 rounded-full border border-gold-500/20 font-semibold">
+          <span className="absolute top-3 right-3 bg-dark-900/80 backdrop-blur-sm text-[10px] text-red-400 px-2 py-0.5 rounded-full border border-red-500/30 font-semibold">
             18+
           </span>
         )}
-        <span className="absolute bottom-3 left-3 rounded-lg bg-cream-100/90 px-3 py-1.5 text-xs font-semibold text-dark-900 opacity-0 shadow-lg shadow-black/25 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+        <span className="absolute bottom-3 left-3 rounded-lg bg-dark-900/90 px-3 py-1.5 text-xs font-semibold text-cream-50 opacity-0 shadow-lg shadow-black/25 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
           Детальніше
         </span>
       </div>
       <div className="p-5">
         <div className="flex items-start justify-between gap-4">
-          <h4 className="text-sm font-semibold text-dark-900 group-hover:text-gold-600 transition-colors leading-snug flex-1 min-w-0">
+          <h4 className="text-sm font-semibold text-cream-50 group-hover:text-red-400 transition-colors leading-snug flex-1 min-w-0">
             {item.name}
           </h4>
-          <span className="text-base font-bold text-gold-600 whitespace-nowrap shrink-0 tabular-nums">
+          <span className="text-base font-bold text-red-400 whitespace-nowrap shrink-0 tabular-nums">
             {item.price.toLocaleString('uk-UA')} ₴
           </span>
         </div>
         {item.description && (
-          <p className="text-xs text-dark-600 mt-2 leading-relaxed line-clamp-2">{item.description}</p>
+          <p className="text-xs text-gray-400 mt-2 leading-relaxed line-clamp-2">{item.description}</p>
         )}
         {item.categoryName && (
-          <p className="text-xs text-dark-600 mt-3">{item.categoryName}</p>
+          <p className="text-xs text-gray-500 mt-3">{item.categoryName}</p>
         )}
         {item.weight && (
-          <p className="text-xs text-dark-600 mt-2">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</p>
+          <p className="text-xs text-gray-500 mt-2">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</p>
         )}
       </div>
     </motion.button>
   )
 }
-
-

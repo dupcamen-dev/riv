@@ -146,12 +146,12 @@ export default function UkrainianDatePicker({
         type="button"
         disabled={disabled}
         onClick={toggleCalendar}
-        className={`input-base flex items-center justify-between text-left ${!value ? 'text-light-400/55' : ''} ${error ? 'input-error' : ''} ${disabled ? 'input-disabled' : ''}`}
+        className={`input-base flex items-center justify-between text-left ${!value ? 'text-gray-500' : ''} ${error ? 'input-error' : ''} ${disabled ? 'input-disabled' : ''}`}
         aria-haspopup="dialog"
         aria-expanded={open}
       >
         <span>{formatDisplayDate(value)}</span>
-        <Calendar size={18} className="text-gold-500/80" />
+        <Calendar size={18} className="text-red-400/80" />
       </button>
 
       {error && <span className="error-text">{error}</span>}
@@ -166,27 +166,27 @@ export default function UkrainianDatePicker({
             <button
               type="button"
               onClick={() => changeMonth(-1)}
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-light-300 transition-colors hover:border-gold-500/35 hover:text-light-100 focus-ring-sm"
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-gray-300 transition-colors hover:border-red-500/35 hover:text-cream-50 focus-ring-sm"
               aria-label="Попередній місяць"
             >
               <ChevronLeft size={18} />
             </button>
 
-            <p className="text-center text-sm font-bold text-light-100">
+            <p className="text-center text-sm font-bold text-cream-50">
               {months[monthDate.getMonth()]} {monthDate.getFullYear()}
             </p>
 
             <button
               type="button"
               onClick={() => changeMonth(1)}
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-light-300 transition-colors hover:border-gold-500/35 hover:text-light-100 focus-ring-sm"
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-gray-300 transition-colors hover:border-red-500/35 hover:text-cream-50 focus-ring-sm"
               aria-label="Наступний місяць"
             >
               <ChevronRight size={18} />
             </button>
           </div>
 
-          <div className="mb-2 grid grid-cols-7 gap-1 text-center text-[11px] font-bold uppercase text-light-500">
+          <div className="mb-2 grid grid-cols-7 gap-1 text-center text-[11px] font-bold uppercase text-gray-500">
             {weekdays.map((day) => (
               <span key={day}>{day}</span>
             ))}
@@ -207,14 +207,14 @@ export default function UkrainianDatePicker({
                   onClick={() => selectDate(date)}
                   className={`flex aspect-square items-center justify-center rounded-lg text-sm font-semibold transition-all focus-ring-sm ${
                     isSelected
-                      ? 'bg-gold-500 text-dark-900 shadow-lg shadow-gold-500/15'
+                      ? 'bg-red-500 text-cream-50 shadow-lg shadow-red-500/15'
                       : isPast
-                        ? 'cursor-not-allowed text-light-500/35'
+                        ? 'cursor-not-allowed text-gray-500/35'
                         : isToday
-                          ? 'border border-gold-500/40 text-gold-300 hover:bg-gold-500/10'
+                          ? 'border border-red-500/40 text-red-300 hover:bg-red-500/10'
                           : isCurrentMonth
-                            ? 'text-light-200 hover:bg-white/8 hover:text-light-100'
-                            : 'text-light-500 hover:bg-white/5'
+                            ? 'text-gray-200 hover:bg-white/8 hover:text-cream-50'
+                            : 'text-gray-500 hover:bg-white/5'
                   }`}
                 >
                   {date.getDate()}
@@ -227,14 +227,14 @@ export default function UkrainianDatePicker({
             <button
               type="button"
               onClick={() => selectDate(today)}
-              className="rounded-lg border border-white/10 px-3 py-2 text-sm font-semibold text-light-300 transition-colors hover:border-gold-500/35 hover:text-light-100 focus-ring-sm"
+              className="rounded-lg border border-white/10 px-3 py-2 text-sm font-semibold text-gray-300 transition-colors hover:border-red-500/35 hover:text-cream-50 focus-ring-sm"
             >
               Сьогодні
             </button>
             <button
               type="button"
               onClick={() => selectDate(addDays(today, 1))}
-              className="rounded-lg border border-white/10 px-3 py-2 text-sm font-semibold text-light-300 transition-colors hover:border-gold-500/35 hover:text-light-100 focus-ring-sm"
+              className="rounded-lg border border-white/10 px-3 py-2 text-sm font-semibold text-gray-300 transition-colors hover:border-red-500/35 hover:text-cream-50 focus-ring-sm"
             >
               Завтра
             </button>

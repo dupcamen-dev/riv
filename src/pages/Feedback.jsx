@@ -9,7 +9,6 @@ import FormTextarea from '../components/ui/FormTextarea.jsx'
 const initialForm = { name: '', phone: '', message: '' }
 const starLabels = ['', '1 зірка', '2 зірки', '3 зірки', '4 зірки', '5 зірок']
 
-// Validation rules
 const validationRules = {
   name: (value) => {
     if (!value.trim()) return 'Введіть ім\'я'
@@ -17,7 +16,7 @@ const validationRules = {
     return null
   },
   phone: (value) => {
-    if (!value) return null // optional
+    if (!value) return null
     const phoneRegex = /^[\d\s+\-()]+$/
     if (!phoneRegex.test(value)) return 'Невірний формат номера'
     return null
@@ -57,7 +56,6 @@ export default function Feedback() {
 
     setIsSubmitting(true)
 
-    // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500))
 
     setIsSubmitting(false)
@@ -68,7 +66,6 @@ export default function Feedback() {
     const value = e.target.value
     setForm({ ...form, [field]: value })
 
-    // Clear error when user starts typing
     if (errors[field]) {
       const newErrors = { ...errors }
       delete newErrors[field]
@@ -85,11 +82,11 @@ export default function Feedback() {
             animate={{ opacity: 1, scale: 1 }}
             className="text-center max-w-lg mx-auto py-20"
           >
-            <div className="w-20 h-20 bg-gold-500/10 rounded-lg flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="text-gold-500" size={40} />
+            <div className="w-20 h-20 bg-red-500/10 rounded-lg flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="text-red-400" size={40} />
             </div>
-            <h2 className="text-3xl font-serif font-bold text-light-100 mb-4">Дякуємо!</h2>
-            <p className="text-light-400 leading-relaxed">Ваш відгук допомагає нам ставати кращими.</p>
+            <h2 className="text-3xl font-display font-bold text-cream-50 mb-4">Дякуємо!</h2>
+            <p className="text-gray-400 leading-relaxed">Ваш відгук допомагає нам ставати кращими.</p>
             <Button
               onClick={() => {
                 setSubmitted(false)
@@ -134,7 +131,6 @@ export default function Feedback() {
                     type="button"
                     onClick={() => {
                       setRating(star)
-                      // Clear rating error when user selects
                       if (errors.rating) {
                         const newErrors = { ...errors }
                         delete newErrors.rating
@@ -152,7 +148,7 @@ export default function Feedback() {
                     <Star
                       size={34}
                       className={`transition-all duration-200 ${
-                        active ? 'text-gold-500 fill-gold-500' : 'text-dark-600'
+                        active ? 'text-red-500 fill-red-500' : 'text-dark-600'
                       }`}
                     />
                   </motion.button>
@@ -163,7 +159,7 @@ export default function Feedback() {
               <motion.p
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-xs text-gold-500 mt-3 font-medium"
+                className="text-xs text-red-400 mt-3 font-medium"
               >
                 {starLabels[rating]}
               </motion.p>

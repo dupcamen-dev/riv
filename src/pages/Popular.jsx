@@ -24,19 +24,17 @@ export default function Popular({ onOpenDish }) {
   }
 
   return (
-    <div className="page-container bg-cream-50 py-24">
+    <div className="page-container py-24">
       <div className="page-content">
-        <div className="[&_h2]:text-dark-900 [&_p]:text-gold-600">
-          <SectionTitle subtitle="Топ вибір">
-            <span className="flex items-center justify-center gap-3">
-              <Sparkles size={24} className="text-gold-600" /> Популярні страви
-            </span>
-          </SectionTitle>
-        </div>
+        <SectionTitle subtitle="Топ вибір">
+          <span className="flex items-center justify-center gap-3">
+            <Sparkles size={24} className="text-red-400" /> Популярні страви
+          </span>
+        </SectionTitle>
 
         {popular.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-light-400">Немає популярних страв</p>
+            <p className="text-gray-400">Немає популярних страв</p>
             <Button to="/menu" variant="outline" size="sm" className="mt-6">
               <ArrowLeft size={14} /> До меню
             </Button>
@@ -51,24 +49,24 @@ export default function Popular({ onOpenDish }) {
                 transition={{ delay: i * 0.04, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                 whileHover={{ y: -4 }}
                 onClick={() => openDish(item)}
-                className="group w-full rounded-lg border border-cream-200 bg-cream-100 p-6 text-left shadow-md shadow-cream-200/50 transition-all duration-300 hover:border-gold-500/40 hover:shadow-lg hover:shadow-gold-500/10 hover:bg-cream-50 cursor-pointer"
+                className="group w-full rounded-lg border border-white/6 bg-dark-800/50 p-6 text-left shadow-lg shadow-black/15 transition-all duration-300 hover:border-red-500/30 hover:shadow-xl hover:shadow-black/20 hover:bg-dark-800/80 cursor-pointer"
               >
                 <div className="flex items-start gap-4 mb-3">
-                  <span className="text-2xl font-bold text-gold-600/30 font-serif tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="text-2xl font-bold text-red-500/20 font-display tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                   <div className="min-w-0">
-                    <h3 className="text-sm font-semibold text-dark-900 group-hover:text-gold-600 transition-colors leading-snug">
+                    <h3 className="text-sm font-semibold text-cream-50 group-hover:text-red-400 transition-colors leading-snug">
                       {item.name}
                     </h3>
                     {item.description && (
-                      <p className="text-xs text-dark-600 mt-1.5 line-clamp-2 leading-relaxed">{item.description}</p>
+                      <p className="text-xs text-gray-400 mt-1.5 line-clamp-2 leading-relaxed">{item.description}</p>
                     )}
                   </div>
                 </div>
-                <div className="flex items-center justify-between ml-10 pt-2 border-t border-cream-200">
+                <div className="flex items-center justify-between ml-10 pt-2 border-t border-white/6">
                   {item.weight ? (
-                    <span className="text-xs text-dark-600">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</span>
+                    <span className="text-xs text-gray-500">{item.weight} {item.weightType === 'ml' ? 'мл' : 'г'}</span>
                   ) : <span />}
-                  <span className="text-base font-bold text-gold-600 tabular-nums">{item.price.toLocaleString('uk-UA')} ₴</span>
+                  <span className="text-base font-bold text-red-400 tabular-nums">{item.price.toLocaleString('uk-UA')} ₴</span>
                 </div>
               </motion.button>
             ))}

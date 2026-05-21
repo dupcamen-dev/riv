@@ -97,4 +97,3 @@ export const allMenuItems = app.menu
     })
   : [];
 
-export const popularItems = allMenuItems.filter((item) => item.price > 0).slice(0, 8);

@@ -53,7 +53,7 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
         initial={{ opacity: 0, y: 24, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
-        className="relative flex max-h-[88vh] w-full max-w-3xl flex-col overflow-hidden rounded-lg border border-cream-200 bg-cream-50 shadow-2xl shadow-black/50"
+        className="relative flex max-h-[88vh] w-full max-w-3xl flex-col overflow-hidden rounded-lg border border-white/10 bg-dark-900 shadow-2xl shadow-black/50"
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -62,14 +62,14 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-lg bg-cream-50/90 text-dark-600 shadow-lg shadow-black/25 backdrop-blur-sm transition-colors hover:text-dark-900 focus-ring-sm"
+          className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-lg bg-dark-800/90 text-gray-400 shadow-lg shadow-black/25 backdrop-blur-sm transition-colors hover:text-cream-50 focus-ring-sm"
           aria-label="Закрити"
         >
           <X size={20} />
         </button>
 
         <div className="grid min-h-0 grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-          <div className="relative h-64 bg-cream-100 md:h-full md:min-h-[28rem]">
+          <div className="relative h-64 bg-dark-800 md:h-full md:min-h-[28rem]">
             {hasImage ? (
               <img
                 src={getDishImage(item.media, 'modal')}
@@ -78,12 +78,12 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
                 className="h-full w-full object-cover"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-cream-100">
-                <span className="font-serif text-7xl text-gold-500/20">✦</span>
+              <div className="flex h-full w-full items-center justify-center bg-dark-800">
+                <span className="font-display text-7xl text-red-500/20">✦</span>
               </div>
             )}
             {item.alcohol > 0 && (
-              <span className="absolute left-4 top-4 rounded-lg border border-gold-500/30 bg-cream-50/80 px-3 py-1 text-xs font-bold text-gold-600 backdrop-blur-sm">
+              <span className="absolute left-4 top-4 rounded-lg border border-red-500/30 bg-dark-800/80 px-3 py-1 text-xs font-bold text-red-400 backdrop-blur-sm">
                 18+
               </span>
             )}
@@ -92,17 +92,17 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
           <div className="min-h-0 overflow-y-auto p-5 sm:p-7">
             <div className="mb-5 pr-10">
               {item.categoryName && (
-                <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-gold-600">{item.categoryName}</p>
+                <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-red-400">{item.categoryName}</p>
               )}
-              <h3 id="dish-modal-title" className="text-2xl font-serif font-bold text-dark-900 sm:text-3xl">
+              <h3 id="dish-modal-title" className="text-2xl font-display font-bold text-cream-50 sm:text-3xl">
                 {item.name}
               </h3>
               <div className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="rounded-lg bg-gold-500 px-3 py-1.5 text-sm font-bold text-dark-900">
+                <span className="rounded-lg bg-red-500 px-3 py-1.5 text-sm font-bold text-cream-50">
                   {item.price.toLocaleString('uk-UA')} ₴
                 </span>
                 {weight && (
-                  <span className="rounded-lg border border-cream-200 bg-cream-100 px-3 py-1.5 text-sm font-semibold text-dark-700">
+                  <span className="rounded-lg border border-white/10 bg-dark-800 px-3 py-1.5 text-sm font-semibold text-gray-300">
                     {weight}
                   </span>
                 )}
@@ -111,32 +111,32 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
 
             <div className="space-y-5">
               <section>
-                <h4 className="mb-2 text-sm font-bold text-dark-900">Опис і склад</h4>
+                <h4 className="mb-2 text-sm font-bold text-cream-50">Опис і склад</h4>
                 {item.description ? (
-                  <p className="whitespace-pre-line text-sm leading-6 text-dark-700">{item.description}</p>
+                  <p className="whitespace-pre-line text-sm leading-6 text-gray-400">{item.description}</p>
                 ) : (
-                  <p className="text-sm leading-6 text-dark-600">Опис або склад для цієї страви ще не додано.</p>
+                  <p className="text-sm leading-6 text-gray-500">Опис або склад для цієї страви ще не додано.</p>
                 )}
               </section>
 
               {item.categoryDescription && (
-                <section className="rounded-lg border border-cream-200 bg-cream-100 p-4">
-                  <h4 className="mb-2 text-sm font-bold text-dark-900">Примітка категорії</h4>
-                  <p className="whitespace-pre-line text-sm leading-6 text-dark-600">{item.categoryDescription}</p>
+                <section className="rounded-lg border border-white/10 bg-dark-800/70 p-4">
+                  <h4 className="mb-2 text-sm font-bold text-cream-50">Примітка категорії</h4>
+                  <p className="whitespace-pre-line text-sm leading-6 text-gray-400">{item.categoryDescription}</p>
                 </section>
               )}
 
               <div className="grid grid-cols-2 gap-3 text-sm">
                 {item.sectionName && (
-                  <div className="rounded-lg border border-cream-200 bg-cream-100 p-3">
-                    <p className="text-xs text-dark-600">Розділ</p>
-                    <p className="mt-1 font-semibold text-dark-900">{item.sectionName}</p>
+                  <div className="rounded-lg border border-white/10 bg-dark-800/70 p-3">
+                    <p className="text-xs text-gray-500">Розділ</p>
+                    <p className="mt-1 font-semibold text-cream-50">{item.sectionName}</p>
                   </div>
                 )}
                 {weight && (
-                  <div className="rounded-lg border border-cream-200 bg-cream-100 p-3">
-                    <p className="text-xs text-dark-600">Вага</p>
-                    <p className="mt-1 font-semibold text-dark-900">{weight}</p>
+                  <div className="rounded-lg border border-white/10 bg-dark-800/70 p-3">
+                    <p className="text-xs text-gray-500">Вага</p>
+                    <p className="mt-1 font-semibold text-cream-50">{weight}</p>
                   </div>
                 )}
               </div>
