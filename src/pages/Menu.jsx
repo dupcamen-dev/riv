@@ -239,32 +239,27 @@ export default function Menu() {
             </div>
           </div>
         ) : !searchQuery && categoryNavItems.length > 1 && (
-          <div className="menu-category-nav -mx-5 mb-12 border-y border-white/10 bg-dark-900/92 px-5 py-3 backdrop-blur-xl sm:-mx-7 sm:px-7 lg:-mx-10 lg:px-10">
+          <div className="menu-category-nav -mx-5 mb-10 border-b border-white/6 bg-dark-900/90 px-5 py-3 backdrop-blur-xl sm:-mx-7 sm:px-7 lg:-mx-10 lg:px-10">
             <div className="mx-auto max-w-6xl">
-              <div className="mb-3 flex items-center justify-between gap-4">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-red-400">Категорії</p>
-                <p className="hidden text-xs text-gray-500 sm:block">{categoryNavItems.length} розділів</p>
-              </div>
-              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none lg:flex-wrap lg:overflow-visible lg:pb-0">
+              <div className="flex gap-1.5 overflow-x-auto pb-0.5 scrollbar-none lg:flex-wrap lg:overflow-visible">
                 {categoryNavItems.map((cat) => {
                   const id = getCategoryId(cat)
                   const isActive = selectedCategoryId === id
+                  const displayName = cat.name.charAt(0) + cat.name.slice(1).toLowerCase()
 
                   return (
                     <button
                       key={cat._id}
                       type="button"
                       onClick={() => jumpToCategory(cat)}
-                      className={`flex shrink-0 items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                      className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 whitespace-nowrap ${
                         isActive
-                          ? 'border-transparent bg-red-500 text-cream-50 shadow-lg shadow-red-500/15'
-                          : 'border-white/10 bg-dark-800/70 text-gray-300 hover:border-red-500/40 hover:text-cream-50'
+                          ? 'bg-red-500 text-cream-50 shadow-sm shadow-red-500/15'
+                          : 'text-gray-400 hover:text-cream-50 hover:bg-dark-700/50'
                       }`}
                     >
-                      <span>{cat.name}</span>
-                      <span className={`text-xs ${isActive ? 'text-cream-50/70' : 'text-gray-500'}`}>
-                        {cat.items.length}
-                      </span>
+                      {displayName}
+                      <span className={`ml-1.5 ${isActive ? 'text-cream-50/60' : 'text-gray-500'}`}>{cat.items.length}</span>
                     </button>
                   )
                 })}
