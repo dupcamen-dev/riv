@@ -107,10 +107,6 @@ export default function Menu() {
     setSearch('')
     setActiveCategory('')
     setSearchParams({ section: section.hurl })
-    setTimeout(() => {
-      const el = document.querySelector('.menu-section-tabs')
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 50)
   }
 
   useEffect(() => {
@@ -162,7 +158,7 @@ export default function Menu() {
           </div>
         </div>
 
-        <div className="menu-section-tabs sticky z-30 -mx-5 px-5 pb-2 mb-6 border-b border-white/6 bg-dark-900/90 backdrop-blur-xl sm:-mx-7 sm:px-7 lg:-mx-10 lg:px-10">
+        <div className="menu-section-tabs sticky z-30 w-full rounded-lg px-4 pb-2 pt-1 mb-6 border border-white/6 bg-dark-900/90 backdrop-blur-xl shadow-lg shadow-black/15">
           <div className="mx-auto max-w-6xl">
             <div className="flex gap-1 overflow-x-auto pb-1.5 pt-2 scrollbar-none justify-start lg:flex-wrap lg:overflow-visible lg:justify-center">
               {validSections.map((section) => {
