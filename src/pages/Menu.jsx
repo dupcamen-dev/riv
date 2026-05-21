@@ -105,6 +105,10 @@ export default function Menu() {
     setSearch('')
     setActiveCategory('')
     setSearchParams({ section: section.hurl })
+    setTimeout(() => {
+      const el = document.querySelector('.menu-section-tabs')
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 50)
   }
 
   useEffect(() => {
@@ -179,7 +183,7 @@ export default function Menu() {
                 )
               })}
             </div>
-            {!searchQuery && currentSection?.hurl !== 'section:pravila' && categoryNavItems.length > 1 && (
+            {!searchQuery && categoryNavItems.length > 1 && (
               <div className="flex gap-1.5 overflow-x-auto pb-1.5 scrollbar-none lg:flex-wrap lg:overflow-visible">
                 {categoryNavItems.map((cat) => {
                   const id = getCategoryId(cat)
