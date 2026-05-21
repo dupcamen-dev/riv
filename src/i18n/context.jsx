@@ -11,7 +11,8 @@ const detectLang = () => {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (saved === 'en' || saved === 'uk') return saved
   } catch {}
-  return navigator.language?.startsWith('uk') ? 'uk' : 'en'
+  const navLang = navigator.language || ''
+  return navLang.startsWith('uk') || navLang.startsWith('ru') ? 'uk' : 'en'
 }
 
 export function I18nProvider({ children }) {
