@@ -35,7 +35,7 @@ export default function Breadcrumbs() {
               <>
                 <Link
                   to={crumb.to}
-                  className="flex items-center gap-1.5 text-gray-400 hover:text-red-400 transition-colors focus-ring-sm rounded px-1.5"
+                  className="flex items-center gap-1.5 text-gray-400 hover:text-gold-400 transition-colors focus-ring-sm rounded px-1.5"
                 >
                   <Home size={16} />
                   <span className="hidden sm:inline">{crumb.label}</span>
@@ -46,11 +46,11 @@ export default function Breadcrumbs() {
               <>
                 <ChevronRight size={16} className="text-gray-500 mx-0.5" />
                 {index === breadcrumbs.length - 1 ? (
-                  <span className="text-red-400 font-medium">{crumb.label}</span>
+                  <span className="text-gold-400 font-medium">{crumb.label}</span>
                 ) : (
                   <Link
                     to={crumb.to}
-                    className="text-gray-400 hover:text-red-400 transition-colors focus-ring-sm rounded px-1.5"
+                    className="text-gray-400 hover:text-gold-400 transition-colors focus-ring-sm rounded px-1.5"
                   >
                     {crumb.label}
                   </Link>

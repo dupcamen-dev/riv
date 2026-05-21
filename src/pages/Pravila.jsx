@@ -34,7 +34,7 @@ export default function Pravila() {
         <div className="max-w-3xl mx-auto space-y-10">
           <div>
             <h3 className="text-xl sm:text-2xl font-display font-bold text-cream-50 mb-4 flex items-center gap-3">
-              <BookText size={22} className="text-red-500" />
+              <BookText size={22} className="text-gold-500" />
               {t('pravila.rules_title')}
             </h3>
             <div className="space-y-4">
@@ -46,7 +46,7 @@ export default function Pravila() {
                   viewport={{ once: false }}
                   className="glass rounded-lg p-5 border border-dark-600/30"
                 >
-                  <h4 className="text-sm font-bold text-red-400 mb-2">{rule.title}</h4>
+                  <h4 className="text-sm font-bold text-gold-400 mb-2">{rule.title}</h4>
                   <p className="text-sm text-gray-400 leading-relaxed">{rule.text}</p>
                 </motion.div>
               ))}
@@ -54,7 +54,7 @@ export default function Pravila() {
           </div>
           <div>
             <h3 className="text-xl sm:text-2xl font-display font-bold text-cream-50 mb-4 flex items-center gap-3">
-              <BookText size={22} className="text-red-500" />
+              <BookText size={22} className="text-gold-500" />
               {t('pravila.info_title')}
             </h3>
             <div className="space-y-4">
@@ -66,7 +66,7 @@ export default function Pravila() {
                   viewport={{ once: false }}
                   className="glass rounded-lg p-5 border border-dark-600/30"
                 >
-                  <h4 className="text-sm font-bold text-red-400 mb-2">{infoItem.title}</h4>
+                  <h4 className="text-sm font-bold text-gold-400 mb-2">{infoItem.title}</h4>
                   <p className="text-sm text-gray-400 leading-relaxed whitespace-pre-line">{infoItem.text}</p>
                 </motion.div>
               ))}

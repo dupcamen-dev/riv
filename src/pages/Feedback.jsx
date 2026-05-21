@@ -85,8 +85,8 @@ export default function Feedback({ light }) {
             animate={{ opacity: 1, scale: 1 }}
             className="text-center max-w-lg mx-auto py-20"
           >
-            <div className="w-20 h-20 bg-red-500/10 rounded-lg flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="text-red-400" size={40} />
+            <div className="w-20 h-20 bg-gold-500/10 rounded-lg flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="text-gold-400" size={40} />
             </div>
             <h2 className={`text-3xl font-display font-bold mb-4 ${light ? 'text-dark-900' : 'text-cream-50'}`}>{t('feedback.thanks')}</h2>
             <p className={`leading-relaxed ${light ? 'text-gray-600' : 'text-gray-400'}`}>{t('feedback.thanks_text')}</p>
@@ -123,7 +123,7 @@ export default function Feedback({ light }) {
           <div className="text-center">
             <label className="label-base text-center block">
               {t('feedback.rating')}
-              <span className="text-red-400">*</span>
+              <span className="text-gold-400">*</span>
             </label>
             <div className="flex justify-center gap-2">
               {[1, 2, 3, 4, 5].map((star) => {
@@ -151,7 +151,7 @@ export default function Feedback({ light }) {
                     <Star
                       size={34}
                       className={`transition-all duration-200 ${
-                        active ? 'text-red-500 fill-red-500' : 'text-dark-600'
+                        active ? 'text-gold-500 fill-gold-500' : 'text-dark-600'
                       }`}
                     />
                   </motion.button>
@@ -162,7 +162,7 @@ export default function Feedback({ light }) {
               <motion.p
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-xs text-red-400 mt-3 font-medium"
+                className="text-xs text-gold-400 mt-3 font-medium"
               >
                 {starLabels[rating]}
               </motion.p>

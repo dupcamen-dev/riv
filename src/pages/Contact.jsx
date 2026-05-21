@@ -34,21 +34,21 @@ export default function Contact({ dark }) {
                 {...fadeUp}
                 transition={{ delay: i * 0.08, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                 whileHover={{ scale: 1.02, y: -2 }}
-                className="flex items-start gap-4 glass rounded-lg border border-white/6 bg-dark-800/50 p-5 shadow-lg shadow-black/15 transition-shadow duration-300 hover:shadow-xl hover:shadow-red-500/5 cursor-default"
+                className="flex items-start gap-4 glass rounded-lg border border-white/6 bg-dark-800/50 p-5 shadow-lg shadow-black/15 transition-shadow duration-300 hover:shadow-xl hover:shadow-gold-500/5 cursor-default"
               >
                 <motion.div
-                  className="w-10 h-10 bg-red-500/10 rounded-lg flex items-center justify-center shrink-0"
+                  className="w-10 h-10 bg-gold-500/10 rounded-lg flex items-center justify-center shrink-0"
                   whileHover={{ rotate: 10 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <item.icon size={18} className="text-red-400" />
+                  <item.icon size={18} className="text-gold-400" />
                 </motion.div>
                 <div className="min-w-0">
                   <h3 className="text-[10px] font-display font-semibold tracking-normal uppercase text-cream-50 mb-1">{item.title}</h3>
                   {item.href ? (
                     <motion.a
                       href={item.href}
-                      className="text-sm text-cream-100 hover:text-red-400 transition-colors break-all focus-ring-sm rounded"
+                      className="text-sm text-cream-100 hover:text-gold-400 transition-colors break-all focus-ring-sm rounded"
                       whileHover={{ x: 2 }}
                     >
                       {item.value}
@@ -69,7 +69,7 @@ export default function Contact({ dark }) {
                 href={place.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 glass rounded-lg border border-white/6 bg-dark-800/50 px-5 py-3 text-sm text-gray-300 hover:text-red-400 hover:border-red-500/30 transition-all duration-300 focus-ring"
+                className="flex items-center gap-2 glass rounded-lg border border-white/6 bg-dark-800/50 px-5 py-3 text-sm text-gray-300 hover:text-gold-400 hover:border-gold-500/30 transition-all duration-300 focus-ring"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -79,7 +79,7 @@ export default function Contact({ dark }) {
                 href={place.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 glass rounded-lg border border-white/6 bg-dark-800/50 px-5 py-3 text-sm text-gray-300 hover:text-red-400 hover:border-red-500/30 transition-all duration-300 focus-ring"
+                className="flex items-center gap-2 glass rounded-lg border border-white/6 bg-dark-800/50 px-5 py-3 text-sm text-gray-300 hover:text-gold-400 hover:border-gold-500/30 transition-all duration-300 focus-ring"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >

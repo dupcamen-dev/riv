@@ -12,8 +12,8 @@ export default function Info() {
           <section className="space-y-4">
             <h3 className="font-display text-2xl font-bold text-cream-50">{t('info.contacts')}</h3>
             <div className="glass rounded-lg p-6 space-y-3 text-sm text-gray-400 leading-relaxed">
-              <p><span className="text-red-400">{t('info.email')}</span> ludmilakolisnik27@gmail.com</p>
-              <p><span className="text-red-400">{t('info.phone')}</span> 380976268148</p>
+              <p><span className="text-gold-400">{t('info.email')}</span> ludmilakolisnik27@gmail.com</p>
+              <p><span className="text-gold-400">{t('info.phone')}</span> 380976268148</p>
             </div>
           </section>
 
@@ -21,8 +21,8 @@ export default function Info() {
             <h3 className="font-display text-2xl font-bold text-cream-50">{t('info.details')}</h3>
             <div className="glass rounded-lg p-6 space-y-3 text-sm text-gray-400 leading-relaxed">
               <p>{t('info.fop')}</p>
-              <p><span className="text-red-400">{t('info.tax_id')}</span> 3148801837</p>
-              <p><span className="text-red-400">{t('info.legal_address')}</span> 1A, vul. Sahaidachnoho, Ternopil, 46002</p>
+              <p><span className="text-gold-400">{t('info.tax_id')}</span> 3148801837</p>
+              <p><span className="text-gold-400">{t('info.legal_address')}</span> 1A, vul. Sahaidachnoho, Ternopil, 46002</p>
             </div>
           </section>
 

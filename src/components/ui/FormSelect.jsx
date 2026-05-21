@@ -20,7 +20,7 @@ export default function FormSelect({
       {label && (
         <label className="label-base">
           {label}
-          {required && <span className="text-red-400">*</span>}
+          {required && <span className="text-gold-400">*</span>}
         </label>
       )}
       <div className="relative">

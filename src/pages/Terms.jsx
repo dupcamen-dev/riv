@@ -259,7 +259,7 @@ export default function Terms() {
           <SectionTitle subtitle="" />
           <div className="glass rounded-lg p-6 space-y-4">
             {d.concepts.map(([term, def], i) => (
-              <p key={i}><strong className="text-red-400">{term}</strong> — {def}</p>
+              <p key={i}><strong className="text-gold-400">{term}</strong> — {def}</p>
             ))}
           </div>
 
@@ -269,7 +269,7 @@ export default function Terms() {
             </TermsSection>
           ))}
 
-          <div className="glass rounded-lg p-6 border border-red-500/20 text-center">
+          <div className="glass rounded-lg p-6 border border-gold-500/20 text-center">
             <h3 className="font-display text-2xl font-bold text-cream-50 mb-4">{d.agreement_title}</h3>
             <p className="text-gray-400">{d.agreement_text}</p>
           </div>

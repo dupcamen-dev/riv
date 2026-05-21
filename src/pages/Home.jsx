@@ -88,7 +88,7 @@ export default function Home({ onOpenBooking }) {
         >
           {/* Badge */}
           <motion.div variants={fadeUp} className="mb-6">
-            <span className="inline-block text-red-500 text-xs sm:text-sm font-bold uppercase tracking-[0.35em]">
+            <span className="inline-block text-gold-500 text-xs sm:text-sm font-bold uppercase tracking-[0.35em]">
               {t('home.badge')}
             </span>
           </motion.div>
@@ -96,13 +96,13 @@ export default function Home({ onOpenBooking }) {
           {/* Title — red */}
           <motion.h1
             variants={fadeUp}
-            className="text-7xl font-black text-red-500 sm:text-8xl lg:text-9xl tracking-tight"
+            className="text-7xl font-black text-gold-500 sm:text-8xl lg:text-9xl tracking-tight"
           >
             THE RIVER
           </motion.h1>
 
           {/* Red accent line */}
-          <motion.div variants={fadeUp} className="w-24 h-1 bg-red-500 my-6 sm:my-8" />
+          <motion.div variants={fadeUp} className="w-24 h-1 bg-gold-500 my-6 sm:my-8" />
 
           {/* Description — black text */}
           <motion.p
@@ -131,13 +131,13 @@ export default function Home({ onOpenBooking }) {
               const Icon = item.icon
               const content = (
                 <>
-                  <Icon size={16} className="shrink-0 text-red-400" />
+                  <Icon size={16} className="shrink-0 text-gold-400" />
                   <span className="leading-6">{item.label}</span>
                 </>
               )
 
               return item.href ? (
-                <a key={item.label} href={item.href} className="flex items-center gap-2.5 hover:text-red-600 transition-colors">
+                <a key={item.label} href={item.href} className="flex items-center gap-2.5 hover:text-gold-600 transition-colors">
                   {content}
                 </a>
               ) : (
@@ -163,10 +163,10 @@ export default function Home({ onOpenBooking }) {
                   whileHover={{ y: -4 }}
                   className="group glass glass-hover rounded-lg border border-white/6 p-6 text-left sm:p-7"
                 >
-                  <div className="mb-5 flex h-11 w-11 items-center justify-center border border-red-500/20 bg-red-500/10 text-red-400">
+                  <div className="mb-5 flex h-11 w-11 items-center justify-center border border-gold-500/20 bg-gold-500/10 text-gold-400">
                     <Icon size={22} />
                   </div>
-                  <h3 className="font-display text-lg font-bold text-cream-50 transition-colors group-hover:text-red-400">
+                  <h3 className="font-display text-lg font-bold text-cream-50 transition-colors group-hover:text-gold-400">
                     {item.title}
                   </h3>
                   <p className="mt-3 text-sm leading-7 text-gray-400">{item.desc}</p>

@@ -38,7 +38,7 @@ export default function FormInput({
         <label className="label-base">
           {Icon && <Icon size={14} className="inline mr-1.5 -mt-0.5" />}
           {label}
-          {required && <span className="text-red-400">*</span>}
+          {required && <span className="text-gold-400">*</span>}
         </label>
       )}
       <div className="relative">

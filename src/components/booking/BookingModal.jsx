@@ -139,7 +139,7 @@ export default function BookingModal({ open, onClose }) {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
-        className="relative max-h-[88vh] w-full max-w-4xl overflow-y-auto rounded-lg border border-white/10 bg-dark-900 shadow-2xl shadow-red-500/10"
+        className="relative max-h-[88vh] w-full max-w-4xl overflow-y-auto rounded-lg border border-white/10 bg-dark-900 shadow-2xl shadow-gold-500/10"
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -156,7 +156,7 @@ export default function BookingModal({ open, onClose }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr]">
           <aside className="border-b border-white/10 bg-dark-800/55 p-6 lg:border-b-0 lg:border-r lg:p-8">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-red-500">{t('booking.aside')}</p>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-gold-500">{t('booking.aside')}</p>
             <h2 id="booking-modal-title" className="font-display text-4xl font-bold leading-none text-cream-50">
               {t('booking.title')}
             </h2>
@@ -165,16 +165,16 @@ export default function BookingModal({ open, onClose }) {
             </p>
 
             <div className="mt-8 space-y-4 text-sm">
-              <a href={`tel:${place.phone}`} className="flex items-center gap-3 text-gray-400 transition-colors hover:text-red-400">
-                <Phone size={16} className="text-red-500" />
+              <a href={`tel:${place.phone}`} className="flex items-center gap-3 text-gray-400 transition-colors hover:text-gold-400">
+                <Phone size={16} className="text-gold-500" />
                 {place.phone}
               </a>
-              <a href={`mailto:${place.email}`} className="flex items-center gap-3 text-gray-400 transition-colors hover:text-red-400">
-                <Mail size={16} className="text-red-500" />
+              <a href={`mailto:${place.email}`} className="flex items-center gap-3 text-gray-400 transition-colors hover:text-gold-400">
+                <Mail size={16} className="text-gold-500" />
                 {place.email}
               </a>
               <div className="flex items-start gap-3 text-gray-500">
-                <Clock size={16} className="mt-0.5 text-red-500" />
+                <Clock size={16} className="mt-0.5 text-gold-500" />
                 <span>{t('booking.hours')}</span>
               </div>
             </div>
@@ -183,8 +183,8 @@ export default function BookingModal({ open, onClose }) {
           <div className="p-6 lg:p-8">
             {submitted ? (
               <div className="flex min-h-[27rem] flex-col items-center justify-center text-center">
-                <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-lg border border-red-500/25 bg-red-500/10">
-                  <CheckCircle className="text-red-500" size={40} />
+                <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-lg border border-gold-500/25 bg-gold-500/10">
+                  <CheckCircle className="text-gold-500" size={40} />
                 </div>
                 <h3 className="font-display text-4xl font-bold text-cream-50">{t('booking.success_title')}</h3>
                 <p className="mt-4 max-w-md text-sm leading-7 text-gray-400">

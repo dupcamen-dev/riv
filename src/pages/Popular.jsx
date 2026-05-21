@@ -30,7 +30,7 @@ export default function Popular({ onOpenDish, light }) {
       <div className="page-content">
         <SectionTitle subtitle={t('popular.subtitle')} dark={light}>
           <span className="flex items-center justify-center gap-3">
-            <Sparkles size={24} className="text-red-400" /> {t('popular.title')}
+            <Sparkles size={24} className="text-gold-400" /> {t('popular.title')}
           </span>
         </SectionTitle>
 
@@ -53,14 +53,14 @@ export default function Popular({ onOpenDish, light }) {
                 onClick={() => openDish(item)}
                 className={`group w-full rounded-lg border p-6 text-left shadow-lg transition-all duration-300 hover:shadow-xl cursor-pointer ${
                   light
-                    ? 'border-cream-200 bg-cream-50 text-dark-900 shadow-cream-200/50 hover:border-red-500/30 hover:shadow-red-500/10 hover:bg-cream-100'
-                    : 'border-white/6 bg-dark-800/50 text-cream-50 shadow-black/15 hover:border-red-500/30 hover:shadow-black/20 hover:bg-dark-800/80'
+                    ? 'border-cream-200 bg-cream-50 text-dark-900 shadow-cream-200/50 hover:border-gold-500/30 hover:shadow-gold-500/10 hover:bg-cream-100'
+                    : 'border-white/6 bg-dark-800/50 text-cream-50 shadow-black/15 hover:border-gold-500/30 hover:shadow-black/20 hover:bg-dark-800/80'
                 }`}
               >
                   <div className="flex items-start gap-4 mb-3">
-                  <span className="text-2xl font-bold font-display tabular-nums ${light ? 'text-red-500/30' : 'text-red-500/20'}">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="text-2xl font-bold font-display tabular-nums ${light ? 'text-gold-500/30' : 'text-gold-500/20'}">{String(i + 1).padStart(2, '0')}</span>
                   <div className="min-w-0">
-                    <h3 className={`text-sm font-semibold leading-snug transition-colors group-hover:text-red-400 ${light ? 'text-dark-900' : 'text-cream-50'}`}>
+                    <h3 className={`text-sm font-semibold leading-snug transition-colors group-hover:text-gold-400 ${light ? 'text-dark-900' : 'text-cream-50'}`}>
                       {item.name}
                     </h3>
                     {item.description && (
@@ -72,7 +72,7 @@ export default function Popular({ onOpenDish, light }) {
                   {item.weight ? (
                     <span className={`text-xs ${light ? 'text-gray-500' : 'text-gray-500'}`}>{item.weight} {item.weightType === 'ml' ? t('menu.weight_ml') : t('menu.weight_g')}</span>
                   ) : <span />}
-                  <span className="text-base font-bold text-red-400 tabular-nums">{item.price.toLocaleString('uk-UA')} ₴</span>
+                  <span className="text-base font-bold text-gold-400 tabular-nums">{item.price.toLocaleString('uk-UA')} ₴</span>
                 </div>
               </motion.button>
             ))}

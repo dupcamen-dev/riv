@@ -10,14 +10,14 @@ export default function SectionTitle({ children, subtitle, dark, className = '' 
       className={`text-center max-w-3xl mx-auto mb-12 sm:mb-16 ${className}`}
     >
       {subtitle && (
-        <p className="text-red-400 text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-bold">
+        <p className="text-gold-400 text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-bold">
           {subtitle}
         </p>
       )}
       <h2 className={`text-4xl sm:text-[2.75rem] lg:text-5xl font-display font-bold leading-[1.02] ${dark ? 'text-dark-900' : 'text-cream-50'}`}>
         {children}
       </h2>
-      <div className="w-20 h-0.5 bg-red-500 mx-auto mt-5" />
+      <div className="w-20 h-0.5 bg-gold-500 mx-auto mt-5" />
     </motion.div>
   )
 }

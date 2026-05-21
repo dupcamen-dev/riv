@@ -82,11 +82,11 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-dark-800">
-                <span className="font-display text-7xl text-red-500/20">✦</span>
+                <span className="font-display text-7xl text-gold-500/20">✦</span>
               </div>
             )}
             {item.alcohol > 0 && (
-              <span className="absolute left-4 top-4 rounded-lg border border-red-500/30 bg-dark-800/80 px-3 py-1 text-xs font-bold text-red-400 backdrop-blur-sm">
+              <span className="absolute left-4 top-4 rounded-lg border border-gold-500/30 bg-dark-800/80 px-3 py-1 text-xs font-bold text-gold-400 backdrop-blur-sm">
                 18+
               </span>
             )}
@@ -95,13 +95,13 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
           <div className="min-h-0 overflow-y-auto p-5 sm:p-7">
             <div className="mb-5 pr-10">
               {item.categoryName && (
-                <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-red-400">{item.categoryName}</p>
+                <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-gold-400">{item.categoryName}</p>
               )}
               <h3 id="dish-modal-title" className="text-2xl font-display font-bold text-cream-50 sm:text-3xl">
                 {item.name}
               </h3>
               <div className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="rounded-lg bg-red-500 px-3 py-1.5 text-sm font-bold text-cream-50">
+                <span className="rounded-lg bg-gold-500 px-3 py-1.5 text-sm font-bold text-cream-50">
                   {item.price.toLocaleString('uk-UA')} ₴
                 </span>
                 {weight && (

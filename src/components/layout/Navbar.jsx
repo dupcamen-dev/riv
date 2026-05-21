@@ -75,7 +75,7 @@ export default function Navbar({ onOpenBooking }) {
       {isActive && (
         <motion.div
           layoutId="nav-underline"
-          className="absolute -bottom-1 left-3 right-3 h-0.5 bg-red-500"
+          className="absolute -bottom-1 left-3 right-3 h-0.5 bg-gold-500"
         />
       )}
     </>
@@ -98,7 +98,7 @@ export default function Navbar({ onOpenBooking }) {
         <div className="relative flex h-[72px] items-center justify-between gap-4 pr-14 lg:h-[84px] lg:pr-0">
           <Link to="/" className="flex-1 lg:flex-none flex items-center focus-ring-sm" aria-label={t('nav.to_home')}>
             <span className="font-display text-2xl font-black text-cream-50 tracking-tight">
-              THE<span className="text-red-500">.</span>RIVER
+              THE<span className="text-gold-500">.</span>RIVER
             </span>
           </Link>
 
@@ -107,7 +107,7 @@ export default function Navbar({ onOpenBooking }) {
               to="/"
               onClick={() => scrollToSection('hero')}
               className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg transition-colors duration-300 focus-ring-sm xl:px-4 ${
-                 currentPath === '/' ? 'text-red-400' : 'text-gray-300 hover:bg-white/4 hover:text-cream-50'
+                 currentPath === '/' ? 'text-gold-400' : 'text-gray-300 hover:bg-white/4 hover:text-cream-50'
                }`}
             >
               {renderNavItem(t('nav.home'), currentPath === '/')}
@@ -115,7 +115,7 @@ export default function Navbar({ onOpenBooking }) {
             <Link
               to="/menu"
               className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg transition-colors duration-300 focus-ring-sm xl:px-4 ${
-                 currentPath === '/menu' ? 'text-red-400' : 'text-gray-300 hover:bg-white/4 hover:text-cream-50'
+                 currentPath === '/menu' ? 'text-gold-400' : 'text-gray-300 hover:bg-white/4 hover:text-cream-50'
                }`}
             >
               {renderNavItem(t('nav.menu'), currentPath === '/menu')}
@@ -123,7 +123,7 @@ export default function Navbar({ onOpenBooking }) {
             <Link
               to="/pravila"
               className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg transition-colors duration-300 focus-ring-sm xl:px-4 ${
-                 currentPath === '/pravila' ? 'text-red-400' : 'text-gray-300 hover:bg-white/4 hover:text-cream-50'
+                 currentPath === '/pravila' ? 'text-gold-400' : 'text-gray-300 hover:bg-white/4 hover:text-cream-50'
                }`}
             >
               {renderNavItem(t('nav.pravila'), currentPath === '/pravila')}
@@ -141,7 +141,7 @@ export default function Navbar({ onOpenBooking }) {
             <button
               type="button"
               onClick={() => switchLang(lang === 'uk' ? 'en' : 'uk')}
-              className="relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg transition-colors duration-300 focus-ring-sm xl:px-4 text-red-400"
+              className="relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg transition-colors duration-300 focus-ring-sm xl:px-4 text-gold-400"
             >
               {lang === 'uk' ? 'EN' : 'UA'}
             </button>
@@ -150,7 +150,7 @@ export default function Navbar({ onOpenBooking }) {
           <button
             type="button"
             onClick={onOpenBooking}
-            className="hidden shrink-0 items-center justify-center gap-2 rounded-lg bg-red-500 px-4 py-2.5 text-sm font-bold text-cream-50 shadow-lg shadow-red-500/20 transition-colors duration-300 hover:bg-red-600 focus-ring-sm lg:inline-flex xl:px-5"
+            className="hidden shrink-0 items-center justify-center gap-2 rounded-lg bg-gold-500 px-4 py-2.5 text-sm font-bold text-cream-50 shadow-lg shadow-gold-500/20 transition-colors duration-300 hover:bg-gold-600 focus-ring-sm lg:inline-flex xl:px-5"
           >
             <CalendarCheck size={16} />
             {t('nav.booking')}
@@ -159,7 +159,7 @@ export default function Navbar({ onOpenBooking }) {
           <button
             type="button"
             onClick={() => setOpen(!open)}
-            className="absolute right-0 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg bg-red-500 text-cream-50 shadow-lg shadow-red-500/20 transition-colors hover:bg-red-600 focus-ring-sm lg:hidden"
+            className="absolute right-0 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg bg-gold-500 text-cream-50 shadow-lg shadow-gold-500/20 transition-colors hover:bg-gold-600 focus-ring-sm lg:hidden"
             aria-label={open ? t('nav.close_menu') : t('nav.open_menu')}
             aria-expanded={open}
           >
@@ -200,7 +200,7 @@ export default function Navbar({ onOpenBooking }) {
                 to="/"
                 onClick={() => { setOpen(false); scrollToSection('hero') }}
                 className={`block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm ${
-                  currentPath === '/' ? 'text-red-400' : 'text-gray-300 hover:text-cream-50'
+                  currentPath === '/' ? 'text-gold-400' : 'text-gray-300 hover:text-cream-50'
                 }`}
               >
                 {t('nav.home')}
@@ -209,7 +209,7 @@ export default function Navbar({ onOpenBooking }) {
                 to="/menu"
                 onClick={() => setOpen(false)}
                 className={`block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm ${
-                  currentPath === '/menu' ? 'text-red-400' : 'text-gray-300 hover:text-cream-50'
+                  currentPath === '/menu' ? 'text-gold-400' : 'text-gray-300 hover:text-cream-50'
                 }`}
               >
                 {t('nav.menu')}
@@ -218,7 +218,7 @@ export default function Navbar({ onOpenBooking }) {
                 to="/pravila"
                 onClick={() => setOpen(false)}
                 className={`block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm ${
-                  currentPath === '/pravila' ? 'text-red-400' : 'text-gray-300 hover:text-cream-50'
+                  currentPath === '/pravila' ? 'text-gold-400' : 'text-gray-300 hover:text-cream-50'
                 }`}
               >
                 {t('nav.pravila')}
@@ -236,7 +236,7 @@ export default function Navbar({ onOpenBooking }) {
               <button
                 type="button"
                 onClick={() => switchLang(lang === 'uk' ? 'en' : 'uk')}
-                className="block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm text-red-400"
+                className="block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm text-gold-400"
               >
                 {lang === 'uk' ? 'EN' : 'UA'}
               </button>
@@ -248,7 +248,7 @@ export default function Navbar({ onOpenBooking }) {
                 setOpen(false)
                 onOpenBooking()
               }}
-              className="mt-4 flex min-h-12 w-64 items-center justify-center gap-2 rounded-lg bg-red-500 px-5 py-3 text-sm font-bold text-cream-50 transition-colors hover:bg-red-600 focus-ring"
+              className="mt-4 flex min-h-12 w-64 items-center justify-center gap-2 rounded-lg bg-gold-500 px-5 py-3 text-sm font-bold text-cream-50 transition-colors hover:bg-gold-600 focus-ring"
             >
               <CalendarCheck size={17} />
               {t('nav.booking_mobile')}

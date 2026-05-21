@@ -35,7 +35,7 @@ export default function Footer({ onOpenBooking }) {
           <div className="md:col-span-4">
             <Link to="/" className="inline-block mb-4 focus-ring-sm">
               <span className="font-display text-2xl font-black text-cream-50 tracking-tight">
-                THE<span className="text-red-500">.</span>RIVER
+                THE<span className="text-gold-500">.</span>RIVER
               </span>
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-gray-400">
@@ -52,7 +52,7 @@ export default function Footer({ onOpenBooking }) {
                     key={link.section}
                     type="button"
                     onClick={() => scrollToSection(link.section)}
-                    className="block px-1 text-left text-sm text-gray-400 transition-colors hover:text-red-400 focus-ring-sm"
+                    className="block px-1 text-left text-sm text-gray-400 transition-colors hover:text-gold-400 focus-ring-sm"
                   >
                     {t(link.key)}
                   </button>
@@ -60,7 +60,7 @@ export default function Footer({ onOpenBooking }) {
                     <Link
                     key={link.to}
                     to={link.to}
-                    className="block px-1 text-sm text-gray-400 transition-colors hover:text-red-400 focus-ring-sm"
+                    className="block px-1 text-sm text-gray-400 transition-colors hover:text-gold-400 focus-ring-sm"
                   >
                     {t(link.key)}
                   </Link>
@@ -69,7 +69,7 @@ export default function Footer({ onOpenBooking }) {
               <button
                 type="button"
                 onClick={onOpenBooking}
-                className="block px-1 text-left text-sm text-gray-400 transition-colors hover:text-red-400 focus-ring-sm"
+                className="block px-1 text-left text-sm text-gray-400 transition-colors hover:text-gold-400 focus-ring-sm"
               >
                 {t('footer.booking')}
               </button>
@@ -79,16 +79,16 @@ export default function Footer({ onOpenBooking }) {
           <div className="md:col-span-5">
             <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.14em] text-cream-100">{t('footer.contact_title')}</h4>
             <div className="space-y-3.5">
-              <a href={`tel:${place.phone}`} className="flex items-center gap-3 text-sm text-cream-100 transition-colors hover:text-red-400 focus-ring-sm">
-                <Phone size={14} className="shrink-0 text-red-400" />
+              <a href={`tel:${place.phone}`} className="flex items-center gap-3 text-sm text-cream-100 transition-colors hover:text-gold-400 focus-ring-sm">
+                <Phone size={14} className="shrink-0 text-gold-400" />
                 {place.phone}
               </a>
-              <a href={`mailto:${place.email}`} className="flex items-center gap-3 text-sm text-cream-100 transition-colors hover:text-red-400 focus-ring-sm">
-                <Mail size={14} className="shrink-0 text-red-400" />
+              <a href={`mailto:${place.email}`} className="flex items-center gap-3 text-sm text-cream-100 transition-colors hover:text-gold-400 focus-ring-sm">
+                <Mail size={14} className="shrink-0 text-gold-400" />
                 {place.email}
               </a>
               <div className="flex items-start gap-3 text-sm text-cream-100">
-                <MapPin size={14} className="mt-0.5 shrink-0 text-red-400" />
+                <MapPin size={14} className="mt-0.5 shrink-0 text-gold-400" />
                 <span>{place.location}</span>
               </div>
               <div className="flex gap-3 pt-2">
@@ -96,7 +96,7 @@ export default function Footer({ onOpenBooking }) {
                   href={place.social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center border border-dark-600/20 bg-dark-700/50 text-cream-100 transition-all duration-300 hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400 focus-ring"
+                  className="flex h-9 w-9 items-center justify-center border border-dark-600/20 bg-dark-700/50 text-cream-100 transition-all duration-300 hover:border-gold-500/30 hover:bg-gold-500/10 hover:text-gold-400 focus-ring"
                   title="Instagram"
                 >
                   <Camera size={16} />
@@ -105,7 +105,7 @@ export default function Footer({ onOpenBooking }) {
                   href={place.social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center border border-dark-600/20 bg-dark-700/50 text-cream-100 transition-all duration-300 hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400 focus-ring"
+                  className="flex h-9 w-9 items-center justify-center border border-dark-600/20 bg-dark-700/50 text-cream-100 transition-all duration-300 hover:border-gold-500/30 hover:bg-gold-500/10 hover:text-gold-400 focus-ring"
                   title="Facebook"
                 >
                   <Globe size={16} />

@@ -148,7 +148,7 @@ export default function Menu() {
               placeholder={t('menu.search_placeholder')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full border border-white/10 bg-dark-800/80 py-3.5 pl-12 pr-10 text-sm text-cream-100 placeholder:text-gray-500 transition-all duration-300 focus:border-red-400/60 focus:bg-dark-800 focus:outline-none focus:ring-2 focus:ring-red-500/35"
+              className="w-full border border-white/10 bg-dark-800/80 py-3.5 pl-12 pr-10 text-sm text-cream-100 placeholder:text-gray-500 transition-all duration-300 focus:border-gold-400/60 focus:bg-dark-800 focus:outline-none focus:ring-2 focus:ring-gold-500/35"
             />
             {search && (
               <button type="button" onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-cream-50 transition-colors">
@@ -171,7 +171,7 @@ export default function Menu() {
                     onClick={() => selectSection(section)}
                     className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 whitespace-nowrap ${
                       isActive
-                        ? 'bg-red-500 text-cream-50 shadow-sm shadow-red-500/15'
+                        ? 'bg-gold-500 text-cream-50 shadow-sm shadow-gold-500/15'
                         : 'text-gray-400 hover:text-cream-50 hover:bg-dark-700/50'
                     }`}
                   >
@@ -195,7 +195,7 @@ export default function Menu() {
                       onClick={() => jumpToCategory(cat)}
                       className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 whitespace-nowrap ${
                         isActive
-                          ? 'bg-red-500 text-cream-50 shadow-sm shadow-red-500/15'
+                          ? 'bg-gold-500 text-cream-50 shadow-sm shadow-gold-500/15'
                           : 'text-gray-400 hover:text-cream-50 hover:bg-dark-700/50'
                       }`}
                     >
@@ -231,7 +231,7 @@ export default function Menu() {
                 </div>
                 <p className="text-gray-400 text-lg mb-2">{t('menu.not_found')}</p>
                 <p className="text-gray-500 text-sm mb-6">{t('menu.try_another')}</p>
-                <button type="button" onClick={() => setSearch('')} className="text-sm text-red-500 hover:text-red-400 transition-colors font-medium">
+                <button type="button" onClick={() => setSearch('')} className="text-sm text-gold-500 hover:text-gold-400 transition-colors font-medium">
                   {t('menu.reset_search')}
                 </button>
               </div>
@@ -248,7 +248,7 @@ export default function Menu() {
                 >
                   <div className="flex items-center gap-4 mb-6">
                     <h3 className="text-xl sm:text-2xl font-display font-bold text-cream-50">{cat.name}</h3>
-                    <div className="flex-1 h-px bg-gradient-to-r from-red-500/20 to-transparent" />
+                    <div className="flex-1 h-px bg-gradient-to-r from-gold-500/20 to-transparent" />
                   </div>
                   {cat.items.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -279,7 +279,7 @@ export default function Menu() {
                 <button
                   type="button"
                   onClick={() => selectSection(validSections.find((s) => s.hurl === 'section:bar'))}
-                  className="inline-flex items-center gap-2 rounded-lg border border-red-500/30 bg-dark-800/50 px-6 py-3 text-sm font-semibold text-red-400 transition-all duration-300 hover:bg-red-500 hover:text-cream-50 hover:shadow-lg hover:shadow-red-500/15"
+                  className="inline-flex items-center gap-2 rounded-lg border border-gold-500/30 bg-dark-800/50 px-6 py-3 text-sm font-semibold text-gold-400 transition-all duration-300 hover:bg-gold-500 hover:text-cream-50 hover:shadow-lg hover:shadow-gold-500/15"
                 >
                   <Wine size={16} />
                   {t('menu.go_to_bar')}
@@ -318,7 +318,7 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
       layout
       whileHover={{ y: -3 }}
       onClick={onOpen}
-      className="group w-full overflow-hidden rounded-lg border border-cream-200 bg-cream-50 text-left transition-all duration-300 hover:border-red-500/30 hover:bg-cream-100 focus-ring-sm shadow-lg shadow-black/10"
+      className="group w-full overflow-hidden rounded-lg border border-cream-200 bg-cream-50 text-left transition-all duration-300 hover:border-gold-500/30 hover:bg-cream-100 focus-ring-sm shadow-lg shadow-black/10"
       aria-label={t('menu.open_dish', { name: item.name })}
     >
       <div className="relative h-44 bg-cream-100 overflow-hidden">
@@ -332,11 +332,11 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-cream-100">
-            <span className="text-5xl text-red-500/20 font-display">✦</span>
+            <span className="text-5xl text-gold-500/20 font-display">✦</span>
           </div>
         )}
         {item.alcohol > 0 && (
-          <span className="absolute top-3 right-3 bg-cream-50/80 backdrop-blur-sm text-[10px] text-red-500 px-2 py-0.5 rounded-full border border-red-500/30 font-semibold">
+          <span className="absolute top-3 right-3 bg-cream-50/80 backdrop-blur-sm text-[10px] text-gold-500 px-2 py-0.5 rounded-full border border-gold-500/30 font-semibold">
             18+
           </span>
         )}
@@ -346,10 +346,10 @@ function MenuItemCard({ item, imgError, onImgError, onOpen }) {
       </div>
       <div className="p-5">
         <div className="flex items-start justify-between gap-4">
-          <h4 className="text-sm font-semibold text-dark-900 group-hover:text-red-500 transition-colors leading-snug flex-1 min-w-0">
+          <h4 className="text-sm font-semibold text-dark-900 group-hover:text-gold-500 transition-colors leading-snug flex-1 min-w-0">
             {item.name}
           </h4>
-          <span className="text-base font-bold text-red-500 whitespace-nowrap shrink-0 tabular-nums">
+          <span className="text-base font-bold text-gold-500 whitespace-nowrap shrink-0 tabular-nums">
             {item.price.toLocaleString('uk-UA')} ₴
           </span>
         </div>
