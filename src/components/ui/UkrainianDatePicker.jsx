@@ -180,7 +180,7 @@ export default function UkrainianDatePicker({
                   onClick={() => selectDate(date)}
                   className={`flex aspect-square items-center justify-center rounded-lg text-sm font-semibold transition-all focus-ring-sm ${
                     isSelected
-                      ? 'bg-gold-500 text-cream-50 shadow-lg shadow-gold-500/15'
+                      ? 'bg-gold-500 text-dark-950 shadow-lg shadow-gold-500/15'
                       : isPast
                         ? 'cursor-not-allowed text-gray-500/35'
                         : isToday

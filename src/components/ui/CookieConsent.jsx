@@ -30,14 +30,14 @@ export default function CookieConsent() {
           <button
             type="button"
             onClick={accept}
-            className="rounded-lg border border-gold-500/25 bg-gold-500 px-5 py-2 text-sm font-bold text-cream-50 shadow-lg shadow-gold-500/15 transition-colors hover:bg-gold-600 focus-ring whitespace-nowrap"
+            className="rounded-lg border border-gold-500/25 bg-gold-500 px-5 py-2 text-sm font-bold text-dark-950 shadow-lg shadow-gold-500/15 transition-colors hover:bg-gold-600 focus-ring whitespace-nowrap"
           >
             {t('cookie.accept')}
           </button>
           <button
             type="button"
             onClick={accept}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gold-500/25 bg-gold-500 text-cream-50 shadow-lg shadow-gold-500/15 transition-colors hover:bg-gold-600 focus-ring-sm"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gold-500/25 bg-gold-500 text-dark-950 shadow-lg shadow-gold-500/15 transition-colors hover:bg-gold-600 focus-ring-sm"
             aria-label={t('cookie.close')}
           >
             <X size={18} />

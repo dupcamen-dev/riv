@@ -171,7 +171,7 @@ export default function Menu() {
                     onClick={() => selectSection(section)}
                     className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 whitespace-nowrap ${
                       isActive
-                        ? 'bg-gold-500 text-cream-50 shadow-sm shadow-gold-500/15'
+                        ? 'bg-gold-500 text-dark-950 shadow-sm shadow-gold-500/15'
                         : 'text-gray-400 hover:text-cream-50 hover:bg-dark-700/50'
                     }`}
                   >
@@ -195,7 +195,7 @@ export default function Menu() {
                       onClick={() => jumpToCategory(cat)}
                       className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 whitespace-nowrap ${
                         isActive
-                          ? 'bg-gold-500 text-cream-50 shadow-sm shadow-gold-500/15'
+                          ? 'bg-gold-500 text-dark-950 shadow-sm shadow-gold-500/15'
                           : 'text-gray-400 hover:text-cream-50 hover:bg-dark-700/50'
                       }`}
                     >
@@ -279,7 +279,7 @@ export default function Menu() {
                 <button
                   type="button"
                   onClick={() => selectSection(validSections.find((s) => s.hurl === 'section:bar'))}
-                  className="inline-flex items-center gap-2 rounded-lg border border-gold-500/30 bg-dark-800/50 px-6 py-3 text-sm font-semibold text-gold-400 transition-all duration-300 hover:bg-gold-500 hover:text-cream-50 hover:shadow-lg hover:shadow-gold-500/15"
+                  className="inline-flex items-center gap-2 rounded-lg border border-gold-500/30 bg-dark-800/50 px-6 py-3 text-sm font-semibold text-gold-400 transition-all duration-300 hover:bg-gold-500 hover:text-dark-950 hover:shadow-lg hover:shadow-gold-500/15"
                 >
                   <Wine size={16} />
                   {t('menu.go_to_bar')}

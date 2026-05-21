@@ -150,7 +150,7 @@ export default function Navbar({ onOpenBooking }) {
           <button
             type="button"
             onClick={onOpenBooking}
-            className="hidden shrink-0 items-center justify-center gap-2 rounded-lg bg-gold-500 px-4 py-2.5 text-sm font-bold text-cream-50 shadow-lg shadow-gold-500/20 transition-colors duration-300 hover:bg-gold-600 focus-ring-sm lg:inline-flex xl:px-5"
+            className="hidden shrink-0 items-center justify-center gap-2 rounded-lg bg-gold-500 px-4 py-2.5 text-sm font-bold text-dark-950 shadow-lg shadow-gold-500/20 transition-colors duration-300 hover:bg-gold-600 focus-ring-sm lg:inline-flex xl:px-5"
           >
             <CalendarCheck size={16} />
             {t('nav.booking')}
@@ -159,7 +159,7 @@ export default function Navbar({ onOpenBooking }) {
           <button
             type="button"
             onClick={() => setOpen(!open)}
-            className="absolute right-0 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg bg-gold-500 text-cream-50 shadow-lg shadow-gold-500/20 transition-colors hover:bg-gold-600 focus-ring-sm lg:hidden"
+            className="absolute right-0 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg bg-gold-500 text-dark-950 shadow-lg shadow-gold-500/20 transition-colors hover:bg-gold-600 focus-ring-sm lg:hidden"
             aria-label={open ? t('nav.close_menu') : t('nav.open_menu')}
             aria-expanded={open}
           >
@@ -248,7 +248,7 @@ export default function Navbar({ onOpenBooking }) {
                 setOpen(false)
                 onOpenBooking()
               }}
-              className="mt-4 flex min-h-12 w-64 items-center justify-center gap-2 rounded-lg bg-gold-500 px-5 py-3 text-sm font-bold text-cream-50 transition-colors hover:bg-gold-600 focus-ring"
+              className="mt-4 flex min-h-12 w-64 items-center justify-center gap-2 rounded-lg bg-gold-500 px-5 py-3 text-sm font-bold text-dark-950 transition-colors hover:bg-gold-600 focus-ring"
             >
               <CalendarCheck size={17} />
               {t('nav.booking_mobile')}

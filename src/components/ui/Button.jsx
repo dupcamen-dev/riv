@@ -3,10 +3,10 @@ import { motion } from 'framer-motion'
 import { Loader2 } from 'lucide-react'
 
 const variants = {
-  primary: 'bg-gold-500 text-cream-50 hover:bg-gold-600 shadow-lg shadow-gold-500/20',
+  primary: 'bg-gold-500 text-dark-950 hover:bg-gold-600 shadow-lg shadow-gold-500/20',
   outline: 'border border-white/15 bg-dark-900/35 text-cream-100 hover:bg-gold-500/10 hover:border-gold-400/40 hover:text-gold-300',
   ghost: 'border border-transparent text-gray-300 hover:text-cream-50 hover:bg-white/6',
-  error: 'bg-gold-500 text-cream-50 hover:bg-gold-400 shadow-lg shadow-gold-500/10',
+  error: 'bg-gold-500 text-dark-950 hover:bg-gold-400 shadow-lg shadow-gold-500/10',
   success: 'bg-green-500 text-dark-950 hover:bg-green-400 shadow-lg shadow-green-500/10',
 }
 

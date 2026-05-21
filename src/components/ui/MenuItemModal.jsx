@@ -101,7 +101,7 @@ export default function DishModal({ item, imgError, onImgError, onClose }) {
                 {item.name}
               </h3>
               <div className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="rounded-lg bg-gold-500 px-3 py-1.5 text-sm font-bold text-cream-50">
+                <span className="rounded-lg bg-gold-500 px-3 py-1.5 text-sm font-bold text-dark-950">
                   {item.price.toLocaleString('uk-UA')} ₴
                 </span>
                 {weight && (
