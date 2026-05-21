@@ -21,8 +21,8 @@
   --color-gray-300: #D4D4D8;
 
   /* Core: Cream */
-  --color-cream-50: #FAFAF9;
-  --color-cream-100: #F5F5F4;
+  --color-cream-50: #F5F2ED;
+  --color-cream-100: #EDE8E3;
   --color-cream-200: #E7E5E4;
   --color-cream-300: #D6D3D1;
 
@@ -170,7 +170,7 @@ body.nav-hidden .menu-section-tabs {
 }
 
 .page-content {
-  @apply w-full max-w-7xl mx-auto px-5 sm:px-7 lg:px-10;
+  @apply w-full max-w-[90rem] mx-auto px-5 sm:px-8 lg:px-12;
 }
 
 /* Glass effect — updated for red/gray theme */
