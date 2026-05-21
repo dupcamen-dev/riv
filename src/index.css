@@ -147,18 +147,8 @@ body.nav-hidden .menu-section-tabs {
   top: 12px;
 }
 
-.menu-category-nav {
-  position: sticky;
-  top: 132px;
-  z-index: 35;
-}
-
-body.nav-hidden .menu-category-nav {
-  top: 68px;
-}
-
 .menu-category-section {
-  scroll-margin-top: 200px;
+  scroll-margin-top: 220px;
 }
 
 @media (min-width: 1024px) {
@@ -174,16 +164,8 @@ body.nav-hidden .menu-category-nav {
     top: 16px;
   }
 
-  .menu-category-nav {
-    top: 148px;
-  }
-
-  body.nav-hidden .menu-category-nav {
-    top: 76px;
-  }
-
   .menu-category-section {
-    scroll-margin-top: 220px;
+    scroll-margin-top: 250px;
   }
 }
 

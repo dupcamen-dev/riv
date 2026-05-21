@@ -157,30 +157,56 @@ export default function Menu() {
           </div>
         </div>
 
-        <div className="menu-section-tabs sticky z-30 pb-1 mb-6">
-          <div className="flex gap-1 overflow-x-auto scrollbar-none justify-start lg:flex-wrap lg:overflow-visible lg:justify-center">
-            {validSections.map((section) => {
-              const Icon = sectionIcons[section.hurl]
-              const isActive = currentSection?.hurl === section.hurl
-              return (
-                <button
-                  key={section.hurl}
-                  type="button"
-                  onClick={() => selectSection(section)}
-                  className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 whitespace-nowrap ${
-                    isActive
-                      ? 'bg-red-500 text-cream-50 shadow-sm shadow-red-500/15'
-                      : 'text-gray-400 hover:text-cream-50 hover:bg-dark-700/50'
-                  }`}
-                >
-                  {Icon && <Icon size={14} className="inline mr-1 -mt-0.5" />}
-                  <span>{section.name}</span>
-                </button>
-              )
-            })}
+        <div className="menu-section-tabs sticky z-30 -mx-5 px-5 pb-2 mb-6 border-b border-white/6 bg-dark-900/90 backdrop-blur-xl sm:-mx-7 sm:px-7 lg:-mx-10 lg:px-10">
+          <div className="mx-auto max-w-6xl">
+            <div className="flex gap-1 overflow-x-auto pb-1.5 pt-2 scrollbar-none justify-start lg:flex-wrap lg:overflow-visible lg:justify-center">
+              {validSections.map((section) => {
+                const Icon = sectionIcons[section.hurl]
+                const isActive = currentSection?.hurl === section.hurl
+                return (
+                  <button
+                    key={section.hurl}
+                    type="button"
+                    onClick={() => selectSection(section)}
+                    className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 whitespace-nowrap ${
+                      isActive
+                        ? 'bg-red-500 text-cream-50 shadow-sm shadow-red-500/15'
+                        : 'text-gray-400 hover:text-cream-50 hover:bg-dark-700/50'
+                    }`}
+                  >
+                    {Icon && <Icon size={14} className="inline mr-1 -mt-0.5" />}
+                    <span>{section.name}</span>
+                  </button>
+                )
+              })}
+            </div>
+            {!searchQuery && currentSection?.hurl !== 'section:pravila' && categoryNavItems.length > 1 && (
+              <div className="flex gap-1.5 overflow-x-auto pb-1.5 scrollbar-none lg:flex-wrap lg:overflow-visible">
+                {categoryNavItems.map((cat) => {
+                  const id = getCategoryId(cat)
+                  const isActive = selectedCategoryId === id
+                  const displayName = cat.name.charAt(0) + cat.name.slice(1).toLowerCase()
+
+                  return (
+                    <button
+                      key={cat._id}
+                      type="button"
+                      onClick={() => jumpToCategory(cat)}
+                      className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 whitespace-nowrap ${
+                        isActive
+                          ? 'bg-red-500 text-cream-50 shadow-sm shadow-red-500/15'
+                          : 'text-gray-400 hover:text-cream-50 hover:bg-dark-700/50'
+                      }`}
+                    >
+                      {displayName}
+                      <span className={`ml-1.5 ${isActive ? 'text-cream-50/60' : 'text-gray-500'}`}>{cat.items.length}</span>
+                    </button>
+                  )
+                })}
+              </div>
+            )}
           </div>
         </div>
-
         {currentSection?.hurl === 'section:pravila' ? (
           <div className="max-w-3xl mx-auto space-y-10">
             <div>
@@ -238,36 +264,7 @@ export default function Menu() {
               </div>
             </div>
           </div>
-        ) : !searchQuery && categoryNavItems.length > 1 && (
-          <div className="menu-category-nav -mx-5 mb-10 border-b border-white/6 bg-dark-900/90 px-5 py-3 backdrop-blur-xl sm:-mx-7 sm:px-7 lg:-mx-10 lg:px-10">
-            <div className="mx-auto max-w-6xl">
-              <div className="flex gap-1.5 overflow-x-auto pb-0.5 scrollbar-none lg:flex-wrap lg:overflow-visible">
-                {categoryNavItems.map((cat) => {
-                  const id = getCategoryId(cat)
-                  const isActive = selectedCategoryId === id
-                  const displayName = cat.name.charAt(0) + cat.name.slice(1).toLowerCase()
-
-                  return (
-                    <button
-                      key={cat._id}
-                      type="button"
-                      onClick={() => jumpToCategory(cat)}
-                      className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 whitespace-nowrap ${
-                        isActive
-                          ? 'bg-red-500 text-cream-50 shadow-sm shadow-red-500/15'
-                          : 'text-gray-400 hover:text-cream-50 hover:bg-dark-700/50'
-                      }`}
-                    >
-                      {displayName}
-                      <span className={`ml-1.5 ${isActive ? 'text-cream-50/60' : 'text-gray-500'}`}>{cat.items.length}</span>
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-        )}
-        {currentSection?.hurl !== 'section:pravila' && (searchQuery ? (
+        ) : currentSection?.hurl !== 'section:pravila' && (searchQuery ? (
           <motion.div layout className="max-w-6xl mx-auto">
             <p className="text-sm text-gray-500 mb-6 text-center">
               Знайдено: {allFilteredItems.length} шт.
