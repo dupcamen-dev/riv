@@ -10,14 +10,14 @@ const fadeUp = {
   viewport: { once: false },
 }
 
-export default function Contact() {
+export default function Contact({ dark }) {
   const coords = place.coordinates || { lat: 49.5533903, lng: 25.5718593 }
   const [mapError, setMapError] = useState(false)
 
   return (
     <div className="page-container py-24">
       <div className="page-content">
-        <SectionTitle subtitle="Контакти">Як нас знайти</SectionTitle>
+        <SectionTitle subtitle="Контакти" dark={dark}>Як нас знайти</SectionTitle>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
           <div className="space-y-4">

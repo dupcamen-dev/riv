@@ -146,9 +146,9 @@ export default function Home({ onOpenBooking }) {
       </section>
 
       {/* Features section — gray */}
-      <section className="bg-dark-900 page-container py-16 sm:py-22 lg:py-24">
+      <section className="bg-dark-700 page-container py-16 sm:py-22 lg:py-24">
         <div className="page-content">
-          <SectionTitle subtitle="Про нас">Атмосфера преміального відпочинку</SectionTitle>
+          <SectionTitle subtitle="Про нас" dark>Атмосфера преміального відпочинку</SectionTitle>
           <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 md:grid-cols-3">
             {features.map((item) => {
               const Icon = item.icon
@@ -178,8 +178,8 @@ export default function Home({ onOpenBooking }) {
       </section>
 
       {/* Contact section — gray */}
-      <section id="contact" className="scroll-mt-24 border-t border-white/6 bg-dark-900 pt-16 sm:pt-20">
-        <Contact />
+      <section id="contact" className="scroll-mt-24 border-t border-white/6 bg-dark-700 pt-16 sm:pt-20">
+        <Contact dark />
       </section>
 
       {/* Feedback section — cream */}
