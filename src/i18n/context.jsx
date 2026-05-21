@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import uk from './uk.js'
 import en from './en.js'
 
@@ -22,7 +22,9 @@ export function I18nProvider({ children }) {
     try { localStorage.setItem(STORAGE_KEY, lang) } catch {}
   }, [lang])
 
-  const switchLang = (l) => setLang(l)
+  const switchLang = (l) => {
+    setLang(l)
+  }
 
   return (
     <I18nContext.Provider value={{ lang, switchLang }}>
@@ -43,15 +45,15 @@ const resolve = (obj, path) => {
 
 export function useT() {
   const { lang } = useContext(I18nContext)
-  return useCallback((key, vars) => {
+  return (key, vars) => {
     const dict = lang === 'en' ? en : uk
     let val = resolve(dict, key)
-    if (val == null) return key.split('.').pop()
+    if (val == null) return key
     if (vars && typeof val === 'string') {
       return val.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? `{${k}}`)
     }
     return val
-  }, [lang])
+  }
 }
 
 export function useLang() {
