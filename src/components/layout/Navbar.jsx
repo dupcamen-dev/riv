@@ -120,6 +120,14 @@ export default function Navbar({ onOpenBooking }) {
             >
               {renderNavItem('Меню', currentPath === '/menu')}
             </Link>
+            <Link
+              to="/pravila"
+              className={`relative whitespace-nowrap px-3 py-2 text-sm font-semibold rounded-lg transition-colors duration-300 focus-ring-sm xl:px-4 ${
+                 currentPath === '/pravila' ? 'text-red-400' : 'text-gray-300 hover:bg-white/4 hover:text-cream-50'
+               }`}
+            >
+              {renderNavItem('Правила', currentPath === '/pravila')}
+            </Link>
             {sectionLinks.map((s) => (
               <button
                 key={s.section}
@@ -198,6 +206,15 @@ export default function Navbar({ onOpenBooking }) {
                 }`}
               >
                 Меню
+              </Link>
+              <Link
+                to="/pravila"
+                onClick={() => setOpen(false)}
+                className={`block w-full text-center px-8 py-3 text-lg font-semibold transition-all focus-ring-sm ${
+                  currentPath === '/pravila' ? 'text-red-400' : 'text-gray-300 hover:text-cream-50'
+                }`}
+              >
+                Правила
               </Link>
               {sectionLinks.map((s) => (
                 <button

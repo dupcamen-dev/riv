@@ -6,6 +6,7 @@ import Breadcrumbs from './components/layout/Breadcrumbs.jsx'
 import Footer from './components/layout/Footer.jsx'
 import Home from './pages/Home.jsx'
 import Menu from './pages/Menu.jsx'
+import Pravila from './pages/Pravila.jsx'
 import Info from './pages/Info.jsx'
 import Terms from './pages/Terms.jsx'
 import Privacy from './pages/Privacy.jsx'
@@ -44,6 +45,7 @@ function App() {
           <Routes location={location} key={path}>
             <Route path="/" element={<PageTransition><Home onOpenBooking={openBooking} /></PageTransition>} />
             <Route path="/menu" element={<PageTransition><Menu /></PageTransition>} />
+            <Route path="/pravila" element={<PageTransition><Pravila /></PageTransition>} />
             <Route path="/info" element={<PageTransition><Info /></PageTransition>} />
             <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
             <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
